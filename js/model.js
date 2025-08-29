@@ -1,4 +1,3 @@
-// js/model.js
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -6,8 +5,12 @@ import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('model-container');
+    const loadingOverlay = document.querySelector('.loading-overlay');
+    const errorMessage = document.getElementById('error-message');
+
     if (!container) return;
 
+    // Use IntersectionObserver to load the model only when it's in view
     const containerObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -19,7 +22,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     containerObserver.observe(container);
 
+    function showLoading() {
+        if (loadingOverlay) {
+            loadingOverlay.style.opacity = '1';
+            loadingOverlay.style.pointerEvents = 'auto';
+        }
+        if (errorMessage) {
+            errorMessage.classList.add('d-none');
+        }
+    }
+
+    function hideLoading() {
+        if (loadingOverlay) {
+            loadingOverlay.style.opacity = '0';
+            loadingOverlay.style.pointerEvents = 'none';
+        }
+    }
+
+    function showError(message) {
+        if (errorMessage) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('d-none');
+        }
+        hideLoading();
+    }
+
     function initModel() {
+        showLoading();
+
         // 1. Scene, Camera, and Renderer Setup
         const scene = new THREE.Scene();
         scene.fog = null;
@@ -33,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         camera.position.set(0, 5, 25);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.shadowMap.enabled = true;
         renderer.outputEncoding = THREE.sRGBEncoding;
@@ -43,13 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Loading Manager
         const loadingManager = new THREE.LoadingManager();
-        loadingManager.onStart = (url, itemsLoaded, itemsTotal) =>
-            console.log(`Started loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files.`);
-        loadingManager.onLoad = () => console.log('Loading complete!');
-        loadingManager.onProgress = (url, itemsLoaded, itemsTotal) =>
-            console.log(`Loading file: ${url}. Loaded ${itemsLoaded} of ${itemsTotal} files.`);
-        loadingManager.onError = (url) =>
-            console.error(`There was an error loading ${url}`);
+        loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
+            const progress = (itemsLoaded / itemsTotal) * 100;
+            // Update loading indicator, e.g., a progress bar or text
+        };
+        loadingManager.onError = (url) => {
+            showError(`Erro ao carregar o arquivo: ${url}`);
+        };
 
         // 3. HDRI
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -73,7 +102,22 @@ document.addEventListener('DOMContentLoaded', () => {
             'assets/3d/container_ship.glb',
             (gltf) => {
                 model = gltf.scene;
-                model.scale.set(1.5, 1.5, 1.5);
+                
+                // Calculate bounding box and center the model
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                
+                // Adjust position to center the model
+                model.position.x += (model.position.x - center.x);
+                model.position.y += (model.position.y - center.y);
+                model.position.z += (model.position.z - center.z);
+
+                // Scale the model to fit the view
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const desiredScale = 5 / maxDim; // Adjust 5 to your desired size
+                model.scale.set(desiredScale, desiredScale, desiredScale);
+                
                 model.traverse((child) => {
                     if (child.isMesh) {
                         if (child.material.map) {
@@ -83,9 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
                 scene.add(model);
+                hideLoading();
             },
             undefined,
-            (error) => console.error('An error happened while loading the model:', error)
+            (error) => {
+                console.error('An error happened while loading the model:', error);
+                showError('Falha ao carregar o modelo 3D. Tente novamente mais tarde.');
+            }
         );
 
         // 5. Orbit Controls
@@ -113,28 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
         animate();
 
         // 7. Responsive Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = container.clientWidth / container.clientHeight;
+        function onWindowResize() {
+            const newWidth = container.clientWidth;
+            const newHeight = container.clientHeight;
+            camera.aspect = newWidth / newHeight;
             camera.updateProjectionMatrix();
-            renderer.setSize(container.clientWidth, container.clientHeight);
-        });
-
-        // 8. Cleanup
-        window.addEventListener('beforeunload', () => {
-            scene.traverse((object) => {
-                if (object.geometry) object.geometry.dispose();
-                if (object.material) {
-                    if (Array.isArray(object.material)) {
-                        object.material.forEach(m => {
-                            if ('dispose' in m) m.dispose();
-                        });
-                    } else if ('dispose' in object.material) {
-                        object.material.dispose();
-                    }
-                }
-            });
-            renderer.dispose();
-            controls.dispose();
-        });
+            renderer.setSize(newWidth, newHeight);
+        }
+        window.addEventListener('resize', onWindowResize);
     }
 });

@@ -19,7 +19,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
-                    <span class="fs-4">Liga Acadêmica</span>
+                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -146,79 +146,170 @@
     <script>
         AOS.init();
     </script>
+    <script src="js/main.js"></script>
+   
+    <!-- Firebase SDKs -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-        
-        const firebaseConfig = {
-             apiKey: "",
-             authDomain: "",
-             projectId: "",
-             storageBucket: "",
-             messagingSenderId: "",
-             appId: "",
-             measurementId: ""
-         };
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-        
-        const addPostFormContainer = document.getElementById('add-post-form-container');
-        const addPostForm = document.getElementById('add-post-form');
+        // Global variables for Firebase configuration, provided by the environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Message box utility
+        const messageBox = document.getElementById('message-box');
+        function showMessage(message, type = 'success') {
+            messageBox.textContent = message;
+            messageBox.className = `alert mt-3 alert-${type}`;
+            messageBox.classList.remove('d-none');
+            setTimeout(() => {
+                messageBox.classList.add('d-none');
+            }, 5000);
+        }
+
+        // Initialize Firebase
+        let app;
+        let db;
+        let auth;
+        let userId;
+
+        if (Object.keys(firebaseConfig).length > 0) {
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+
+            // Handle authentication state changes
+            onAuthStateChanged(auth, async (user) => {
+                if (user) {
+                    userId = user.uid;
+                    document.getElementById('user-id-display').textContent = `ID do Usuário: ${userId}`;
+                    console.log("User authenticated:", userId);
+                    
+                    // Fetch and display blog posts after successful authentication
+                    fetchBlogPosts();
+
+                } else {
+                    document.getElementById('user-id-display').textContent = 'ID do Usuário: Não autenticado';
+                    console.log("User not authenticated, signing in anonymously...");
+                    // Sign in with custom token if available, otherwise anonymously
+                    try {
+                        if (initialAuthToken) {
+                            await signInWithCustomToken(auth, initialAuthToken);
+                            console.log("Signed in with custom token.");
+                        } else {
+                            await signInAnonymously(auth);
+                            console.log("Signed in anonymously.");
+                        }
+                    } catch (error) {
+                        console.error("Firebase Auth Error:", error);
+                        showMessage("Erro de autenticação: " + error.message, 'danger');
+                    }
+                }
+            });
+        } else {
+            console.error("Firebase configuration is missing.");
+            showMessage("Erro: Configuração do Firebase ausente.", 'danger');
+        }
+
+        // DOM elements
+        const featuredPostsContainer = document.getElementById('featured-posts');
         const allPostsContainer = document.getElementById('all-posts');
-        const filterButtons = document.querySelectorAll('.filter-buttons .btn');
+        const addPostForm = document.getElementById('add-post-form');
+        const filterButtons = document.querySelectorAll('.filter-btn');
 
-        // Authentication State Listener to show/hide add post form
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                addPostFormContainer.style.display = 'block';
-            } else {
-                addPostFormContainer.style.display = 'none';
-            }
-        });
+        // Function to render a single blog post
+        function renderPost(post) {
+            const postElement = document.createElement('div');
+            postElement.className = 'blog-post';
+            postElement.setAttribute('data-category', post.category);
+            postElement.setAttribute('data-aos', 'fade-up');
+            
+            // Format the timestamp if it exists
+            const date = post.timestamp ? new Date(post.timestamp.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Data Indisponível';
+            
+            postElement.innerHTML = `
+                <div class="post-header">
+                    <div class="post-meta">
+                        <span class="post-date">${date}</span>
+                        <span class="post-category">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                    </div>
+                    <h3>${post.title}</h3>
+                </div>
+                <div class="post-content">
+                    <img src="${post.imageUrl || 'https://placehold.co/600x400/CCCCCC/333333?text=Imagem+do+Post'}" alt="${post.title}" class="post-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/333333?text=Imagem+Nao+Encontrada';">
+                    <p class="post-excerpt">${post.excerpt}</p>
+                    <div class="post-tags">
+                        ${(post.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <a href="javascript:void(0)" class="read-more-btn">Ler mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+            `;
+            return postElement;
+        }
 
-        const fetchPosts = async () => {
-            allPostsContainer.innerHTML = '';
-            const q = query(collection(db, "blog-posts"), orderBy("timestamp", "desc"));
-            const querySnapshot = await getDocs(q);
-            if (querySnapshot.empty) {
-                allPostsContainer.innerHTML = '<p class="text-center">Nenhuma postagem encontrada.</p>';
+        // Function to fetch and display blog posts from Firestore
+        function fetchBlogPosts() {
+            if (!db) {
+                console.error("Firestore is not initialized.");
                 return;
             }
-            querySnapshot.forEach((doc) => {
-                const post = doc.data();
-                const postElement = document.createElement('div');
-                postElement.classList.add('blog-post', 'card', 'mb-4', 'shadow-sm');
-                postElement.dataset.category = post.category;
-                postElement.setAttribute('data-aos', 'fade-up');
-                postElement.innerHTML = `
-                    <div class="card-body">
-                        <h2 class="card-title">${post.title}</h2>
-                        <p class="card-text"><small class="text-muted">${new Date(post.timestamp.seconds * 1000).toLocaleDateString()}</small></p>
-                        <p class="card-text">${post.excerpt}</p>
-                        <a href="#" class="btn btn-primary btn-sm">Leia mais</a>
-                    </div>
-                `;
-                allPostsContainer.appendChild(postElement);
+
+            const postsCollection = collection(db, `artifacts/${appId}/public/data/blogPosts`);
+            const q = query(postsCollection, orderBy("timestamp", "desc"));
+            
+            onSnapshot(q, (snapshot) => {
+                const posts = [];
+                snapshot.forEach((doc) => {
+                    posts.push({ id: doc.id, ...doc.data() });
+                });
+                
+                // Clear existing posts
+                featuredPostsContainer.innerHTML = '';
+                allPostsContainer.innerHTML = '';
+                
+                if (posts.length > 0) {
+                    // Display featured posts (e.g., the first 3 posts)
+                    const featuredPosts = posts.slice(0, 3);
+                    featuredPosts.forEach(post => {
+                        featuredPostsContainer.appendChild(renderPost(post));
+                    });
+
+                    // Display all posts
+                    posts.forEach(post => {
+                        allPostsContainer.appendChild(renderPost(post));
+                    });
+                } else {
+                    allPostsContainer.innerHTML = '<p class="text-center">Nenhuma postagem encontrada. Seja o primeiro a adicionar!</p>';
+                }
+            }, (error) => {
+                console.error("Error fetching blog posts:", error);
+                showMessage("Erro ao carregar as postagens. Tente novamente mais tarde.", 'danger');
             });
-        };
+        }
 
-        fetchPosts();
-
-        // Handle Add Post Form Submission
+        // Handle new post form submission
         addPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const title = document.getElementById('post-title').value;
-            const category = document.getElementById('post-category').value;
-            const excerpt = document.getElementById('post-excerpt').value;
-            const content = document.getElementById('post-content').value;
-            const tags = document.getElementById('post-tags').value.split(',').map(tag => tag.trim());
+
+            if (!db) {
+                showMessage("Erro: Firestore não está inicializado.", 'danger');
+                return;
+            }
+            
+            const title = document.getElementById('postTitle').value;
+            const category = document.getElementById('postCategory').value;
+            const imageUrl = document.getElementById('postImage').value;
+            const excerpt = document.getElementById('postExcerpt').value;
+            const content = document.getElementById('postContent').value;
+            const tags = category ? [category] : [];
 
             const newPost = {
                 title,
                 category,
+                imageUrl,
                 excerpt,
                 content,
                 tags,
@@ -226,7 +317,7 @@
             };
 
             try {
-                const docRef = await addDoc(collection(db, `artifacts/blog-posts/public/data/blog-posts`), newPost);
+                const docRef = await addDoc(collection(db, `artifacts/${appId}/public/data/blogPosts`), newPost);
                 console.log("Document written with ID: ", docRef.id);
                 showMessage("Postagem adicionada com sucesso!");
                 addPostForm.reset();
