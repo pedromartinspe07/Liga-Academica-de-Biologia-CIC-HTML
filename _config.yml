@@ -1,0 +1,6 @@
+title: "Liga Academica de Biologia Conceição?"
+description: "Site científico sobre o Complexo Industrial Portuário de Suape"
+theme: minima
+
+# remove .html das URLs
+permalink: pretty

@@ -1,0 +1,1473 @@
+/* =======================================
+   1. Variáveis e Reset
+   ======================================= */
+:root {
+    /* Paleta de Cores de Azul Marinho e Tons de Mar */
+    --primary-color: #1a237e; /* Azul Marinho Profundo */
+    --secondary-color: #e3f2fd; /* Azul-Claro Suave */
+    --tertiary-color: #455a64; /* Azul-Cinza Neutro */
+    --accent-color-blue: #42a5f5; /* Azul Vivo do Mar */
+    --accent-color-light-blue: #90caf9; /* Azul Sereno */
+    --text-color: #263238; /* Cinza Escuro Quase Preto */
+    --light-text-color: #e8eaf6; /* Cinza-Claro para Texto em Fundo Escuro */
+    --background-light: #f8f9fa; /* Fundo de Seções em Branco Suave */
+    
+    /* Sombras e Bordas Suaves */
+    --shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    --hover-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --border-radius-soft: 12px;
+    --border-radius-circle: 50%;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* =======================================
+   2. Layout Geral (Header, Main, Footer)
+   ======================================= */
+/* Header e Navegação */
+header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 1.25rem 0;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Conteúdo Principal */
+main {
+    padding: 3rem 0;
+}
+
+.page-content {
+    background-color: var(--background-light);
+    padding: 2.5rem;
+    margin-top: 3rem;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+}
+
+h1, h2, h3 {
+    font-family: 'Merriweather', serif;
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+}
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    font-weight: 600;
+}
+
+p {
+    margin-bottom: 1.25rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    margin-top: 3rem;
+}
+
+/* =======================================
+   3. Estilos de Seções e Componentes
+   ======================================= */
+/* Seções de Conteúdo (páginas internas) */
+.content-section {
+    background-color: var(--background-light);
+    padding: 2.5rem;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    margin-bottom: 2.5rem;
+}
+
+/* Estilo para a descrição do modelo 3D */
+.model-caption {
+    text-align: center;
+    color: black;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 0.9rem;
+    padding: 0 1rem 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+@media (min-width: 992px) {
+    .model-caption {
+        text-align: left;
+        padding-top: 1rem;
+    }
+}
+
+/* Estilos Específicos da Home */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: var(--light-text-color);
+    margin-bottom: 3rem;
+    border-radius: var(--border-radius-soft);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow);
+    /* Estilo padrão para mobile e telas menores */
+    height: auto;
+    background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('../assets/images/hero-suape.jpg') no-repeat center center/cover;
+}
+
+.hero-content {
+    background-color: var(--primary-color);
+    padding: 3rem;
+    border-radius: var(--border-radius-soft);
+    z-index: 10;
+    box-shadow: var(--shadow);
+    max-width: 90%;
+    margin: -120px auto 0;
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 0.75rem;
+    color: var(--light-text-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero-content .subtitle {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+    color: var(--light-text-color);
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: var(--accent-color-blue);
+    color: var(--light-text-color);
+    padding: 1.2rem 2.5rem;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background-color 0.4s, transform 0.4s;
+    text-transform: uppercase;
+    will-change: transform;
+}
+
+.cta-button:hover {
+    background-color: #3b8ac4;
+    transform: translateY(-5px) scale(1.05);
+}
+
+.secondary-cta {
+    background-color: transparent;
+    border: 2px solid var(--accent-color-blue);
+    color: var(--accent-color-blue);
+    transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+.secondary-cta:hover {
+    background-color: var(--accent-color-blue);
+    color: var(--light-text-color);
+    border-color: var(--light-text-color);
+}
+
+/* Cards (Destaques, Contato) */
+.highlight-cards, .contact-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.card, .contact-card {
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s;
+    will-change: transform, box-shadow;
+}
+
+.card:hover, .contact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.card img, .contact-card img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 1.5rem;
+    border-radius: var(--border-radius-circle);
+    border: 3px solid var(--accent-color-blue);
+    padding: 5px;
+}
+
+.card h3, .contact-card h3 {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+}
+
+.card p, .contact-card p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.card-link {
+    font-weight: 600;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color 0.4s;
+    will-change: color;
+}
+
+.card-link:hover {
+    color: var(--accent-color-blue);
+}
+
+/* Estilos de Tabelas */
+.data-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius-soft);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #dcdcdc;
+    padding: 15px;
+    text-align: left;
+}
+
+.data-table th {
+    background-color: var(--tertiary-color);
+    color: var(--light-text-color);
+    font-weight: 600;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #f1f8e9;
+}
+
+.data-table tr:hover {
+    background-color: #e8f5e9;
+}
+
+.data-links a {
+    display: inline-block;
+    margin-right: 1.25rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.4s;
+    will-change: color;
+}
+
+.data-links a:hover {
+    color: var(--accent-color-blue);
+}
+
+/* Estilos para Gráficos */
+.chart-container {
+    padding: 2.5rem;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    margin-bottom: 2.5rem;
+}
+
+.chart-container canvas {
+    max-width: 100%;
+}
+
+.chart-caption {
+    background-color: var(--secondary-color);
+    border-left: 5px solid var(--accent-color-blue);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    border-radius: 0 8px 8px 0;
+}
+
+.chart-caption strong {
+    color: var(--primary-color);
+}
+
+/* Estilos para o item do YouTube Shorts */
+.youtube-shorts-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: var(--border-radius-soft);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s, box-shadow 0.4s;
+    will-change: transform, box-shadow;
+    text-align: center;
+}
+
+.youtube-shorts-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.youtube-shorts-item .media-description {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.youtube-shorts-item .video-container {
+    position: relative;
+    width: 100%;
+    /* 16:9 Aspect Ratio para vídeos normais, mas 9:16 para shorts */
+    /* Para telas pequenas, vamos limitar a altura para não ficar muito grande */
+    max-width: 315px;
+}
+
+.youtube-shorts-item .video-container iframe {
+    width: 100%;
+    height: 560px; /* Mantém a altura fixa para o formato Shorts */
+    border-radius: 8px;
+}
+
+/* Ajustes para o modo escuro */
+body.dark-mode .youtube-shorts-item {
+    background-color: var(--background-light);
+}
+
+body.dark-mode .youtube-shorts-item .media-description {
+    color: var(--text-color);
+}
+
+/* =======================================
+   4. Listas e Formulários
+   ======================================= */
+/* Estilos de Listas e Itens */
+ul, ol {
+    margin-left: 2.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.publications-list, .references-list, .glossary-list {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+/* Lista de Metodologia */
+.content-section ol {
+    list-style-type: none;
+    counter-reset: my-counter;
+}
+
+.content-section ol li {
+    counter-increment: my-counter;
+    margin-bottom: 2rem;
+    position: relative;
+    padding-left: 3rem;
+}
+
+.content-section ol li::before {
+    content: counter(my-counter);
+    font-family: 'Merriweather', serif;
+    font-weight: 700;
+    color: var(--accent-color-blue);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--tertiary-color);
+    color: var(--light-text-color);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: var(--border-radius-circle);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Lista de Publicações */
+.publication-item, .other-media-item {
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: var(--border-radius-soft);
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s, box-shadow 0.4s;
+    will-change: transform, box-shadow;
+}
+
+.publication-item:hover, .other-media-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.publication-icon, .media-icon {
+    width: 55px;
+    height: 55px;
+    margin-right: 2rem;
+    flex-shrink: 0;
+}
+
+.publication-details, .media-details {
+    flex-grow: 1;
+}
+
+.publication-details h3 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.pub-description {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 0.75rem;
+}
+
+.download-link {
+    font-weight: 600;
+    color: var(--accent-color-blue);
+    text-decoration: none;
+    transition: color 0.4s;
+    will-change: color;
+}
+
+.download-link:hover {
+    color: var(--tertiary-color);
+}
+
+/* Lista de Referências */
+.references-list li {
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+}
+
+.references-list p {
+    margin: 0;
+    font-size: 1rem;
+    text-indent: -30px;
+    padding-left: 30px;
+}
+
+/* Glossário */
+.glossary-list dt {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.glossary-icon {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.glossary-list dd {
+    margin-bottom: 1.5rem;
+    margin-left: 2rem;
+    border-left: 3px solid var(--accent-color-light-blue);
+    padding-left: 1.5rem;
+}
+
+/* Estilos para a seção "Sobre" */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+}
+
+.profile-photo {
+    width: 110px;
+    height: 110px;
+    border-radius: var(--border-radius-circle);
+    object-fit: cover;
+    margin-bottom: 1.5rem;
+    border: 4px solid var(--primary-color);
+    box-shadow: var(--shadow);
+}
+
+.role {
+    font-weight: 600;
+    color: var(--accent-color-blue);
+    margin-top: 0.75rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.contribution {
+    font-size: 1rem;
+    color: #555;
+    margin-top: 1.25rem;
+    line-height: 1.7;
+}
+
+/* Estilos específicos para o card do orientador */
+.mentor-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    max-width: 700px;
+    margin: 2.5rem auto 0;
+    padding: 2.5rem;
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    transition: transform 0.4s, box-shadow 0.4s;
+    will-change: transform, box-shadow;
+}
+
+.mentor-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--hover-shadow);
+}
+
+.mentor-card .profile-photo {
+    margin-right: 2.5rem;
+    margin-bottom: 0;
+}
+
+/* Formulário de Contato */
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--tertiary-color);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fcfcfc;
+    transition: border-color 0.4s, box-shadow 0.4s;
+    will-change: border-color, box-shadow;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--accent-color-blue);
+    outline: none;
+    box-shadow: 0 0 8px rgba(66, 165, 245, 0.4);
+}
+
+/* Redes Sociais */
+.social-links {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 20px;
+}
+
+.social-links img {
+    width: 40px;
+    height: 40px;
+    transition: transform 0.4s, filter 0.4s;
+    will-change: transform, filter;
+}
+
+.social-links img:hover {
+    transform: scale(1.2) rotate(5deg);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.form-status {
+    margin-top: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color-blue);
+}
+
+/* =======================================
+   5. Responsividade (Com o Menu Hambúrguer)
+   ======================================= */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    .hero-content .subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .mentor-card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .mentor-card .profile-photo {
+        margin-bottom: 1.5rem;
+        margin-right: 0;
+    }
+    
+    /* Oculta a imagem de fundo para dispositivos menores, se o modelo 3D for o foco */
+    .hero-section {
+        background-image: none;
+    }
+
+    .hero-content {
+        margin-top: 0; /* Remove a margem negativa em mobile para evitar sobreposição */
+    }
+}
+
+/* Estilos para o Modelo 3D */
+#model-container {
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+@media (min-width: 992px) {
+    /* Layout para telas maiores: texto e modelo lado a lado */
+    .hero-section {
+        flex-direction: row;
+        gap: 5rem;
+        padding-top: 5rem;
+        height: 70vh;
+        /* Restaura a imagem de fundo em telas maiores */
+        background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(26, 35, 126, 0.8)), url('../assets/images/hero-suape.jpg') no-repeat center center/cover;
+    }
+
+    #model-container {
+        height: 100%;
+        max-width: 50%;
+    }
+
+    .hero-content {
+        background-color: transparent;
+        margin-top: 0;
+        box-shadow: none;
+        text-align: left;
+    }
+}
+
+/* =======================================
+   6. Estilos para o Modo Escuro (Dark Mode)
+   ======================================= */
+body.dark-mode {
+    --primary-color: #e8eaf6;
+    --secondary-color: #212121;
+    --tertiary-color: #5d6d7c;
+    --accent-color-blue: #42a5f5;
+    --text-color: #e8eaf6;
+    --light-text-color: #212121;
+    --background-light: #2c2c2c;
+}
+
+body.dark-mode header,
+body.dark-mode .hero-content {
+    background-color: var(--secondary-color);
+}
+
+body.dark-mode .hero-content h1,
+body.dark-mode .hero-content .subtitle {
+    color: var(--text-color);
+}
+
+body.dark-mode .content-section,
+body.dark-mode .card,
+body.dark-mode .contact-card,
+body.dark-mode .data-table tr:nth-child(even),
+body.dark-mode .chart-container,
+body.dark-mode .publication-item,
+body.dark-mode .other-media-item,
+body.dark-mode .mentor-card,
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    background-color: var(--background-light);
+}
+
+body.dark-mode .data-table th,
+body.dark-mode .data-table td,
+body.dark-mode .data-table tr,
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+    border-color: #555;
+}
+
+/* Ajustes visuais do botão de alternância */
+.dark-mode-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 1rem;
+}
+
+#darkModeToggle {
+    display: none;
+}
+
+.dark-mode-toggle-container label {
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--light-text-color);
+    transition: color 0.3s;
+}
+
+.dark-mode-toggle-container label .fa-sun {
+    display: block;
+    color: #fdd835;
+}
+
+.dark-mode-toggle-container label .fa-moon {
+    display: none;
+    color: #90caf9;
+}
+
+#darkModeToggle:checked ~ label .fa-sun {
+    display: none;
+}
+
+#darkModeToggle:checked ~ label .fa-moon {
+    display: block;
+}
+
+@media (max-width: 992px) {
+    .dark-mode-toggle-container {
+        justify-content: flex-start;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+/* Controles dos gráficos */
+.chart-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.chart-controls label {
+    margin-bottom: 0;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.chart-controls select, .chart-controls button {
+    min-width: 120px;
+}
+
+/* Destaque científico para resumos executivos */
+.destaque-cientifico {
+    background: #e3f2fd;
+    border-left: 6px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.5rem;
+    font-size: 1.08rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.destaque-cientifico .badge {
+    font-size: 1rem;
+    padding: 0.5em 0.8em;
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.destaque-cientifico strong {
+    color: var(--primary-color);
+    margin-right: 0.5em;
+}
+
+/* DataTables customização */
+.data-table .dataTables_wrapper .dataTables_filter input {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.4em 0.8em;
+    margin-left: 0.5em;
+}
+.data-table .dataTables_wrapper .dataTables_length select {
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    padding: 0.2em 0.6em;
+    margin: 0 0.5em;
+}
+.data-table .dataTables_wrapper .dataTables_paginate .paginate_button {
+    border-radius: 6px;
+    margin: 0 2px;
+    padding: 0.3em 0.8em;
+    color: var(--primary-color);
+    background: #e3f2fd;
+    border: none;
+}
+.data-table .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: var(--primary-color);
+    color: var(--light-text-color) !important;
+}
+.data-table .btn-success {
+    font-size: 0.98rem;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 0.5em 1.2em;
+    margin-top: 0.5em;
+}
+.data-table .table {
+    font-size: 1.05rem;
+}
+.data-table .table th, .data-table .table td {
+    vertical-align: middle;
+}
+@media (max-width: 600px) {
+    .data-table .table {
+        font-size: 0.95rem;
+    }
+    .data-table .btn-success {
+        width: 100%;
+    }
+}
+
+/* Metodologia lista destacada */
+.metodologia-list {
+    margin-left: 1.5rem;
+    margin-bottom: 2rem;
+    counter-reset: etapa;
+}
+.metodologia-list li {
+    margin-bottom: 1.5rem;
+    padding-left: 2.2rem;
+    position: relative;
+    font-size: 1.08rem;
+}
+.metodologia-list li:before {
+    counter-increment: etapa;
+    content: counter(etapa) ".";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    width: 1.7em;
+    height: 1.7em;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.metodologia-list a {
+    color: var(--accent-color-blue);
+    text-decoration: underline;
+    font-weight: 500;
+}
+.metodologia-list a:hover {
+    color: var(--primary-color);
+}
+
+/* Equipe visual */
+.equipe-section {
+    margin-top: 3rem;
+}
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+.team-member {
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.team-member:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: var(--hover-shadow);
+}
+.team-member .profile-photo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius-circle);
+    border: 3px solid var(--accent-color-blue);
+    object-fit: cover;
+}
+.team-member h4 {
+    margin-bottom: 0.3em;
+    color: var(--primary-color);
+}
+.team-member .role {
+    font-size: 0.98em;
+    color: var(--accent-color-blue);
+    font-weight: 600;
+    margin-bottom: 0.2em;
+}
+.team-member .contribution {
+    font-size: 0.97em;
+    color: #555;
+    margin-bottom: 0.7em;
+}
+.team-member .card-link {
+    font-size: 0.97em;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: underline;
+    margin-top: 0.2em;
+}
+.team-member .card-link:hover {
+    color: var(--accent-color-blue);
+}
+.mentor-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    padding: 2rem 1.5rem;
+    margin-top: 2.5rem;
+    gap: 2rem;
+}
+.mentor-card .profile-photo {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 0;
+    border-radius: var(--border-radius-circle);
+    border: 3px solid var(--primary-color);
+    object-fit: cover;
+}
+.mentor-card h4 {
+    margin-bottom: 0.3em;
+    color: var(--primary-color);
+}
+.mentor-card .role {
+    font-size: 1em;
+    color: var(--accent-color-blue);
+    font-weight: 600;
+    margin-bottom: 0.2em;
+}
+.mentor-card .contribution {
+    font-size: 0.97em;
+    color: #555;
+    margin-bottom: 0.7em;
+}
+.mentor-card .card-link {
+    font-size: 0.97em;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: underline;
+    margin-top: 0.2em;
+}
+.mentor-card .card-link:hover {
+    color: var(--accent-color-blue);
+}
+@media (max-width: 700px) {
+    .mentor-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    .mentor-card .profile-photo {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Filtros de publicações */
+.publication-filters {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+}
+.publication-filters h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+.filter-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--accent-color-blue);
+    background: transparent;
+    color: var(--accent-color-blue);
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--accent-color-blue);
+    color: var(--light-text-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Publicações aprimoradas */
+.publication-item {
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid var(--accent-color-blue);
+}
+.publication-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--hover-shadow);
+}
+.publication-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.publication-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+.publication-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.publication-date {
+    font-size: 0.9rem;
+    color: var(--accent-color-blue);
+    font-weight: 600;
+}
+.publication-type {
+    font-size: 0.85rem;
+    color: #666;
+    font-style: italic;
+}
+.publication-details h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+.publication-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+.tag {
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.pub-description {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: #444;
+}
+.publication-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.download-link,
+.preview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.2rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+.download-link {
+    background: var(--accent-color-blue);
+    color: var(--light-text-color);
+}
+.download-link:hover {
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    transform: translateY(-2px);
+}
+.preview-link {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+.preview-link:hover {
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    transform: translateY(-2px);
+}
+.video-container {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+.video-container iframe {
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Responsividade para publicações */
+@media (max-width: 768px) {
+    .publication-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.8rem;
+    }
+    .publication-actions {
+        flex-direction: column;
+    }
+    .filter-buttons {
+        justify-content: center;
+    }
+    .publication-tags {
+        justify-content: center;
+    }
+}
+
+/* Blog styles */
+.blog-filters {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+}
+.blog-filters h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.blog-post {
+    background: var(--background-light);
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-left: 5px solid var(--accent-color-blue);
+}
+.blog-post:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--hover-shadow);
+}
+.blog-post.featured {
+    border-left: 5px solid var(--primary-color);
+    background: linear-gradient(135deg, var(--background-light) 0%, rgba(26, 35, 126, 0.05) 100%);
+}
+.post-header {
+    margin-bottom: 1.5rem;
+}
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+.post-date {
+    color: var(--accent-color-blue);
+    font-weight: 600;
+}
+.post-category {
+    background: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 0.2rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+.post-read-time {
+    color: #666;
+    font-style: italic;
+}
+.post-header h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: 0;
+    line-height: 1.3;
+}
+.post-content {
+    position: relative;
+}
+.post-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    float: left;
+    margin-right: 1.5rem;
+}
+.post-excerpt {
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 1rem;
+}
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+.read-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color-blue);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.read-more-btn:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+/* Newsletter */
+.newsletter-section {
+    margin-top: 3rem;
+}
+.newsletter-container {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color-blue) 100%);
+    color: var(--light-text-color);
+    padding: 3rem 2rem;
+    border-radius: var(--border-radius-soft);
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+.newsletter-container h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.newsletter-container p {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+.newsletter-form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+.newsletter-form .input-group {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 25px;
+    overflow: hidden;
+}
+.newsletter-form input {
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+}
+.newsletter-form button {
+    border: none;
+    padding: 1rem 2rem;
+    background: var(--accent-color-blue);
+    color: var(--light-text-color);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.newsletter-form button:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+/* Responsividade para blog */
+@media (max-width: 768px) {
+    .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .post-image {
+        float: none;
+        margin-right: 0;
+        margin-bottom: 1rem;
+        max-width: 100%;
+    }
+    .blog-grid {
+        grid-template-columns: 1fr;
+    }
+    .newsletter-container {
+        padding: 2rem 1rem;
+    }
+}
+
+/* =======================================
+    7. Estilos de Formulários de Autenticação
+   ======================================= */
+   .form-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 3rem 0;
+    margin-top: 0;
+    box-shadow: none;
+    background-color: var(--secondary-color);
+}
+
+.auth-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: var(--background-light);
+    padding: 3rem;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+.auth-form .form-group {
+    text-align: left;
+}
+
+.auth-form .cta-button {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+.form-message {
+    margin-top: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Cores de status */
+.form-message.success {
+    color: var(--accent-color-blue);
+}
+
+.form-message.error {
+    color: #e57373; /* Um tom de vermelho */
+}
+
+.form-link-text {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.login-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-footer {
+    margin-top: 0;
+}
+
+/* =======================================
+    8. Estilos do Painel de Controle
+   ======================================= */
+.admin-header {
+    background-color: var(--primary-color);
+    color: var(--light-text-color);
+    padding: 1.25rem 0;
+    box-shadow: var(--shadow);
+}
+
+.admin-header .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header h2 {
+    color: var(--light-text-color);
+    margin: 0;
+}
+
+.admin-nav .cta-button {
+    font-size: 0.9rem;
+    padding: 0.8rem 1.5rem;
+}
