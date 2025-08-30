@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <p>Um Protótipo de Monitoramento de Água Inteligente 3D que nós criamos. Esse protótipo tem como material um Arduino que controla os sensores de ph, a turbidez, a temperatura da água. Usamos um protoboard de 830 pontos e na programação usamos as bibliotecas de C++ LiquidCrystal_I2C, OneWire e DallasTemperature para conduzir o Arduino a calibrar os materiais necessários.</p>
+                            <p>Um Protótipo de Monitoramento de Água Inteligente 3D que nós criamos. Esse protótipo tem como material um Arduino que controla os sensores de ph, a turbidez, a temperatura da água. Usamos um protoboard de 830 pontose na programação usamos as bibliotecas de C++ LiquidCrystal_I2C, OneWire e DallasTemperature para conduzir o Arduino a calibrar os materiais necessários.</p>
                         </div>
                     </div>
                 </div>
@@ -246,7 +246,7 @@
                     renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
                     renderer.toneMapping = THREE.ACESFilmicToneMapping;
                     renderer.toneMappingExposure = 1;
-                    renderer.outputEncoding = THREE.sRGBEncoding;
+                    renderer.outputColorSpace = THREE.SRGBColorSpace;
                     modelContainer.appendChild(renderer.domElement);
                     
                     // Scene
@@ -263,7 +263,7 @@
 
                     // Load HDRI environment
                     const rgbeLoader = new THREE.RGBELoader();
-                    rgbeLoader.load('assets/3d/qwantani_moonrise_puresky_4k.exr', (texture) => {
+                    rgbeLoader.load('assets/3d/model2/qwantani_moonrise_puresky_4k.exr', (texture) => {
                         texture.mapping = THREE.EquirectangularReflectionMapping;
                         scene.environment = texture;
                         scene.background = texture;
@@ -271,7 +271,7 @@
                     
                     // Load GLTF Model
                     const gltfLoader = new GLTFLoader();
-                    gltfLoader.load('assets/3d/smart_water.glb', (gltf) => {
+                    gltfLoader.load('assets/3d/model2/smart_water.glb', (gltf) => {
                         model = gltf.scene;
                         model.scale.set(0.1, 0.1, 0.1);
                         model.position.set(0, -5, 0);
