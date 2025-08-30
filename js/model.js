@@ -1,7 +1,8 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; // A importação já está correta, mas pode haver um problema de cache ou uma versão do 'es-module-shims' que não a reconhece.
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'; // Adicione este import para compatibilidade futura com HDRIs
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('model-container');
@@ -10,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!container) return;
 
-    // Use IntersectionObserver to load the model only when it's in view
     const containerObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingOverlay.style.pointerEvents = 'auto';
         }
         if (errorMessage) {
-            errorMessage.classList.add('d-none');
+            errorMessage.classList.add('hidden'); // Use 'hidden' para o Tailwind
         }
     }
 
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError(message) {
         if (errorMessage) {
             errorMessage.textContent = message;
-            errorMessage.classList.remove('d-none');
+            errorMessage.classList.remove('hidden'); // Use 'hidden' para o Tailwind
         }
         hideLoading();
     }
@@ -65,16 +65,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.shadowMap.enabled = true;
-        renderer.outputEncoding = THREE.sRGBEncoding;
+        renderer.outputColorSpace = THREE.SRGBColorSpace; // Corrigido: Usar .outputColorSpace
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
         renderer.toneMappingExposure = 1.0;
         container.appendChild(renderer.domElement);
+        
+        // Ajustar o tamanho inicial do renderer
+        onWindowResize();
 
         // 2. Loading Manager
         const loadingManager = new THREE.LoadingManager();
         loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
             const progress = (itemsLoaded / itemsTotal) * 100;
-            // Update loading indicator, e.g., a progress bar or text
+            const loadingText = document.querySelector('.loading-text');
+            if (loadingText) {
+                loadingText.textContent = `Carregando modelo 3D... ${progress.toFixed(0)}%`;
+            }
         };
         loadingManager.onError = (url) => {
             showError(`Erro ao carregar o arquivo: ${url}`);
@@ -92,6 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 pmremGenerator.dispose();
                 scene.environment = envMap;
                 scene.background = envMap;
+            }, undefined, (error) => {
+                console.error('Erro ao carregar o HDRI:', error);
+                showError('Falha ao carregar o ambiente 3D.');
             });
 
         // 4. GLB Model
@@ -108,24 +117,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 const size = box.getSize(new THREE.Vector3());
                 const center = box.getCenter(new THREE.Vector3());
                 
-                // Adjust position to center the model
-                model.position.x += (model.position.x - center.x);
-                model.position.y += (model.position.y - center.y);
-                model.position.z += (model.position.z - center.z);
+                model.position.sub(center); // Centralizar o modelo na origem (0,0,0)
 
                 // Scale the model to fit the view
                 const maxDim = Math.max(size.x, size.y, size.z);
-                const desiredScale = 5 / maxDim; // Adjust 5 to your desired size
+                const desiredScale = 25 / maxDim; // Ajustado para um valor mais realista
                 model.scale.set(desiredScale, desiredScale, desiredScale);
                 
                 model.traverse((child) => {
                     if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
                         if (child.material.map) {
-                            child.material.map.encoding = THREE.sRGBEncoding;
+                            child.material.map.colorSpace = THREE.SRGBColorSpace; // Corrigido: Usar .colorSpace
                         }
                         child.material.needsUpdate = true;
                     }
                 });
+                
                 scene.add(model);
                 hideLoading();
             },
