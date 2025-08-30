@@ -313,6 +313,8 @@
         </div>
     </footer>
 
+        <script src="js/main.js" defer></script>
+    <script type="module" src="js/model.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Dark Mode Toggle Logic
@@ -349,111 +351,6 @@
             menuButton.addEventListener('click', () => {
                 navMenu.classList.toggle('hidden');
             });
-
-            // Three.js 3D Model Logic
-            const modelContainer = document.getElementById('model-container');
-            const loadingOverlay = document.getElementById('loading-overlay');
-            const errorMessage = document.getElementById('error-message');
-
-            let renderer, scene, camera, model, controls;
-            let autoRotate = true;
-            const autoRotationSpeed = 0.001; // Reduced speed
-
-            const setupScene = () => {
-                try {
-                    // Renderer
-                    renderer = new THREE.WebGLRenderer({ antialias: true });
-                    renderer.setPixelRatio(window.devicePixelRatio);
-                    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-                    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-                    renderer.toneMappingExposure = 1;
-                    renderer.outputEncoding = THREE.sRGBEncoding;
-                    modelContainer.appendChild(renderer.domElement);
-                    
-                    // Scene
-                    scene = new THREE.Scene();
-                    scene.background = new THREE.Color(0x1a1a1a);
-                    
-                    // Camera
-                    camera = new THREE.PerspectiveCamera(75, modelContainer.clientWidth / modelContainer.clientHeight, 0.1, 1000);
-                    camera.position.set(0, 10, 50);
-
-                    // Controls
-                    const OrbitControls = THREE.OrbitControls;
-                    controls = new OrbitControls(camera, renderer.domElement);
-                    controls.enableDamping = true; // smooths out the rotation
-                    controls.dampingFactor = 0.05;
-                    controls.minDistance = 30;
-                    controls.maxDistance = 100;
-
-                    // Disable auto-rotation when user interacts
-                    controls.addEventListener('start', () => autoRotate = false);
-                    controls.addEventListener('end', () => autoRotate = true);
-
-                    // Lighting
-                    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-                    scene.add(ambientLight);
-
-                    // Load HDRI environment
-                    const rgbeLoader = new THREE.RGBELoader();
-                    rgbeLoader.load('assets/3d/qwantani_moonrise_puresky_4k.exr', (texture) => {
-                        texture.mapping = THREE.EquirectangularReflectionMapping;
-                        scene.environment = texture;
-                        scene.background = texture;
-                    });
-                    
-                    // Load GLTF Model
-                    const gltfLoader = new THREE.GLTFLoader();
-                    gltfLoader.load('assets/3d/container_ship.glb', (gltf) => {
-                        model = gltf.scene;
-                        model.scale.set(0.1, 0.1, 0.1);
-                        model.position.set(0, -5, 0);
-                        scene.add(model);
-                        loadingOverlay.style.display = 'none';
-                        animate();
-                    }, (progress) => {
-                        const percent = Math.floor(progress.loaded / progress.total * 100);
-                        if (document.querySelector('.loading-text')) {
-                            document.querySelector('.loading-text').textContent = `Carregando modelo 3D... ${percent}%`;
-                        }
-                    }, (error) => {
-                        console.error('An error happened loading the GLTF model', error);
-                        loadingOverlay.style.display = 'none';
-                        errorMessage.classList.remove('hidden');
-                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Tente novamente mais tarde.';
-                    });
-                    
-                } catch (e) {
-                    console.error('Erro de inicialização do Three.js:', e);
-                    loadingOverlay.style.display = 'none';
-                    errorMessage.classList.remove('hidden');
-                    errorMessage.textContent = 'Ocorreu um erro ao inicializar o ambiente 3D. Por favor, recarregue a página.';
-                }
-            }
-
-            // Animation loop
-            const animate = () => {
-                requestAnimationFrame(animate);
-                if (model && autoRotate) {
-                    model.rotation.y += autoRotationSpeed;
-                }
-                if (controls) {
-                    controls.update(); // only required if controls.enableDamping is true
-                }
-                renderer.render(scene, camera);
-            };
-
-            // Handle window resize
-            const onWindowResize = () => {
-                if (camera && renderer) {
-                    camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
-                }
-            };
-            window.addEventListener('resize', onWindowResize);
-
-            setupScene();
         });
     </script>
 </body>
