@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados - LABIC</title>
+    <title>LABIC - Resultados</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -12,6 +12,7 @@
     <link rel="icon" href="assets/images/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
 
@@ -19,7 +20,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
+                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">  
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,7 +63,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
                         </li>
-                        <li class="nav-item dark-mode-toggle-container">
+                    <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
                                 <label class="form-check-label" for="darkModeToggle">
@@ -77,49 +78,66 @@
         </nav>
     </header>
 
-    <main>
-        <div class="container my-5">
-            <section class="text-center" data-aos="fade-up">
-                <h1 class="display-4 fw-bold">Resultados Preliminares</h1>
-                <p class="lead">Aqui serão apresentados os resultados das pesquisas de cada grupo, com análises e visualizações científicas.</p>
-            </section>
-            
-            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
-                <h2>Resultados dos Projetos</h2>
-                <div class="project-group mb-4">
-                    <h3>3º Ano: Bioindicadores da Qualidade da Água</h3>
-                    <p>O grupo do 3º ano está focado em identificar e analisar a presença de organismos bioindicadores para avaliar a saúde dos ecossistemas costeiros na região de Suape. Os resultados iniciais demonstram a correlação entre a atividade industrial e a diversidade de espécies, fornecendo dados cruciais para a compreensão da saúde ambiental da região.</p>
-                </div>
-                
-                <div class="project-group mb-4">
-                    <h3>2º Ano A: Conexão Porto-Tubarões</h3>
-                    <p>O grupo do 2º ano A está investigando possíveis alterações nas rotas migratórias de tubarões na região metropolitana do Recife, correlacionando-as com a expansão portuária de Suape. Os resultados preliminares indicam a necessidade de um estudo aprofundado para estabelecer ou descartar a conexão entre o crescimento portuário e o comportamento animal.</p>
-                </div>
+    <main class="page-content">
+        <div class="container">
+            <h1>Análise e Conclusões</h1>
 
-                <div class="project-group mb-4">
-                    <h3>2º Ano B: Impactos do Saneamento em Tatuoquinha</h3>
-                    <p>O grupo do 2º ano B está analisando os impactos da infraestrutura de saneamento básico na saúde da ilha de Tatuoquinha. A pesquisa busca identificar como a qualidade do saneamento afeta a saúde pública e o meio ambiente local, com o objetivo de propor soluções para a comunidade.</p>
+            <section class="content-section" data-aos="fade-up">
+                <h2>Resumo Executivo</h2>
+                <p>Nesta seção, apresentamos os resultados obtidos por meio de nossa pesquisa, focada nos projetos desenvolvidos pela LABIC. A análise dos dados de campo e estudos secundários revela impactos significativos do Complexo de Suape em diversas frentes: desde a saúde de ecossistemas costeiros até a qualidade de vida das comunidades locais. Os gráficos interativos a seguir ilustram essas descobertas, fornecendo uma base visual para nossas conclusões.</p>
+            </section>
+
+            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="100">
+                <h2>Gráfico 1: Bioindicadores da Qualidade da Água</h2>
+                <div class="chart-controls mb-3">
+                    <label for="grafico1-variavel" class="form-label">Visualizar:</label>
+                    <select id="grafico1-variavel" class="form-select" style="width:auto;display:inline-block;">
+                        <option value="ambos">Fitoplâncton e Nitratos</option>
+                        <option value="fitoplancton">Apenas Fitoplâncton</option>
+                        <option value="nitratos">Apenas Nitratos</option>
+                    </select>
+                    <button id="download-grafico1" class="btn btn-success ms-2">Baixar Dados CSV</button>
                 </div>
-                
-                <div class="project-group mb-4">
-                    <h3>1º Ano: Biofiltração com Macroalgas</h3>
-                    <p>O grupo do 1º ano está avaliando a eficiência de diferentes espécies de macroalgas na biofiltração de efluentes portuários. Os resultados experimentais mostrarão quais espécies são mais eficazes na remediação da água, contribuindo para o desenvolvimento de soluções ecológicas para a poluição industrial.</p>
+                <p>Este gráfico de linha apresenta a correlação entre a concentração de nitratos e a densidade de fitoplâncton, organismos essenciais na avaliação da saúde de ecossistemas aquáticos. O aumento de nitratos, um subproduto de efluentes, está diretamente ligado ao crescimento desordenado de fitoplâncton (floração algal), que pode indicar desequilíbrio e poluição da água.</p>
+                <div style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="airPollutionChart"></canvas>
                 </div>
+                <div class="chart-caption destaque-cientifico mt-3">
+                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
+                    <strong>Os dados indicam uma forte correlação entre o aumento de nitratos e a densidade de fitoplâncton, sugerindo um desequilíbrio no ecossistema aquático e uma possível contaminação da água.</strong> Esse achado reforça a importância de monitorar os efluentes industriais para proteger a biodiversidade local.
+                </div>
+            </section>
+
+            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="200">
+                <h2>Gráfico 2: Eficiência da Biofiltração de Efluentes por Macroalgas</h2>
+                <div class="chart-controls mb-3">
+                    <button id="download-grafico2" class="btn btn-success">Baixar Dados CSV</button>
+                </div>
+                <p>Este gráfico de barras compara a eficiência de diferentes espécies de macroalgas na remoção de poluentes (por exemplo, nitratos e fosfatos) de efluentes simulados. Os resultados demonstram o potencial de cada espécie para atuar como biofiltro natural, uma solução promissora para a remediação de áreas portuárias. As barras representam a porcentagem de poluentes removida por cada espécie de macroalga.</p>
+                <div style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="mangroveChart"></canvas>
+                </div>
+                <div class="chart-caption destaque-cientifico mt-3">
+                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
+                    <strong>A eficácia de certas espécies de macroalgas na biofiltração é um achado crucial.</strong> Esses resultados abrem portas para a aplicação de soluções de engenharia natural para tratar efluentes, minimizando o impacto ambiental do Complexo de Suape.
+                </div>
+            </section>
+
+            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
+                <h2>Conclusão Final</h2>
+                <p>Nossos resultados confirmam a interconexão complexa entre o desenvolvimento industrial e os ecossistemas locais. A análise dos bioindicadores aponta para os desafios ambientais, enquanto a pesquisa sobre biofiltração oferece caminhos inovadores e sustentáveis. Este trabalho sublinha a necessidade de abordagens multidisciplinares para a gestão ambiental, combinando monitoramento rigoroso com a busca por soluções de remediação baseadas na natureza. Esperamos que nossa pesquisa sirva como um ponto de partida para discussões futuras e ações concretas em prol do meio ambiente e das comunidades locais de Suape.</p>
             </section>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-        <p>Orientação: Prof. Vanbasten Rocha</p>
+        <p>&copy; SSP 2025 | Todos os direitos reservados.</p>
+        <p>Orientação: Prof. André</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" defer></script>
     <script src="js/chart.js" defer></script>
-    <script>
-        AOS.init();
-    </script>
 </body>
 </html>

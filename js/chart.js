@@ -1,368 +1,272 @@
-// js/chart.js
+// js/chart.js - Versão compatível com GitHub Pages
 
 console.log('Chart.js script carregado');
 
-// ====================================================================
-// Utilitários
-// ====================================================================
-
-/**
- * Obtém o valor de uma variável CSS.
- * @param {string} variable O nome da variável CSS (ex: '--primary-color').
- * @returns {string} O valor da variável.
- */
-function getCssVariable(variable) {
-    return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
-}
-
-/**
- * Retorna um objeto de cores Chart.js baseado no tema atual.
- * @param {boolean} isDarkMode Indica se o tema escuro está ativado.
- * @returns {object} Um objeto com as cores para os gráficos.
- */
-function getChartColors(isDarkMode) {
-    if (isDarkMode) {
-        return {
-            primary: getCssVariable('--text-color') || '#e0e0e0',
-            secondary: getCssVariable('--tertiary-color') || '#607d8b',
-            accentGreen: getCssVariable('--accent-color-light-blue') || '#90caf9',
-            accentBrown: '#d4a373',
-            accentRed: '#ef5350'
-        };
-    } else {
-        return {
-            primary: getCssVariable('--primary-color') || '#004d40',
-            secondary: getCssVariable('--secondary-color') || '#37474F',
-            accentGreen: getCssVariable('--accent-color-green') || '#81c784',
-            accentBrown: getCssVariable('--accent-color-brown') || '#a1887f',
-            accentRed: '#D45D5D'
-        };
-    }
-}
-
-/**
- * Cria e configura um gráfico usando Chart.js.
- * @param {string} canvasId O ID do elemento canvas.
- * @param {object} chartData Os dados do gráfico.
- * @param {string} chartType O tipo de gráfico ('bar', 'line', 'pie', etc.).
- * @param {object} chartOptions As opções de configuração do gráfico.
- * @returns {Chart|null} O objeto do gráfico criado ou null se houver um erro.
- */
-function createChart(canvasId, chartData, chartType, chartOptions) {
-    const ctx = document.getElementById(canvasId);
-    if (!ctx) {
-        console.warn(`Elemento com ID '${canvasId}' não encontrado. Gráfico não será criado.`);
-        return null;
-    }
-    try {
-        return new Chart(ctx, {
-            type: chartType,
-            data: chartData,
-            options: chartOptions
-        });
-    } catch (error) {
-        console.error(`Erro ao criar o gráfico para '${canvasId}':`, error);
-        return null;
-    }
-}
-
-/**
- * Exporta dados de uma tabela para um arquivo CSV.
- * @param {string[]} headers Os cabeçalhos da tabela.
- * @param {any[][]} rows As linhas de dados.
- * @param {string} fileName O nome do arquivo a ser exportado.
- */
-function exportarCSV(headers, rows, fileName) {
-    let csvContent = headers.join(',') + '\n';
-    rows.forEach(row => {
-        csvContent += row.join(',') + '\n';
-    });
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// ====================================================================
-// Dados Simulados
-// ====================================================================
-
-const chartData = {
-    'chart3Ano': {
-        labels: ['Cais', 'Estuário Interno', 'Manguezal'],
-        indicadores: [
-            { label: 'Oxigênio Dissolvido (mg/L)', data: [4.5, 3.2, 6.8], key: 'oxigenio' },
-            { label: 'pH', data: [7.8, 7.1, 7.5], key: 'ph' },
-            { label: 'Coliformes Fecais (NMP/100mL)', data: [1200, 2500, 450], key: 'coliformes' }
-        ],
-        type: 'bar',
-        title: 'Bioindicadores da Qualidade da Água em Suape',
-        yAxisTitle: 'Valores por Localização',
-        fileName: 'bioindicadores_suape.csv'
-    },
-    'chart2AnoA': {
-        labels: ['2000-2005', '2005-2010', '2010-2015', '2015-2020'],
-        registros: [2, 5, 12, 25],
-        type: 'line',
-        title: 'Incidência de Tubarões em Anos Recentes',
-        yAxisTitle: 'Número de Registros',
-        fileName: 'ocorrencia_tubaroes_suape.csv'
-    },
-    'chart2AnoB': {
-        labels: ['Cobertura de Saneamento Básico (%)', 'Incidência de Doenças Hídricas (casos/1000 hab)'],
-        pre_saneamento: [15, 80],
-        pos_saneamento: [75, 12],
-        type: 'bar',
-        title: 'Impacto do Saneamento em Tatuoquinha',
-        yAxisTitle: 'Percentual / Casos por 1000 hab',
-        fileName: 'saneamento_tatuoquinha.csv'
-    },
-    'chart1Ano': {
-        labels: ['Tratamento Convencional', 'S. Latifolia', 'U. Lactuca'],
-        remocao: [25, 65, 85],
-        type: 'bar',
-        title: 'Eficiência de Biofiltração de Efluentes',
-        yAxisTitle: 'Eficiência de Remoção (%)',
-        fileName: 'biofiltracao_macroalgas.csv'
-    },
-    'chart4Ano': {
-        labels: ['Sargassum', 'Fucus', 'Laminaria', 'Macrocystis'],
-        distribuicao: [45, 30, 15, 10],
-        type: 'doughnut',
-        title: 'Distribuição de Algas Marrons em Suape',
-        fileName: 'distribuicao_algas.csv'
-    }
-};
-
-let charts = {};
-
-function renderCharts() {
-    const isDarkMode = document.documentElement.classList.contains('dark-mode');
-    const colors = getChartColors(isDarkMode);
-
-    // Destruir gráficos existentes antes de renderizar novamente
-    Object.values(charts).forEach(chart => {
-        if (chart) chart.destroy();
-    });
-    charts = {}; // Resetar o objeto de gráficos
-
-    // ===========================================
-    // Gráfico 1: 3º Ano - Bioindicadores
-    // ===========================================
-    charts.chart3Ano = createChart('chart3Ano', {
-        labels: chartData.chart3Ano.labels,
-        datasets: chartData.chart3Ano.indicadores.map(indicador => ({
-            label: indicador.label,
-            data: indicador.data,
-            backgroundColor: indicador.key === 'coliformes' ? colors.accentRed : (indicador.key === 'oxigenio' ? colors.primary : colors.accentGreen),
-            borderColor: 'white',
-            borderWidth: 1
-        }))
-    }, 'bar', {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: true, text: chartData.chart3Ano.title, font: { size: 18, family: 'Montserrat' } },
-            legend: {
-                labels: {
-                    color: colors.primary // Cor do texto da legenda
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: chartData.chart3Ano.yAxisTitle, font: { size: 14, family: 'Open Sans' }, color: colors.primary },
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            },
-            x: {
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            }
-        }
-    });
-
-    // ===========================================
-    // Gráfico 2: 2º Ano A - Tubarões
-    // ===========================================
-    charts.chart2AnoA = createChart('chart2AnoA', {
-        labels: chartData.chart2AnoA.labels,
-        datasets: [{
-            label: 'Número de Registros de Tubarões',
-            data: chartData.chart2AnoA.registros,
-            borderColor: colors.primary,
-            backgroundColor: colors.primary + '40',
-            tension: 0.4,
-            pointStyle: 'circle',
-            pointRadius: 6,
-            pointHoverRadius: 8
-        }]
-    }, 'line', {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: true, text: chartData.chart2AnoA.title, font: { size: 18, family: 'Montserrat' } },
-            legend: {
-                labels: {
-                    color: colors.primary
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: chartData.chart2AnoA.yAxisTitle, font: { size: 14, family: 'Open Sans' }, color: colors.primary },
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            },
-            x: {
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            }
-        }
-    });
-
-    // ===========================================
-    // Gráfico 3: 2º Ano B - Saneamento
-    // ===========================================
-    charts.chart2AnoB = createChart('chart2AnoB', {
-        labels: chartData.chart2AnoB.labels,
-        datasets: [{
-            label: 'Antes do Saneamento',
-            data: chartData.chart2AnoB.pre_saneamento,
-            backgroundColor: colors.accentBrown,
-        }, {
-            label: 'Após o Saneamento',
-            data: chartData.chart2AnoB.pos_saneamento,
-            backgroundColor: colors.accentGreen,
-        }]
-    }, 'bar', {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: true, text: chartData.chart2AnoB.title, font: { size: 18, family: 'Montserrat' } },
-            legend: {
-                labels: {
-                    color: colors.primary
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: chartData.chart2AnoB.yAxisTitle, font: { size: 14, family: 'Open Sans' }, color: colors.primary },
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            },
-            x: {
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            }
-        }
-    });
-
-    // ===========================================
-    // Gráfico 4: 1º Ano - Biofiltração
-    // ===========================================
-    charts.chart1Ano = createChart('chart1Ano', {
-        labels: chartData.chart1Ano.labels,
-        datasets: [{
-            label: 'Eficiência de Remoção de Nitratos (%)',
-            data: chartData.chart1Ano.remocao,
-            backgroundColor: [colors.secondary, colors.accentGreen, colors.primary],
-            borderColor: 'white',
-            borderWidth: 1
-        }]
-    }, 'bar', {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: true, text: chartData.chart1Ano.title, font: { size: 18, family: 'Montserrat' } },
-            legend: { display: false },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return `${context.dataset.label}: ${context.parsed.y}%`;
-                    }
-                }
-            }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                max: 100,
-                title: { display: true, text: chartData.chart1Ano.yAxisTitle, font: { size: 14, family: 'Open Sans' }, color: colors.primary },
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            },
-            x: {
-                ticks: { color: colors.primary },
-                grid: { color: colors.secondary + '40' }
-            }
-        }
-    });
-    
-    // ===========================================
-    // Gráfico 5: Novo Gráfico - Distribuição de Algas Marrons
-    // ===========================================
-    charts.chart4Ano = createChart('chart4Ano', {
-        labels: chartData.chart4Ano.labels,
-        datasets: [{
-            label: chartData.chart4Ano.title,
-            data: chartData.chart4Ano.distribuicao,
-            backgroundColor: [colors.primary, colors.accentGreen, colors.accentBrown, colors.secondary],
-            hoverOffset: 4
-        }]
-    }, 'doughnut', {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-            title: { display: true, text: chartData.chart4Ano.title, font: { size: 18, family: 'Montserrat' } },
-            legend: {
-                position: 'bottom',
-                labels: {
-                    color: colors.primary
-                }
-            }
-        }
-    });
-
-    // Event listeners para os botões de download
-    document.querySelectorAll('[id^="download-chart"]').forEach(button => {
-        const chartId = button.id.replace('download-chart', '');
-        button.addEventListener('click', () => {
-            const data = chartData[chartId];
-            if (data) {
-                const headers = ['Período', 'Número de Registros de Tubarões'];
-                const rows = data.labels.map((label, i) => [label, data.registros[i]]);
-                exportarCSV(headers, rows, data.fileName);
-            }
-        });
-    });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM carregado, inicializando gráficos...');
+    console.log('DOM carregado, verificando Chart.js...');
     
+    // Verifica se Chart.js está disponível
     if (typeof Chart === 'undefined') {
-        console.error('Chart.js não foi carregado. Verifique a referência do CDN.');
+        console.error('Chart.js não foi carregado. Verifique se o CDN está funcionando.');
         return;
     }
+    
+    console.log('Chart.js disponível, inicializando gráficos...');
+    
+    // Função para obter cores das variáveis CSS
+    function getCssVariable(variable) {
+        return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
+    }
 
-    renderCharts();
+    // Cores obtidas do seu arquivo style.css
+    const primaryColor = getCssVariable('--primary-color') || '#004d40';
+    const accentGreen = getCssVariable('--accent-color-green') || '#81c784';
+    const accentBrown = getCssVariable('--accent-color-brown') || '#a1887f';
+    const accentRed = '#D45D5D';
+    
+    console.log('Cores carregadas:', { primaryColor, accentGreen, accentBrown, accentRed });
 
-    // Event listener para o botão de alternância de tema
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('change', () => {
-            document.documentElement.classList.toggle('dark-mode');
-            renderCharts();
+    // Dados originais dos gráficos, adaptados para os novos temas
+    const dadosGrafico1 = {
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+        fitoplancton: [2000, 2500, 3200, 3500, 4100, 4500],
+        nitratos: [50, 65, 80, 85, 95, 110]
+    };
+
+    const dadosGrafico2 = {
+        labels: ['S. filiforme', 'U. lactuca', 'O. secunda', 'L. obtusa'],
+        remocao: [75, 92, 88, 80]
+    };
+
+    // Função para gerar CSV
+    function exportarCSV(headers, rows, nomeArquivo) {
+        let csv = headers.join(',') + '\n';
+        rows.forEach(row => {
+            csv += row.join(',') + '\n';
         });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = nomeArquivo;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    // ===========================================
+    // Gráfico 1: Bioindicadores da Qualidade da Água
+    // ===========================================
+
+    const airPollutionChartElement = document.getElementById('airPollutionChart');
+    console.log('Elemento do gráfico 1 encontrado:', airPollutionChartElement);
+    
+    if (airPollutionChartElement) {
+        try {
+            function getDatasetsGrafico1(tipo) {
+                const datasets = [];
+                if (tipo === 'ambos' || tipo === 'nitratos') {
+                    datasets.push({
+                        label: 'Nitratos (µmol/L)',
+                        data: dadosGrafico1.nitratos,
+                        borderColor: accentRed,
+                        backgroundColor: 'rgba(212, 93, 93, 0.2)',
+                        yAxisID: 'y',
+                        tension: 0.4,
+                        pointStyle: 'circle',
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    });
+                }
+                if (tipo === 'ambos' || tipo === 'fitoplancton') {
+                    datasets.push({
+                        label: 'Densidade de Fitoplâncton (cels/mL)',
+                        data: dadosGrafico1.fitoplancton,
+                        borderColor: primaryColor,
+                        backgroundColor: primaryColor,
+                        yAxisID: 'y1',
+                        tension: 0.4,
+                        pointStyle: 'rectRot',
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    });
+                }
+                return datasets;
+            }
+
+            let pollutionChart;
+            pollutionChart = new Chart(airPollutionChartElement, {
+                type: 'line',
+                data: {
+                    labels: dadosGrafico1.labels,
+                    datasets: getDatasetsGrafico1('ambos')
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Qualidade da Água: Nitratos vs. Fitoplâncton',
+                            font: { size: 18, family: 'Montserrat' }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.dataset.label.includes('Nitratos')) {
+                                        label += `${context.parsed.y} µmol/L`;
+                                    } else {
+                                        label += `${context.parsed.y} cels/mL`;
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Nitratos (µmol/L)',
+                                font: { size: 14, family: 'Open Sans' }
+                            },
+                            beginAtZero: true
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: {
+                                drawOnChartArea: false,
+                            },
+                            title: {
+                                display: true,
+                                text: 'Densidade de Fitoplâncton (cels/mL)',
+                                font: { size: 14, family: 'Open Sans' }
+                            },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Filtro de variáveis
+            const selectGrafico1 = document.getElementById('grafico1-variavel');
+            if (selectGrafico1) {
+                selectGrafico1.addEventListener('change', (e) => {
+                    const tipo = e.target.value;
+                    pollutionChart.data.datasets = getDatasetsGrafico1(tipo);
+                    pollutionChart.update();
+                });
+            }
+
+            // Botão de download CSV
+            const btnDownload1 = document.getElementById('download-grafico1');
+            if (btnDownload1) {
+                btnDownload1.addEventListener('click', () => {
+                    const headers = ['Mês'];
+                    const rows = dadosGrafico1.labels.map((mes, i) => [mes]);
+                    if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'fitoplancton') {
+                        headers.push('Densidade de Fitoplâncton (cels/mL)');
+                        rows.forEach((row, i) => row.push(dadosGrafico1.fitoplancton[i]));
+                    }
+                    if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'nitratos') {
+                        headers.push('Nitratos (µmol/L)');
+                        rows.forEach((row, i) => row.push(dadosGrafico1.nitratos[i]));
+                    }
+                    exportarCSV(headers, rows, 'grafico1_bioindicadores.csv');
+                });
+            }
+
+        } catch (error) {
+            console.error('Erro ao criar o gráfico 1:', error);
+        }
+    } else {
+        console.error('Elemento airPollutionChart não encontrado');
+    }
+
+    // ===========================================
+    // Gráfico 2: Eficiência da Biofiltração de Efluentes por Macroalgas
+    // ===========================================
+
+    const mangroveChartElement = document.getElementById('mangroveChart');
+    console.log('Elemento do gráfico 2 encontrado:', mangroveChartElement);
+    
+    if (mangroveChartElement) {
+        try {
+            const mangroveChart = new Chart(mangroveChartElement, {
+                type: 'bar',
+                data: {
+                    labels: dadosGrafico2.labels,
+                    datasets: [{
+                        label: 'Eficiência de Remoção de Poluentes',
+                        data: dadosGrafico2.remocao,
+                        backgroundColor: [accentGreen, primaryColor, accentBrown, accentRed],
+                        borderColor: [accentGreen, primaryColor, accentBrown, accentRed],
+                        borderWidth: 1,
+                        barPercentage: 0.6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Eficiência de Macroalgas na Remediação de Efluentes',
+                            font: { size: 18, family: 'Montserrat' }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: ${context.parsed.y}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Eficiência de Remoção (%)',
+                                font: { size: 14, family: 'Open Sans' }
+                            },
+                            max: 100
+                        }
+                    }
+                }
+            });
+
+            // Botão de download CSV para gráfico 2
+            const btnDownload2 = document.getElementById('download-grafico2');
+            if (btnDownload2) {
+                btnDownload2.addEventListener('click', () => {
+                    const headers = ['Espécie de Macroalga', 'Eficiência de Remoção (%)'];
+                    const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.remocao[i]]);
+                    exportarCSV(headers, rows, 'grafico2_biofiltracao.csv');
+                });
+            }
+
+        } catch (error) {
+            console.error('Erro ao criar o gráfico 2:', error);
+        }
+    } else {
+        console.error('Elemento mangroveChart não encontrado');
     }
 });
