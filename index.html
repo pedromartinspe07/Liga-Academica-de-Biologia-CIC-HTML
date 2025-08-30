@@ -392,7 +392,7 @@
 
                     // Load HDRI environment
                     const rgbeLoader = new THREE.RGBELoader();
-                    rgbeLoader.load('https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/equirectangular/qwantani_moonrise_puresky_4k.exr', (texture) => {
+                    rgbeLoader.load('assets/3d/qwantani_moonrise_puresky_4k.exr', (texture) => {
                         texture.mapping = THREE.EquirectangularReflectionMapping;
                         scene.environment = texture;
                         scene.background = texture;
@@ -400,7 +400,7 @@
                     
                     // Load GLTF Model
                     const gltfLoader = new THREE.GLTFLoader();
-                    gltfLoader.load('https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/container_ship/container_ship.glb', (gltf) => {
+                    gltfLoader.load('assets/3d/container_ship.glb', (gltf) => {
                         model = gltf.scene;
                         model.scale.set(0.1, 0.1, 0.1); // Adjust scale to fit the scene
                         model.position.set(0, -5, 0); // Position the model
