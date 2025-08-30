@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LABIC</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -14,13 +13,13 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        'primary': '#1a237e', // Azul Marinho Profundo
-                        'secondary': '#e3f2fd', // Azul-Claro Suave
-                        'tertiary': '#455a64', // Azul-Cinza Neutro
-                        'accent': '#42a5f5', // Azul Vivo do Mar
-                        'accent-light': '#90caf9', // Azul Sereno
-                        'dark-text': '#263238', // Cinza Escuro
-                        'light-text': '#e8eaf6', // Cinza-Claro
+                        'primary': '#1a237e',
+                        'secondary': '#e3f2fd',
+                        'tertiary': '#455a64',
+                        'accent': '#42a5f5',
+                        'accent-light': '#90caf9',
+                        'dark-text': '#263238',
+                        'light-text': '#e8eaf6',
                         'background': '#f8f9fa',
                         'background-dark': '#111827',
                         'card-dark': '#1f2937'
@@ -29,19 +28,22 @@
             }
         }
     </script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Google Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="assets/images/favicon.ico">
-    <!-- Three.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Three.js Loaders -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/RGBELoader.js"></script>
-    <!-- Custom CSS for dark mode and Three.js canvas -->
+    
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+            }
+        }
+    </script>
+    
     <style>
         .dark {
             background-color: #111827;
@@ -99,7 +101,7 @@
             width: 100% !important;
             height: 100% !important;
             border-radius: 1rem;
-            touch-action: none; /* Previne o comportamento de toque padrão */
+            touch-action: none;
         }
         
         .loading-overlay {
@@ -133,7 +135,6 @@
 </head>
 <body class="bg-background text-dark-text font-sans transition-colors duration-300">
 
-    <!-- Header & Navigation -->
     <header class="bg-white shadow-lg sticky top-0 z-50 transition-colors duration-300">
         <nav class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
             <a class="flex items-center space-x-2" href="index.html">
@@ -169,7 +170,6 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="relative h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('hero-suape.jpg');">
             <div class="absolute inset-0 bg-primary bg-opacity-70"></div>
             <div class="relative text-center p-8 max-w-4xl mx-auto z-10">
@@ -185,7 +185,6 @@
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="py-16 md:py-24 bg-background">
             <div class="container mx-auto px-4 max-w-7xl">
                 <div class="text-center mb-12">
@@ -220,7 +219,6 @@
             </div>
         </section>
 
-        <!-- 3D Model Section -->
         <section class="py-16 md:py-24 bg-secondary">
             <div class="container mx-auto px-4 max-w-7xl">
                 <div class="flex flex-col lg:flex-row items-center space-y-12 lg:space-y-0 lg:space-x-12">
@@ -248,7 +246,6 @@
             </div>
         </section>
 
-        <!-- Research Projects Section -->
         <section class="py-16 md:py-24 bg-background">
             <div class="container mx-auto px-4 max-w-7xl">
                 <div class="text-center mb-12">
@@ -258,7 +255,6 @@
                     </p>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <!-- Project 3º Ano -->
                     <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-accent">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-chart-line"></i></div>
                         <h3 class="text-xl font-semibold mb-2 text-primary">3º Ano</h3>
@@ -266,7 +262,6 @@
                             Bioindicadores da Qualidade da Água em áreas de influência do Porto de Suape, avaliando a saúde de ecossistemas costeiros.
                         </p>
                     </div>
-                    <!-- Project 2º Ano A -->
                     <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-accent">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-fish"></i></div>
                         <h3 class="text-xl font-semibold mb-2 text-primary">2º Ano A</h3>
@@ -274,7 +269,6 @@
                             Investigação da conexão entre o porto e a ocorrência de tubarões em Recife no projeto "Rotas Alteradas?".
                         </p>
                     </div>
-                    <!-- Project 2º Ano B -->
                     <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-accent">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-hands-wash"></i></div>
                         <h3 class="text-xl font-semibold mb-2 text-primary">2º Ano B</h3>
@@ -282,7 +276,6 @@
                             Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.
                         </p>
                     </div>
-                    <!-- Project 1º Ano -->
                     <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-accent">
                         <div class="text-3xl text-accent mb-4"><i class="fas fa-leaf"></i></div>
                         <h3 class="text-xl font-semibold mb-2 text-primary">1º Ano</h3>
@@ -294,7 +287,6 @@
             </div>
         </section>
 
-        <!-- CTA Section -->
         <section class="py-16 bg-primary text-white text-center">
             <div class="container mx-auto px-4 max-w-4xl">
                 <h2 class="text-3xl md:text-4xl font-bold leading-tight">Junte-se a nós na proteção do nosso ecossistema</h2>
@@ -309,7 +301,6 @@
 
     </main>
 
-    <!-- Footer -->
     <footer class="bg-tertiary text-light-text py-12">
         <div class="container mx-auto px-4 text-center">
             <div class="flex justify-center space-x-6 mb-4 text-2xl">
@@ -322,7 +313,6 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Dark Mode Toggle Logic
@@ -366,6 +356,8 @@
             const errorMessage = document.getElementById('error-message');
 
             let renderer, scene, camera, model, controls;
+            let autoRotate = true;
+            const autoRotationSpeed = 0.001; // Reduced speed
 
             const setupScene = () => {
                 try {
@@ -380,13 +372,25 @@
                     
                     // Scene
                     scene = new THREE.Scene();
-                    scene.background = new THREE.Color(0x1a1a1a); // Dark background for the night scene
+                    scene.background = new THREE.Color(0x1a1a1a);
                     
                     // Camera
                     camera = new THREE.PerspectiveCamera(75, modelContainer.clientWidth / modelContainer.clientHeight, 0.1, 1000);
                     camera.position.set(0, 10, 50);
 
-                    // Lighting - The HDRI will handle the lighting
+                    // Controls
+                    const OrbitControls = THREE.OrbitControls;
+                    controls = new OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true; // smooths out the rotation
+                    controls.dampingFactor = 0.05;
+                    controls.minDistance = 30;
+                    controls.maxDistance = 100;
+
+                    // Disable auto-rotation when user interacts
+                    controls.addEventListener('start', () => autoRotate = false);
+                    controls.addEventListener('end', () => autoRotate = true);
+
+                    // Lighting
                     const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
                     scene.add(ambientLight);
 
@@ -402,74 +406,21 @@
                     const gltfLoader = new THREE.GLTFLoader();
                     gltfLoader.load('assets/3d/container_ship.glb', (gltf) => {
                         model = gltf.scene;
-                        model.scale.set(0.1, 0.1, 0.1); // Adjust scale to fit the scene
-                        model.position.set(0, -5, 0); // Position the model
+                        model.scale.set(0.1, 0.1, 0.1);
+                        model.position.set(0, -5, 0);
                         scene.add(model);
                         loadingOverlay.style.display = 'none';
-
-                        // Start animation loop after model is loaded
                         animate();
                     }, (progress) => {
                         const percent = Math.floor(progress.loaded / progress.total * 100);
-                        document.querySelector('.loading-text').textContent = `Carregando modelo 3D... ${percent}%`;
+                        if (document.querySelector('.loading-text')) {
+                            document.querySelector('.loading-text').textContent = `Carregando modelo 3D... ${percent}%`;
+                        }
                     }, (error) => {
                         console.error('An error happened loading the GLTF model', error);
                         loadingOverlay.style.display = 'none';
                         errorMessage.classList.remove('hidden');
                         errorMessage.textContent = 'Erro ao carregar o modelo 3D. Tente novamente mais tarde.';
-                    });
-
-                    // Interactive Controls (Mouse and Touch rotation)
-                    let isDragging = false;
-                    let previousMousePosition = { x: 0, y: 0 };
-                    
-                    const toRadians = (angle) => angle * (Math.PI / 180);
-
-                    modelContainer.addEventListener('mousedown', (e) => {
-                        isDragging = true;
-                        previousMousePosition.x = e.clientX;
-                        previousMousePosition.y = e.clientY;
-                    });
-
-                    modelContainer.addEventListener('mousemove', (e) => {
-                        if (!isDragging || !model) return;
-                        const deltaX = e.clientX - previousMousePosition.x;
-                        const deltaY = e.clientY - previousMousePosition.y;
-
-                        model.rotation.y += toRadians(deltaX * 0.5);
-                        model.rotation.x += toRadians(deltaY * 0.5);
-
-                        previousMousePosition.x = e.clientX;
-                        previousMousePosition.y = e.clientY;
-                    });
-
-                    modelContainer.addEventListener('mouseup', () => {
-                        isDragging = false;
-                    });
-
-                    // Touch events for mobile
-                    modelContainer.addEventListener('touchstart', (e) => {
-                        e.preventDefault();
-                        isDragging = true;
-                        previousMousePosition.x = e.touches[0].clientX;
-                        previousMousePosition.y = e.touches[0].clientY;
-                    });
-
-                    modelContainer.addEventListener('touchmove', (e) => {
-                        e.preventDefault();
-                        if (!isDragging || !model) return;
-                        const deltaX = e.touches[0].clientX - previousMousePosition.x;
-                        const deltaY = e.touches[0].clientY - previousMousePosition.y;
-
-                        model.rotation.y += toRadians(deltaX * 0.5);
-                        model.rotation.x += toRadians(deltaY * 0.5);
-
-                        previousMousePosition.x = e.touches[0].clientX;
-                        previousMousePosition.y = e.touches[0].clientY;
-                    });
-
-                    modelContainer.addEventListener('touchend', () => {
-                        isDragging = false;
                     });
                     
                 } catch (e) {
@@ -483,18 +434,22 @@
             // Animation loop
             const animate = () => {
                 requestAnimationFrame(animate);
-                if (model) {
-                    // Automatic rotation, can be disabled for user interaction
-                    model.rotation.y += 0.005;
+                if (model && autoRotate) {
+                    model.rotation.y += autoRotationSpeed;
+                }
+                if (controls) {
+                    controls.update(); // only required if controls.enableDamping is true
                 }
                 renderer.render(scene, camera);
             };
 
             // Handle window resize
             const onWindowResize = () => {
-                camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+                if (camera && renderer) {
+                    camera.aspect = modelContainer.clientWidth / modelContainer.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(modelContainer.clientWidth, modelContainer.clientHeight);
+                }
             };
             window.addEventListener('resize', onWindowResize);
 
