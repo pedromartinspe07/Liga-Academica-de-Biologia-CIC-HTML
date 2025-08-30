@@ -7,28 +7,6 @@ const postsPerPage = 6;
 let currentSearchTerm = '';
 let currentCategory = 'all';
 
-function applyTheme(isDarkMode) {
-    if (isDarkMode) {
-        document.body.classList.add('dark-mode');
-        document.body.classList.remove('light-mode');
-    } else {
-        document.body.classList.remove('dark-mode');
-        document.body.classList.add('light-mode');
-    }
-    const toggle = document.getElementById('darkModeToggle');
-    if (toggle) {
-        toggle.checked = isDarkMode;
-    }
-}
-
-const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-    applyTheme(savedTheme === 'dark');
-} else {
-    applyTheme(userPrefersDark);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     AOS.init({
         duration: 1000,
@@ -44,15 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', (e) => {
-            const isDarkMode = e.target.checked;
-            applyTheme(isDarkMode);
-            localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-        });
-    }
 
     const blogPageContent = document.querySelector('.blog-grid');
     if (blogPageContent) {
