@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LABIC - Home</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="assets/images/favicon.ico">
+    
     <script>
         tailwind.config = {
+            darkMode: 'class', // Habilita a classe 'dark' para o modo escuro
             theme: {
                 extend: {
                     fontFamily: {
@@ -28,64 +36,30 @@
             }
         }
     </script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/images/favicon.ico">
-    
-    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
-            }
-        }
-    </script>
-    
-    <style>
-        .dark {
-            background-color: #111827;
-            color: #e8eaf6;
-        }
 
+    <style>
         .dark .bg-background {
+            background-color: #111827;
+        }
+        .dark .bg-secondary {
             background-color: #1f2937;
         }
-
         .dark .bg-white {
             background-color: #1f2937;
         }
-
         .dark .text-dark-text {
             color: #e8eaf6;
         }
-
         .dark .text-tertiary {
             color: #9ca3af;
         }
-
         .dark .shadow-lg {
             box-shadow: 0 10px 15px -3px rgba(243, 244, 246, 0.1), 0 4px 6px -2px rgba(243, 244, 246, 0.05);
         }
-
-        .dark .navbar {
-            background-color: #1f2937 !important;
+        .dark .border-t-4 {
+            border-color: #42a5f5;
         }
 
-        .dark .navbar-nav .nav-link {
-            color: #e8eaf6 !important;
-        }
-        
-        .dark .nav-item .form-check-label i {
-            color: #e8eaf6;
-        }
-
-        .dark .nav-item .form-check-label .fa-moon {
-            color: #e8eaf6;
-        }
-        
         #model-container {
             position: relative;
             background-color: #f0f0f0;
@@ -95,6 +69,9 @@
             justify-content: center;
             align-items: center;
             min-height: 400px;
+        }
+        .dark #model-container {
+            background-color: #111827;
         }
         
         #model-container canvas {
@@ -115,12 +92,11 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.3s;
+            transition: opacity 0.3s ease-in-out;
             pointer-events: none;
             z-index: 10;
             border-radius: 1rem;
         }
-        
         .dark .loading-overlay {
             background-color: rgba(31, 41, 55, 0.8);
         }
@@ -130,6 +106,22 @@
             font-weight: bold;
             text-align: center;
             padding: 1rem;
+            display: none;
+            z-index: 11;
+        }
+
+        .spinner-border {
+            border-color: currentColor;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
         }
     </style>
 </head>
@@ -140,7 +132,7 @@
             <a class="flex items-center space-x-2" href="index.html">
                 <img src="assets/images/logo.png" alt="Ícone da Logo" height="10">
             </a>
-            <button class="lg:hidden text-tertiary" id="menu-button">
+            <button class="lg:hidden text-tertiary" id="menu-button" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars fa-lg"></i>
             </button>
             <div id="nav-menu" class="hidden lg:flex w-full lg:w-auto mt-4 lg:mt-0 items-center">
@@ -159,8 +151,8 @@
                     <li class="flex items-center justify-center lg:ml-4 mt-4 lg:mt-0">
                         <input type="checkbox" id="darkModeToggle" class="hidden">
                         <label for="darkModeToggle" class="cursor-pointer text-tertiary">
-                            <i class="fas fa-sun text-xl"></i>
-                            <i class="fas fa-moon text-xl ml-2"></i>
+                            <i class="fas fa-sun text-xl" id="sun-icon"></i>
+                            <i class="fas fa-moon text-xl ml-2" id="moon-icon"></i>
                         </label>
                     </li>
                 </ul>
@@ -169,7 +161,7 @@
     </header>
 
     <main>
-        <section class="relative h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('../assets/images/hero-suape.jpg') no-repeat center center/cover;">
+        <section class="relative h-screen bg-cover bg-center flex items-center justify-center text-white" style="background-image: url('assets/images/hero-suape.jpg'); background-repeat: no-repeat; background-position: center center; background-size: cover;">
             <div class="absolute inset-0 bg-primary bg-opacity-70"></div>
             <div class="relative text-center p-8 max-w-4xl mx-auto z-10">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold leading-tight drop-shadow-lg">
@@ -232,14 +224,15 @@
                             <li><i class="fas fa-fish text-accent mr-2"></i><strong>Ecossistemas Atingidos:</strong> Estudo de macroalgas e a vida marinha local.</li>
                         </ul>
                     </div>
-                    <div id="model-container" class="model-container w-full lg:w-1/2 min-h-[400px] lg:min-h-[500px]">
+                    <div id="model-container" class="model-container w-full lg:w-1/2 min-h-[400px] lg:min-h-[500px] relative">
                         <div class="loading-overlay" id="loading-overlay">
                             <div class="text-primary text-center">
-                                <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-b-transparent"></div>
+                                <div class="spinner-border inline-block w-8 h-8 border-4 rounded-full border-b-transparent"></div>
                             </div>
                             <p class="loading-text mt-4 text-tertiary">Carregando modelo 3D...</p>
                         </div>
-                        <div id="error-message" class="error-message hidden"></div>
+                        <div id="error-message" class="error-message absolute inset-0 flex items-center justify-center p-4"></div>
+                        <canvas id="model-canvas"></canvas>
                     </div>
                 </div>
             </div>
@@ -303,52 +296,180 @@
     <footer class="bg-tertiary text-light-text py-12">
         <div class="container mx-auto px-4 text-center">
             <div class="flex justify-center space-x-6 mb-4 text-2xl">
-                <a href="#" class="hover:text-accent transition-colors duration-300"><i class="fab fa-x-twitter"></i></a>
-                <a href="https://www.instagram.com/labic.imaculada/" class="hover:text-accent transition-colors duration-300"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-accent transition-colors duration-300"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="hover:text-accent transition-colors duration-300" aria-label="X-Twitter"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.instagram.com/labic.imaculada/" class="hover:text-accent transition-colors duration-300" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-accent transition-colors duration-300" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             </div>
             <p class="text-sm opacity-80">&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
             <p class="text-sm opacity-80 mt-2">Orientação: Prof. Vanbasten Rocha</p>
         </div>
     </footer>
 
-    <script src="js/main.js" defer></script>
-    <script type="module" src="js/model.js" defer></script>
+    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+    
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('model-container');
+            const canvas = document.getElementById('model-canvas');
+            const loadingOverlay = document.getElementById('loading-overlay');
+            const errorMessage = document.getElementById('error-message');
+
+            if (!container || !canvas) {
+                if (errorMessage) {
+                    errorMessage.textContent = 'O contêiner ou o canvas para o modelo 3D não foram encontrados.';
+                    errorMessage.style.display = 'block';
+                }
+                return;
+            }
+
+            let renderer, scene, camera, controls;
+
+            init();
+            animate();
+
+            function init() {
+                // Renderer
+                renderer = new THREE.WebGLRenderer({ antialiasing: true, alpha: true, canvas: canvas });
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1.0;
+                renderer.outputEncoding = THREE.sRGBEncoding;
+                
+                // Scene
+                scene = new THREE.Scene();
+                
+                // Camera
+                camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+                camera.position.set(0, 10, 20);
+
+                // Orbit Controls
+                controls = new OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
+                controls.minDistance = 5;
+                controls.maxDistance = 50;
+                controls.target.set(0, 5, 0);
+                controls.update();
+
+                // Managers
+                const manager = new THREE.LoadingManager();
+                manager.onLoad = () => {
+                    loadingOverlay.classList.add('hidden');
+                };
+                manager.onProgress = (url, itemsLoaded, itemsTotal) => {
+                    const progress = (itemsLoaded / itemsTotal) * 100;
+                    const loadingText = loadingOverlay.querySelector('.loading-text');
+                    if (loadingText) {
+                        loadingText.textContent = `Carregando modelo 3D... ${Math.round(progress)}%`;
+                    }
+                };
+                manager.onError = (url) => {
+                    console.error('Erro ao carregar:', url);
+                    loadingOverlay.classList.add('hidden');
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, tente novamente mais tarde.';
+                        errorMessage.style.display = 'block';
+                    }
+                };
+
+                // HDRI Loader (Environment)
+                new RGBELoader(manager)
+                    .setPath('assets/3d/')
+                    .load('qwantani_moonrise_puresky_4k.exr', (texture) => {
+                        texture.mapping = THREE.EquirectangularReflectionMapping;
+                        scene.environment = texture;
+                        scene.background = new THREE.Color(0x87CEEB);
+                    });
+
+                // GLB Loader (3D Model)
+                const gltfLoader = new GLTFLoader(manager);
+                gltfLoader.setPath('assets/3d/');
+                gltfLoader.load('container_ship.glb', (gltf) => {
+                    const model = gltf.scene;
+                    model.scale.set(10, 10, 10);
+                    model.position.y = 0;
+                    scene.add(model);
+                    
+                    const box = new THREE.Box3().setFromObject(model);
+                    const size = box.getSize(new THREE.Vector3()).length();
+                    const center = box.getCenter(new THREE.Vector3());
+                    
+                    controls.target.copy(center);
+                    camera.position.copy(center);
+                    camera.position.z += size * 1.5;
+                    camera.position.y += size * 0.5;
+                    camera.lookAt(center);
+                }, undefined, (error) => {
+                    console.error('Erro ao carregar o modelo GLB:', error);
+                    loadingOverlay.classList.add('hidden');
+                    if (errorMessage) {
+                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, tente novamente mais tarde.';
+                        errorMessage.style.display = 'block';
+                    }
+                });
+
+                // Resize Handling
+                window.addEventListener('resize', onWindowResize);
+            }
+
+            function onWindowResize() {
+                const newWidth = container.clientWidth;
+                const newHeight = container.clientHeight;
+                camera.aspect = newWidth / newHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(newWidth, newHeight);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                controls.update();
+                renderer.render(scene, camera);
+            }
+        });
+    </script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Dark Mode Toggle Logic
+            const menuButton = document.getElementById('menu-button');
+            const navMenu = document.getElementById('nav-menu');
             const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
+            const body = document.body;
 
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    html.classList.add('dark');
-                } else {
-                    html.classList.remove('dark');
-                }
-            };
+            // Lógica do Menu Mobile
+            menuButton.addEventListener('click', () => {
+                navMenu.classList.toggle('hidden');
+            });
 
-            const storedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (storedTheme) {
-                applyTheme(storedTheme);
-                darkModeToggle.checked = storedTheme === 'dark';
-            } else {
-                applyTheme(prefersDark ? 'dark' : 'light');
-                darkModeToggle.checked = prefersDark;
+            // Lógica do Dark Mode
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                darkModeToggle.checked = true;
             }
 
             darkModeToggle.addEventListener('change', () => {
-                const newTheme = darkModeToggle.checked ? 'dark' : 'light';
-                applyTheme(newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
-
-            // Mobile Menu Toggle
-            const menuButton = document.getElementById('menu-button');
-            const navMenu = document.getElementById('nav-menu');
-            menuButton.addEventListener('click', () => {
-                navMenu.classList.toggle('hidden');
+                if (darkModeToggle.checked) {
+                    body.classList.add('dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    body.classList.remove('dark');
+                    localStorage.setItem('theme', 'light');
+                }
             });
         });
     </script>
