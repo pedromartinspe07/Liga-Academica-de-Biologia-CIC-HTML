@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { EXRLoader } from 'three/addons/loaders/EXRLoader.js';
-import { RGBELoader } from 'three/addons/loaders/RGBELoader.js'; // Adicione este import para compatibilidade futura com HDRIs
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('model-container');
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             loadingOverlay.style.pointerEvents = 'auto';
         }
         if (errorMessage) {
-            errorMessage.classList.add('hidden'); // Use 'hidden' para o Tailwind
+            errorMessage.classList.add('hidden');
         }
     }
 
@@ -42,99 +42,56 @@ document.addEventListener('DOMContentLoaded', () => {
     function showError(message) {
         if (errorMessage) {
             errorMessage.textContent = message;
-            errorMessage.classList.remove('hidden'); // Use 'hidden' para o Tailwind
+            errorMessage.classList.remove('hidden');
         }
         hideLoading();
     }
 
     function initModel() {
+        console.log('Inicializando o modelo 3D...');
         showLoading();
 
-        // 1. Scene, Camera, and Renderer Setup
+        // 1. Scene
         const scene = new THREE.Scene();
-        scene.fog = null;
+        scene.background = null;
 
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            container.clientWidth / container.clientHeight,
-            0.1,
-            20000
-        );
-        camera.position.set(0, 5, 25);
+        // 2. Camera
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        camera.position.set(0, 1, 3);
 
+        // 3. Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.shadowMap.enabled = true;
-        renderer.outputColorSpace = THREE.SRGBColorSpace; // Corrigido: Usar .outputColorSpace
+        renderer.setClearColor(0x000000, 0); // Fundo transparente
+        renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.0;
+        renderer.toneMappingExposure = 1;
+        renderer.outputEncoding = THREE.sRGBEncoding;
         container.appendChild(renderer.domElement);
-        
-        // Ajustar o tamanho inicial do renderer
-        onWindowResize();
 
-        // 2. Loading Manager
-        const loadingManager = new THREE.LoadingManager();
-        loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-            const progress = (itemsLoaded / itemsTotal) * 100;
-            const loadingText = document.querySelector('.loading-text');
-            if (loadingText) {
-                loadingText.textContent = `Carregando modelo 3D... ${progress.toFixed(0)}%`;
-            }
-        };
-        loadingManager.onError = (url) => {
-            showError(`Erro ao carregar o arquivo: ${url}`);
-        };
-
-        // 3. HDRI
+        // 4. Lighting & Environment
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
         pmremGenerator.compileEquirectangularShader();
 
-        new EXRLoader(loadingManager)
-            .setPath('assets/3d/')
+        new RGBELoader()
+            .setDataType(THREE.FloatType)
+            // Caminho corrigido para o mapa de ambiente
+            .setPath('../assets/3d/')
             .load('qwantani_moonrise_puresky_4k.exr', (texture) => {
                 const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+                scene.environment = envMap;
                 texture.dispose();
                 pmremGenerator.dispose();
-                scene.environment = envMap;
-                scene.background = envMap;
             }, undefined, (error) => {
-                console.error('Erro ao carregar o HDRI:', error);
-                showError('Falha ao carregar o ambiente 3D.');
+                console.error('An error happened while loading the environment map:', error);
             });
 
-        // 4. GLB Model
-        const loader = new GLTFLoader(loadingManager);
         let model;
-
+        const loader = new GLTFLoader();
+        // Caminho corrigido para o modelo 3D
         loader.load(
-            'assets/3d/container_ship.glb',
+            '../assets/models/container_ship.glb',
             (gltf) => {
                 model = gltf.scene;
-                
-                // Calculate bounding box and center the model
-                const box = new THREE.Box3().setFromObject(model);
-                const size = box.getSize(new THREE.Vector3());
-                const center = box.getCenter(new THREE.Vector3());
-                
-                model.position.sub(center); // Centralizar o modelo na origem (0,0,0)
-
-                // Scale the model to fit the view
-                const maxDim = Math.max(size.x, size.y, size.z);
-                const desiredScale = 25 / maxDim; // Ajustado para um valor mais realista
-                model.scale.set(desiredScale, desiredScale, desiredScale);
-                
-                model.traverse((child) => {
-                    if (child.isMesh) {
-                        child.castShadow = true;
-                        child.receiveShadow = true;
-                        if (child.material.map) {
-                            child.material.map.colorSpace = THREE.SRGBColorSpace; // Corrigido: Usar .colorSpace
-                        }
-                        child.material.needsUpdate = true;
-                    }
-                });
-                
                 scene.add(model);
                 hideLoading();
             },
