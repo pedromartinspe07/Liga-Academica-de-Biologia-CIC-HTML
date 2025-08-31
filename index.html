@@ -6,7 +6,7 @@
     <title>LABIC - Home</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
     
     <script>
         tailwind.config = {
-            darkMode: 'class', // Habilita a classe 'dark' para o modo escuro
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -38,27 +38,13 @@
     </script>
 
     <style>
-        .dark .bg-background {
-            background-color: #111827;
-        }
-        .dark .bg-secondary {
-            background-color: #1f2937;
-        }
-        .dark .bg-white {
-            background-color: #1f2937;
-        }
-        .dark .text-dark-text {
-            color: #e8eaf6;
-        }
-        .dark .text-tertiary {
-            color: #9ca3af;
-        }
-        .dark .shadow-lg {
-            box-shadow: 0 10px 15px -3px rgba(243, 244, 246, 0.1), 0 4px 6px -2px rgba(243, 244, 246, 0.05);
-        }
-        .dark .border-t-4 {
-            border-color: #42a5f5;
-        }
+        .dark .bg-background { background-color: #111827; }
+        .dark .bg-secondary { background-color: #1f2937; }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .text-dark-text { color: #e8eaf6; }
+        .dark .text-tertiary { color: #9ca3af; }
+        .dark .shadow-lg { box-shadow: 0 10px 15px -3px rgba(243, 244, 246, 0.1), 0 4px 6px -2px rgba(243, 244, 246, 0.05); }
+        .dark .border-t-4 { border-color: #42a5f5; }
 
         #model-container {
             position: relative;
@@ -70,9 +56,7 @@
             align-items: center;
             min-height: 400px;
         }
-        .dark #model-container {
-            background-color: #111827;
-        }
+        .dark #model-container { background-color: #111827; }
         
         #model-container canvas {
             width: 100% !important;
@@ -97,9 +81,7 @@
             z-index: 10;
             border-radius: 1rem;
         }
-        .dark .loading-overlay {
-            background-color: rgba(31, 41, 55, 0.8);
-        }
+        .dark .loading-overlay { background-color: rgba(31, 41, 55, 0.8); }
         
         .error-message {
             color: #dc3545;
@@ -120,9 +102,7 @@
             to { transform: rotate(360deg); }
         }
 
-        .loading-overlay.hidden {
-            opacity: 0;
-        }
+        .loading-overlay.hidden { opacity: 0; }
     </style>
 </head>
 <body class="bg-background text-dark-text font-sans transition-colors duration-300">
@@ -347,7 +327,7 @@
                 renderer.setSize(container.clientWidth, container.clientHeight);
                 renderer.toneMapping = THREE.ACESFilmicToneMapping;
                 renderer.toneMappingExposure = 1.0;
-                renderer.outputEncoding = THREE.sRGBEncoding;
+                renderer.outputColorSpace = THREE.SRGBColorSpace;
                 
                 // Scene
                 scene = new THREE.Scene();
@@ -382,7 +362,7 @@
                     console.error('Erro ao carregar:', url);
                     loadingOverlay.classList.add('hidden');
                     if (errorMessage) {
-                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, tente novamente mais tarde.';
+                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, verifique se os arquivos estão na pasta correta.';
                         errorMessage.style.display = 'block';
                     }
                 };
@@ -418,7 +398,7 @@
                     console.error('Erro ao carregar o modelo GLB:', error);
                     loadingOverlay.classList.add('hidden');
                     if (errorMessage) {
-                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, tente novamente mais tarde.';
+                        errorMessage.textContent = 'Erro ao carregar o modelo 3D. Por favor, verifique se os arquivos estão na pasta correta.';
                         errorMessage.style.display = 'block';
                     }
                 });
