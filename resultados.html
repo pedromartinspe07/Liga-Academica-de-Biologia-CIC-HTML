@@ -3,123 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LABIC - Resultados</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="assets/images/favicon.ico">
-
+    <title>Resultados - LABIC</title>
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="css/style.css">
-
-    <style>
-        :root {
-            --primary-color: #004d40;
-            --accent-color-green: #81c784;
-            --accent-color-brown: #a1887f;
-            --accent-color-red: #D45D5D;
-            --font-color-light: #212529;
-            --font-color-dark: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f8f9fa;
-            color: var(--font-color-light);
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-        }
-
-        /* Navbar e botões de dark mode */
-        .dark-mode-toggle-container .form-check-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .dark-mode-toggle-container .form-check-label .fa-moon {
-            display: none;
-        }
-        
-        body.dark .dark-mode-toggle-container .form-check-label .fa-sun {
-            display: none;
-        }
-        
-        body.dark .dark-mode-toggle-container .form-check-label .fa-moon {
-            display: inline;
-        }
-        
-        body.dark {
-            background-color: #1a202c;
-            color: var(--font-color-dark);
-        }
-        
-        body.dark .navbar {
-            background-color: #2d3748 !important;
-        }
-        
-        body.dark .navbar-toggler-icon {
-            filter: invert(1);
-        }
-        
-        body.dark .nav-link {
-            color: rgba(255, 255, 255, 0.55) !important;
-        }
-        
-        body.dark .nav-link.active {
-            color: #fff !important;
-        }
-        
-        body.dark .form-select {
-            background-color: #2d3748;
-            color: var(--font-color-dark);
-            border-color: #4a5568;
-        }
-        
-        body.dark .form-select option {
-            background-color: #2d3748;
-        }
-
-        /* Estilo para o chart.js */
-        canvas {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        body.dark canvas {
-            background-color: #2d3748;
-        }
-
-        .chart-container {
-            padding-top: 2rem;
-            padding-bottom: 2rem;
-        }
-
-        .chart-caption {
-            border-left: 4px solid var(--primary-color);
-            padding-left: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .destaque-cientifico {
-            background-color: rgba(0, 77, 64, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            font-size: 0.9em;
-        }
-
-        body.dark .destaque-cientifico {
-            background-color: rgba(45, 55, 72, 0.5);
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 </head>
 <body>
 
@@ -127,7 +20,7 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
                 <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40"> 
+                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">  
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -144,13 +37,16 @@
                             <a class="nav-link" href="referencial.html">Referencial</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="resultados.html">Resultados</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="publicacoes.html">Publicações</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.html">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="dados.html">Dados</a>
+                            <a class="nav-link" href="dados.html">Dados</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="glossario.html">Glossário</a>
@@ -167,7 +63,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
                         </li>
-                        <li class="nav-item dark-mode-toggle-container">
+                    <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
                                 <label class="form-check-label" for="darkModeToggle">
@@ -183,363 +79,65 @@
     </header>
 
     <main class="page-content">
-        <div class="container my-5">
-            <section class="text-center" data-aos="fade-up">
-                <h1 class="display-4 fw-bold">Análise e Conclusões</h1>
-                <p class="lead">Resultados de nossas pesquisas sobre o impacto do Complexo de Suape.</p>
+        <div class="container">
+            <h1>Análise e Conclusões dos Projetos</h1>
+
+            <section class="content-section" data-aos="fade-up">
+                <h2>Resumo dos Resultados</h2>
+                <p>Nesta seção, apresentamos os resultados obtidos por meio das pesquisas de nossos grupos. As análises dos dados e estudos secundários revelam correlações significativas entre as atividades do Complexo de Suape e diversos indicadores ambientais e sociais. Os gráficos interativos a seguir ilustram essas tendências, fornecendo uma base visual para nossas conclusões.</p>
             </section>
 
-            <section class="content-section" data-aos="fade-up" data-aos-delay="100">
-                <h2>Resumo Executivo</h2>
-                <p>Nesta seção, apresentamos os resultados obtidos por meio de nossa pesquisa, focada nos projetos desenvolvidos pela LABIC. A análise dos dados de campo e estudos secundários revela impactos significativos do Complexo de Suape em diversas frentes: desde a saúde de ecossistemas costeiros até a qualidade de vida das comunidades locais. Os gráficos interativos a seguir ilustram essas descobertas, fornecendo uma base visual para nossas conclusões.</p>
-            </section>
-            
-            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="200">
-                <h2>Gráfico 1: Bioindicadores da Qualidade da Água</h2>
+            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="100">
+                <h2>Gráfico 1: Biofiltração de Efluentes por Macroalgas (1º Ano)</h2>
                 <div class="chart-controls mb-3">
                     <label for="grafico1-variavel" class="form-label">Visualizar:</label>
                     <select id="grafico1-variavel" class="form-select" style="width:auto;display:inline-block;">
-                        <option value="ambos">Fitoplâncton e Nitratos</option>
-                        <option value="fitoplancton">Apenas Fitoplâncton</option>
-                        <option value="nitratos">Apenas Nitratos</option>
+                        <option value="ambos">Eficiência de Remoção</option>
+                        <option value="nitrato">Apenas Nitrato</option>
+                        <option value="fosfato">Apenas Fosfato</option>
                     </select>
                     <button id="download-grafico1" class="btn btn-success ms-2">Baixar Dados CSV</button>
                 </div>
-                <p>Este gráfico de linha apresenta a correlação entre a concentração de nitratos e a densidade de fitoplâncton, organismos essenciais na avaliação da saúde de ecossistemas aquáticos. O aumento de nitratos, um subproduto de efluentes, está diretamente ligado ao crescimento desordenado de fitoplâncton (floração algal), que pode indicar desequilíbrio e poluição da água.</p>
-                <div style="position: relative; height: 400px; width: 100%;">
-                    <canvas id="qualityChart"></canvas>
-                </div>
-                <div class="chart-caption destaque-cientifico mt-3">
-                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
-                    <strong>Os dados indicam uma forte correlação entre o aumento de nitratos e a densidade de fitoplâncton, sugerindo um desequilíbrio no ecossistema aquático e uma possível contaminação da água.</strong> Esse achado reforça a importância de monitorar os efluentes industriais para proteger a biodiversidade local.
-                </div>
-            </section>
-            
-            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="300">
-                <h2>Gráfico 2: Eficiência da Biofiltração de Efluentes por Macroalgas</h2>
-                <div class="chart-controls mb-3">
-                    <button id="download-grafico2" class="btn btn-success">Baixar Dados CSV</button>
-                </div>
-                <p>Este gráfico de barras compara a eficiência de diferentes espécies de macroalgas na remoção de poluentes (por exemplo, nitratos e fosfatos) de efluentes simulados. Os resultados demonstram o potencial de cada espécie para atuar como biofiltro natural, uma solução promissora para a remediação de áreas portuárias. As barras representam a porcentagem de poluentes removida por cada espécie de macroalga.</p>
+                <p>Este gráfico de linha apresenta os resultados do projeto do 1º ano, que avaliou a eficiência de diferentes espécies de macroalgas na biofiltração de efluentes. A linha mostra a porcentagem de remoção de poluentes (nitrato e fosfato) ao longo do tempo, demonstrando o potencial dessas espécies como solução sustentável para o tratamento de resíduos em áreas portuárias.</p>
                 <div style="position: relative; height: 400px; width: 100%;">
                     <canvas id="biofiltrationChart"></canvas>
                 </div>
                 <div class="chart-caption destaque-cientifico mt-3">
                     <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
-                    <strong>A eficácia de certas espécies de macroalgas na biofiltração é um achado crucial.</strong> Esses resultados abrem portas para a aplicação de soluções de engenharia natural para tratar efluentes, minimizando o impacto ambiental do Complexo de Suape.
+                    <strong>Os dados indicam que as macroalgas possuem alta eficiência na remoção de nitratos e fosfatos.</strong> Esse achado é promissor para o desenvolvimento de sistemas de biofiltração inovadores e de baixo custo, que podem contribuir significativamente para a redução da poluição da água em Suape.
                 </div>
             </section>
-            
-            <section class="content-section" data-aos="fade-up" data-aos-delay="400">
+
+            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="200">
+                <h2>Gráfico 2: Qualidade da Água (3º Ano)</h2>
+                <div class="chart-controls mb-3">
+                    <button id="download-grafico2" class="btn btn-success">Baixar Dados CSV</button>
+                </div>
+                <p>Este gráfico de barras mostra a avaliação da qualidade da água em áreas de influência do Porto de Suape, utilizando bioindicadores. As barras representam a saúde do ecossistema em diferentes pontos de coleta, revelando a concentração de espécies sensíveis à poluição. A comparação entre áreas mais próximas e mais distantes do porto fornece uma clara indicação dos impactos locais.</p>
+                <div style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="waterQualityChart"></canvas>
+                </div>
+                <div class="chart-caption destaque-cientifico mt-3">
+                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
+                    <strong>A análise dos bioindicadores mostra uma deterioração da qualidade da água em pontos próximos ao Complexo Portuário.</strong> Isso sugere que a descarga de efluentes e outras atividades estão impactando a saúde dos ecossistemas costeiros, reforçando a necessidade de monitoramento e controle rigorosos.
+                </div>
+            </section>
+
+            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
                 <h2>Conclusão Final</h2>
-                <p>Nossos resultados confirmam a interconexão complexa entre o desenvolvimento industrial e os ecossistemas locais. A análise dos bioindicadores aponta para os desafios ambientais, enquanto a pesquisa sobre biofiltração oferece caminhos inovadores e sustentáveis. Este trabalho sublinha a necessidade de abordagens multidisciplinares para a gestão ambiental, combinando monitoramento rigoroso com a busca por soluções de remediação baseadas na natureza. Esperamos que nossa pesquisa sirva como um ponto de partida para discussões futuras e ações concretas em prol do meio ambiente e das comunidades locais de Suape.</p>
+                <p>Nossos resultados confirmam que o progresso econômico de Suape, embora notável, não veio sem um custo ambiental considerável. A correlação direta entre o crescimento do polo industrial e o aumento da poluição da água e a degradação de ecossistemas demonstra a urgência de políticas de desenvolvimento mais sustentáveis e de tecnologias de mitigação mais eficazes. Este trabalho aponta para a necessidade de um monitoramento contínuo e de uma gestão ambiental mais rigorosa para que o desenvolvimento de Suape possa, de fato, se alinhar com a sustentabilidade. Esperamos que nossa pesquisa sirva como um ponto de partida para discussões futuras e ações concretas em prol do meio ambiente e das comunidades locais.</p>
             </section>
         </div>
     </main>
 
     <footer>
-        <div class="container text-center">
-            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-            <p>Orientação: Prof. Vanbasten Rocha</p>
-        </div>
+        <p>&copy; LABIC 2025 | Todos os direitos reservados.</p>
+        <p>Orientação: Prof. Vanbasten Rocha</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="js/main.js" defer></script>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init();
-
-            // Script para o modo escuro
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-            
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            if (isDarkMode) {
-                body.classList.add('dark');
-                darkModeToggle.checked = true;
-            }
-
-            darkModeToggle.addEventListener('change', () => {
-                if (darkModeToggle.checked) {
-                    body.classList.add('dark');
-                    localStorage.setItem('darkMode', 'true');
-                } else {
-                    body.classList.remove('dark');
-                    localStorage.setItem('darkMode', 'false');
-                }
-            });
-            
-            // Script dos Gráficos com Chart.js
-            if (typeof Chart === 'undefined') {
-                console.error('Chart.js não foi carregado. Verifique se o CDN está funcionando.');
-                return;
-            }
-            
-            // Função para obter cores das variáveis CSS
-            function getCssVariable(variable) {
-                return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
-            }
-
-            // Cores obtidas do seu arquivo style.css (ou estilo local)
-            const primaryColor = getCssVariable('--primary-color') || '#004d40';
-            const accentGreen = getCssVariable('--accent-color-green') || '#81c784';
-            const accentBrown = getCssVariable('--accent-color-brown') || '#a1887f';
-            const accentRed = getCssVariable('--accent-color-red') || '#D45D5D';
-            
-            // Dados originais dos gráficos
-            const dadosGrafico1 = {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-                fitoplancton: [2000, 2500, 3200, 3500, 4100, 4500],
-                nitratos: [50, 65, 80, 85, 95, 110]
-            };
-
-            const dadosGrafico2 = {
-                labels: ['S. filiforme', 'U. lactuca', 'O. secunda', 'L. obtusa'],
-                remocao: [75, 92, 88, 80]
-            };
-
-            // Função para gerar CSV
-            function exportarCSV(headers, rows, nomeArquivo) {
-                let csv = headers.join(',') + '\n';
-                rows.forEach(row => {
-                    csv += row.join(',') + '\n';
-                });
-                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = nomeArquivo;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-            }
-
-            // ===========================================
-            // Gráfico 1: Bioindicadores da Qualidade da Água
-            // ===========================================
-            const qualityChartElement = document.getElementById('qualityChart');
-            if (qualityChartElement) {
-                function getDatasetsGrafico1(tipo) {
-                    const datasets = [];
-                    if (tipo === 'ambos' || tipo === 'nitratos') {
-                        datasets.push({
-                            label: 'Nitratos (µmol/L)',
-                            data: dadosGrafico1.nitratos,
-                            borderColor: accentRed,
-                            backgroundColor: 'rgba(212, 93, 93, 0.2)',
-                            yAxisID: 'y',
-                            tension: 0.4,
-                            pointStyle: 'circle',
-                            pointRadius: 6,
-                            pointHoverRadius: 8
-                        });
-                    }
-                    if (tipo === 'ambos' || tipo === 'fitoplancton') {
-                        datasets.push({
-                            label: 'Densidade de Fitoplâncton (cels/mL)',
-                            data: dadosGrafico1.fitoplancton,
-                            borderColor: primaryColor,
-                            backgroundColor: primaryColor,
-                            yAxisID: 'y1',
-                            tension: 0.4,
-                            pointStyle: 'rectRot',
-                            pointRadius: 6,
-                            pointHoverRadius: 8
-                        });
-                    }
-                    return datasets;
-                }
-
-                try {
-                    const pollutionChart = new Chart(qualityChartElement, {
-                        type: 'line',
-                        data: {
-                            labels: dadosGrafico1.labels,
-                            datasets: getDatasetsGrafico1('ambos')
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            interaction: { mode: 'index', intersect: false },
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'Qualidade da Água: Nitratos vs. Fitoplâncton',
-                                    font: { size: 18, family: 'Montserrat' },
-                                    color: body.classList.contains('dark') ? '#f8f9fa' : '#212529'
-                                },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            let label = context.dataset.label || '';
-                                            if (label) {
-                                                label += ': ';
-                                            }
-                                            if (context.dataset.label.includes('Nitratos')) {
-                                                label += `${context.parsed.y} µmol/L`;
-                                            } else {
-                                                label += `${context.parsed.y} cels/mL`;
-                                            }
-                                            return label;
-                                        }
-                                    }
-                                }
-                            },
-                            scales: {
-                                x: { ticks: { color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' } },
-                                y: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'left',
-                                    title: { display: true, text: 'Nitratos (µmol/L)', font: { size: 14, family: 'Open Sans' }, color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' },
-                                    beginAtZero: true,
-                                    ticks: { color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' }
-                                },
-                                y1: {
-                                    type: 'linear',
-                                    display: true,
-                                    position: 'right',
-                                    grid: { drawOnChartArea: false },
-                                    title: { display: true, text: 'Densidade de Fitoplâncton (cels/mL)', font: { size: 14, family: 'Open Sans' }, color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' },
-                                    beginAtZero: true,
-                                    ticks: { color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' }
-                                }
-                            }
-                        }
-                    });
-
-                    // Filtro de variáveis
-                    const selectGrafico1 = document.getElementById('grafico1-variavel');
-                    if (selectGrafico1) {
-                        selectGrafico1.addEventListener('change', (e) => {
-                            const tipo = e.target.value;
-                            pollutionChart.data.datasets = getDatasetsGrafico1(tipo);
-                            pollutionChart.update();
-                        });
-                    }
-
-                    // Botão de download CSV
-                    const btnDownload1 = document.getElementById('download-grafico1');
-                    if (btnDownload1) {
-                        btnDownload1.addEventListener('click', () => {
-                            const headers = ['Mês'];
-                            const rows = dadosGrafico1.labels.map((mes, i) => [mes]);
-                            if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'fitoplancton') {
-                                headers.push('Densidade de Fitoplâncton (cels/mL)');
-                                rows.forEach((row, i) => row.push(dadosGrafico1.fitoplancton[i]));
-                            }
-                            if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'nitratos') {
-                                headers.push('Nitratos (µmol/L)');
-                                rows.forEach((row, i) => row.push(dadosGrafico1.nitratos[i]));
-                            }
-                            exportarCSV(headers, rows, 'grafico1_bioindicadores.csv');
-                        });
-                    }
-
-                } catch (error) {
-                    console.error('Erro ao criar o gráfico 1:', error);
-                }
-            }
-
-            // ===========================================
-            // Gráfico 2: Eficiência da Biofiltração de Efluentes por Macroalgas
-            // ===========================================
-            const biofiltrationChartElement = document.getElementById('biofiltrationChart');
-            if (biofiltrationChartElement) {
-                try {
-                    const biofiltrationChart = new Chart(biofiltrationChartElement, {
-                        type: 'bar',
-                        data: {
-                            labels: dadosGrafico2.labels,
-                            datasets: [{
-                                label: 'Eficiência de Remoção de Poluentes',
-                                data: dadosGrafico2.remocao,
-                                backgroundColor: [accentGreen, primaryColor, accentBrown, accentRed],
-                                borderColor: [accentGreen, primaryColor, accentBrown, accentRed],
-                                borderWidth: 1,
-                                barPercentage: 0.6,
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            plugins: {
-                                title: {
-                                    display: true,
-                                    text: 'Eficiência de Macroalgas na Remediação de Efluentes',
-                                    font: { size: 18, family: 'Montserrat' },
-                                    color: body.classList.contains('dark') ? '#f8f9fa' : '#212529'
-                                },
-                                legend: { display: false },
-                                tooltip: {
-                                    callbacks: {
-                                        label: function(context) {
-                                            return `${context.dataset.label}: ${context.parsed.y}%`;
-                                        }
-                                    }
-                                }
-                            },
-                            scales: {
-                                x: { ticks: { color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' } },
-                                y: {
-                                    beginAtZero: true,
-                                    title: { display: true, text: 'Eficiência de Remoção (%)', font: { size: 14, family: 'Open Sans' }, color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' },
-                                    max: 100,
-                                    ticks: { color: body.classList.contains('dark') ? '#f8f9fa' : '#212529' }
-                                }
-                            }
-                        }
-                    });
-
-                    // Botão de download CSV para gráfico 2
-                    const btnDownload2 = document.getElementById('download-grafico2');
-                    if (btnDownload2) {
-                        btnDownload2.addEventListener('click', () => {
-                            const headers = ['Espécie de Macroalga', 'Eficiência de Remoção (%)'];
-                            const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.remocao[i]]);
-                            exportarCSV(headers, rows, 'grafico2_biofiltracao.csv');
-                        });
-                    }
-
-                } catch (error) {
-                    console.error('Erro ao criar o gráfico 2:', error);
-                }
-            }
-
-            // Atualiza cores dos gráficos ao alternar modo escuro
-            const updateChartColors = () => {
-                const isDark = body.classList.contains('dark');
-                const textColor = isDark ? '#f8f9fa' : '#212529';
-                
-                // Atualiza o Gráfico 1
-                if (window.pollutionChart) {
-                    window.pollutionChart.options.plugins.title.color = textColor;
-                    window.pollutionChart.options.scales.x.ticks.color = textColor;
-                    window.pollutionChart.options.scales.y.ticks.color = textColor;
-                    window.pollutionChart.options.scales.y.title.color = textColor;
-                    window.pollutionChart.options.scales.y1.ticks.color = textColor;
-                    window.pollutionChart.options.scales.y1.title.color = textColor;
-                    window.pollutionChart.update();
-                }
-
-                // Atualiza o Gráfico 2
-                if (window.biofiltrationChart) {
-                    window.biofiltrationChart.options.plugins.title.color = textColor;
-                    window.biofiltrationChart.options.scales.x.ticks.color = textColor;
-                    window.biofiltrationChart.options.scales.y.ticks.color = textColor;
-                    window.biofiltrationChart.options.scales.y.title.color = textColor;
-                    window.biofiltrationChart.update();
-                }
-            };
-
-            darkModeToggle.addEventListener('change', updateChartColors);
-            updateChartColors(); // Garante que as cores iniciais estejam corretas
-        });
-    </script>
+    <script src="js/chart.js" defer></script>
 </body>
 </html>
