@@ -3,141 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Projeto - LABIC</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="icon" href="assets/images/favicon.ico">
-
+    <title>Projetos de Pesquisa - Suape</title>
+    <link rel="stylesheet" href="css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .dark-mode-toggle-container .form-check-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .dark-mode-toggle-container .form-check-label .fa-moon {
-            display: none;
-        }
-        
-        body.dark .dark-mode-toggle-container .form-check-label .fa-sun {
-            display: none;
-        }
-        
-        body.dark .dark-mode-toggle-container .form-check-label .fa-moon {
-            display: inline;
-        }
-
-        body.dark {
-            background-color: #1a202c;
-            color: #f8f9fa;
-        }
-        
-        body.dark .navbar {
-            background-color: #2d3748 !important;
-        }
-
-        body.dark .navbar-toggler-icon {
-            filter: invert(1);
-        }
-
-        body.dark .nav-link {
-            color: rgba(255, 255, 255, 0.55) !important;
-        }
-
-        body.dark .nav-link.active {
-            color: #fff !important;
-        }
-        
-        body.dark .modal-content {
-            background-color: #2d3748;
-            color: #f8f9fa;
-        }
-
-        body.dark .modal-header {
-            border-bottom-color: #4a5568;
-        }
-
-        body.dark .modal-footer {
-            border-top-color: #4a5568;
-        }
-
-        body.dark .btn-close {
-            filter: invert(1);
-        }
-
-        #model-container {
-            width: 100%;
-            height: 100%;
-            min-height: 400px;
-            position: relative;
-            background-color: transparent;
-            border-radius: 0.5rem;
-            overflow: hidden;
-        }
-        
-        #model-container canvas {
-            width: 100% !important;
-            height: 100% !important;
-            border-radius: 0.5rem;
-        }
-        
-        .loading-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.3s;
-            pointer-events: none;
-            z-index: 10;
-        }
-        
-        body.dark .loading-overlay {
-            background-color: rgba(45, 55, 72, 0.8);
-        }
-        
-        .loading-overlay.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .error-message {
-            color: #dc3545;
-            font-weight: bold;
-            text-align: center;
-            padding: 1rem;
-            display: none;
-        }
-
-        .spinner-border {
-            width: 3rem;
-            height: 3rem;
-            border-width: .3em;
-        }
-
-        .content-section {
-            margin-top: 3rem;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="assets/images/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -160,6 +34,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="referencial.html">Referencial</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="resultados.html">Resultados</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="publicacoes.html">Publicações</a>
@@ -186,13 +63,13 @@
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
-                                <label class="form-check-label" for="darkModeToggle">
-                                    <i class="fas fa-sun"></i>
-                                    <i class="fas fa-moon"></i>
-                                </label>
-                            </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                    <label class="form-check-label" for="darkModeToggle">
+                                        <i class="fas fa-sun"></i>
+                                        <i class="fas fa-moon"></i>
+                                    </label>
+                                </div>
                         </li>
                     </ul>
                 </div>
@@ -200,286 +77,146 @@
         </nav>
     </header>
 
-    <main>
-        <div class="container my-5">
-            <section class="text-center" data-aos="fade-up">
-                <h1 class="display-4 fw-bold">O Projeto</h1>
-                <p class="lead">Conheça a Liga Acadêmica de Biologia e nossos projetos de pesquisa.</p>
+    <main class="page-content">
+        <div class="container">
+            <h1>Nossos Projetos de Pesquisa</h1>
+            <section class="content-section" data-aos="fade-up">
+                <h2>Introdução aos Projetos</h2>
+                <p>Nesta seção, apresentamos os projetos de pesquisa desenvolvidos pelos alunos, sob a orientação do Professor Vanbasten Rocha. Cada projeto aborda um aspecto relevante dos impactos do Complexo Industrial Portuário de Suape, buscando soluções e análises aprofundadas sobre o equilíbrio entre o desenvolvimento e a sustentabilidade ambiental e social na região.</p>
             </section>
             
-            <section class="content-section" data-aos="fade-up" data-aos-delay="200">
-                <h2>Apresentação da Liga</h2>
-                <p>A Liga Acadêmica de Biologia Imaculada Conceição é um grupo de pesquisa focado em temas de relevância científica e ambiental, com o objetivo de promover o conhecimento e a conscientização sobre questões biológicas complexas. Nossas investigações são conduzidas com rigor metodológico e visam contribuir para o entendimento de fenômenos ecológicos e a busca por soluções sustentáveis.</p>
-            </section>
-            
-            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
-                <h2>Projetos de Pesquisa</h2>
-                
-                <div class="project-group mb-4">
-                    <h3>3º Ano</h3>
-                    <p><strong>Tema:</strong> Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</p>
-                    <p><strong>Membros:</strong> Arthur Lemos, Marília Laura, Lyvia Beatriz, Taísa Paiva, Maria Letícia, Maria Eduarda e Pedro Martins.</p>
-                    <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#projectModal">
-                        Ver Protótipo 3D
-                    </button>
-                </div>
-                
-                <div class="project-group mb-4">
-                    <h3>2º Ano A</h3>
-                    <p><strong>Tema:</strong> Rotas Alteradas? Investigando a conexão entre o porto de Suape e a ocorrência de tubarões na região metropolitana do Recife.</p>
-                    <p><strong>Membros:</strong> Maria Eduarda Gaspar, Mayra, Maria Clara, Ana Beatriz do Canto, Yasmin Melo, Julia Beatriz e Julie Azevedo.</p>
-                </div>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="100">
+                <h2>Projetos por Ano</h2>
 
-                <div class="project-group mb-4">
-                    <h3>2º Ano B</h3>
-                    <p><strong>Tema:</strong> Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.</p>
-                    <p><strong>Membros:</strong> Giovana Silveira, Júlia Silveira, Eutália Duarte, Fernando José, Adélia Amorim, Pedro Miguel e Maria Vitória Galamba.</p>
-                </div>
-                
-                <div class="project-group mb-4">
-                    <h3>1º Ano</h3>
-                    <p><strong>Tema:</strong> Biofiltração inteligente: avaliação da eficiência de diferentes espécies de macroalgas na remediação de Efluentes encontradas em áreas portuárias de suape.</p>
-                    <p><strong>Membros:</strong> Flora Nascimento, Gabriele Machado, Gabrielly Marinho, Alícia Vitória, Heitor e Bruno.</p>
-                </div>
-            </section>
-            
-            <section class="content-section" data-aos="fade-up" data-aos-delay="500">
-                <h2>Orientador</h2>
-                <p>Todos os projetos são orientados pelo Prof. Vanbasten Rocha.</p>
-            </section>
-            
-        </div>
-    </main>
-
-    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="projectModalLabel">Protótipo de Monitoramento de Água Inteligente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row modal-body-3d">
-                        <div class="col-md-7">
-                            <div id="model-container">
-                                <div id="loading-overlay" class="loading-overlay">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
-                                    </div>
-                                    <div class="loading-text">Carregando modelo 3D... 0%</div>
-                                </div>
-                                <div id="error-message" class="error-message"></div>
+                <div class="accordion" id="projetosAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThreeYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeYear" aria-expanded="false" aria-controls="collapseThreeYear">
+                                3º Ano
+                            </button>
+                        </h2>
+                        <div id="collapseThreeYear" class="accordion-collapse collapse" aria-labelledby="headingThreeYear" data-bs-parent="#projetosAccordion">
+                            <div class="accordion-body">
+                                <h3>Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</h3>
+                                <p>Este projeto tem como objetivo principal avaliar a saúde dos ecossistemas costeiros na área de influência do Porto de Suape, utilizando bioindicadores da qualidade da água. A pesquisa visa identificar e monitorar organismos sensíveis a alterações ambientais, fornecendo um panorama sobre os impactos das atividades portuárias e industriais na biodiversidade aquática e na qualidade da água.</p>
+                                <h4>Membros:</h4>
+                                <ul>
+                                    <li>Arthur Lemos</li>
+                                    <li>Marília Laura</li>
+                                    <li>Lyvia Beatriz</li>
+                                    <li>Taísa Paiva</li>
+                                    <li>Maria Letícia</li>
+                                    <li>Maria Eduarda</li>
+                                    <li>Pedro Martins</li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-md-5">
-                            <p>Um Protótipo de Monitoramento de Água Inteligente 3D que nós criamos. Esse protótipo tem como material um Arduino que controla os sensores de ph, a turbidez, a temperatura da água. Usamos um protoboard de 830 pontose na programação usamos as bibliotecas de C++ LiquidCrystal_I2C, OneWire e DallasTemperature para conduzir o Arduino a calibrar os materiais necessários.</p>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwoYearA">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearA" aria-expanded="false" aria-controls="collapseTwoYearA">
+                                2º Ano A
+                            </button>
+                        </h2>
+                        <div id="collapseTwoYearA" class="accordion-collapse collapse" aria-labelledby="headingTwoYearA" data-bs-parent="#projetosAccordion">
+                            <div class="accordion-body">
+                                <h3>Rotas Alteradas? Investigando a conexão entre o porto de Suape e a ocorrência de tubarões na região metropolitana do Recife.</h3>
+                                <p>Este projeto investiga a possível relação entre a expansão e as atividades do Porto de Suape e as mudanças nas rotas migratórias e na ocorrência de tubarões na região metropolitana do Recife. A pesquisa busca analisar dados de avistamentos, condições oceanográficas e o tráfego portuário para compreender se há uma correlação e quais as implicações para a segurança costeira e o ecossistema marinho.</p>
+                                <h4>Membros:</h4>
+                                <ul>
+                                    <li>Flora Nascimento</li>
+                                    <li>Gabriele Machado</li>
+                                    <li>Gabrielly Marinho</li>
+                                    <li>Alícia Vitória</li>
+                                    <li>Heitor</li>
+                                    <li>Bruno</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwoYearB">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearB" aria-expanded="false" aria-controls="collapseTwoYearB">
+                                2º Ano B
+                            </button>
+                        </h2>
+                        <div id="collapseTwoYearB" class="accordion-collapse collapse" aria-labelledby="headingTwoYearB" data-bs-parent="#projetosAccordion">
+                            <div class="accordion-body">
+                                <h3>Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.</h3>
+                                <p>O projeto se dedica a analisar os impactos do saneamento básico, ou a sua ausência, na saúde da população da ilha de Tatuoquinha, localizada na área do Porto de Suape. A pesquisa visa documentar as condições sanitárias, coletar dados epidemiológicos e correlacionar a infraestrutura de saneamento com a incidência de doenças, buscando propor melhorias e sensibilizar para a importância de investimentos na área.</p>
+                                <h4>Membros:</h4>
+                                <ul>
+                                    <li>Giovana Silveira</li>
+                                    <li>Júlia Silveira</li>
+                                    <li>Eutália Duarte</li>
+                                    <li>Fernando José</li>
+                                    <li>Adélia Amorim</li>
+                                    <li>Pedro Miguel</li>
+                                    <li>Maria Vitória Galamba</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOneYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneYear" aria-expanded="false" aria-controls="collapseOneYear">
+                                1º Ano
+                            </button>
+                        </h2>
+                        <div id="collapseOneYear" class="accordion-collapse collapse" aria-labelledby="headingOneYear" data-bs-parent="#projetosAccordion">
+                            <div class="accordion-body">
+                                <h3>Biofiltração inteligente: avaliação da eficiência de diferentes espécies de macroalgas na remediação de Efluentes encontradas em áreas portuárias de Suape.</h3>
+                                <p>Este projeto explora o potencial da biofiltração utilizando macroalgas para a remediação de efluentes em áreas portuárias de Suape. A pesquisa avaliará a eficiência de diferentes espécies de macroalgas na remoção de poluentes da água, buscando uma solução biológica e sustentável para o tratamento de resíduos industriais e portuários.</p>
+                                <h4>Membros:</h4>
+                                <ul>
+                                    <li>Maria Eduarda Gaspar</li>
+                                    <li>Mayra</li>
+                                    <li>Maria Clara</li>
+                                    <li>Ana Beatriz do Canto</li>
+                                    <li>Yasmin Melo</li>
+                                    <li>Julia Beatriz</li>
+                                    <li>Julie Azevedo</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
+            
+            <section class="content-section" data-aos="fade-up" data-aos-delay="200">
+                <h2>Orientador</h2>
+                <p>Todos os projetos são orientados pelo:</p>
+                <p class="lead"><strong>Professor Vanbasten Rocha</strong></p>
+            </section>
+
+            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
+                <h2>Metodologia Comum</h2>
+                <p>Nossas pesquisas são de natureza exploratória e descritiva, utilizando abordagens quantitativas e qualitativas para garantir uma compreensão aprofundada e multifacetada dos temas. Cada grupo seguiu um processo estruturado em etapas claras e bem definidas, incluindo:</p>
+                <ol class="metodologia-list">
+                    <li><strong>Revisão Bibliográfica Aprofundada:</strong> Levantamento e análise crítica de artigos científicos, teses, relatórios técnicos e publicações relevantes. <a href="https://scholar.google.com.br/" target="_blank" rel="noopener">Ver exemplos</a></li>
+                    <li><strong>Coleta de Dados:</strong> Reunião de dados secundários de fontes oficiais como <a href="https://www.cprh.pe.gov.br/" target="_blank" rel="noopener">CPRH</a>, <a href="https://www.icmbio.gov.br/" target="_blank" rel="noopener">ICMBio</a>, <a href="https://www.ibge.gov.br/" target="_blank" rel="noopener">IBGE</a>, e dados primários quando aplicável a cada projeto.</li>
+                    <li><strong>Análise de Dados Integrada:</strong> Organização, processamento e submissão dos dados a análises estatísticas e comparativas, utilizando ferramentas como <a href="https://www.r-project.org/" target="_blank" rel="noopener">R</a>, <a href="https://www.python.org/" target="_blank" rel="noopener">Python</a> e <a href="https://www.chartjs.org/" target="_blank" rel="noopener">Chart.js</a>.</li>
+                    <li><strong>Elaboração e Apresentação de Resultados:</strong> Síntese das informações e formulação de conclusões, apresentadas de forma clara e objetiva nas páginas de <a href="resultados.html">Resultados</a> e <a href="publicacoes.html">Publicações</a>.</li>
+                </ol>
+            </section>
+            
+            <section class="content-section" data-aos="fade-up" data-aos-delay="400">
+                <h2>Ferramentas de Visualização</h2>
+                <p>Para a visualização e apresentação dos dados, todos os projetos empregaram o Chart.js, uma biblioteca JavaScript versátil para a criação de gráficos interativos. Essa ferramenta foi fundamental para transformar dados complexos em representações visuais compreensíveis, facilitando a comunicação dos achados de cada pesquisa ao público.</p>
+            </section>
         </div>
-    </div>
+    </main>
 
     <footer>
-        <div class="container text-center">
-            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-            <p>Orientação: Prof. Vanbasten Rocha</p>
-        </div>
+        <p>&copy; SSP 2025 | Todos os direitos reservados.</p>
+        <p>Orientação: Prof. Vanbasten Rocha</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="js/main.js" defer></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            AOS.init();
-        });
-
-        // Script para o modo escuro
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const body = document.body;
-
-            // Define o modo com base no localStorage ao carregar a página
-            const isDarkMode = localStorage.getItem('darkMode') === 'true';
-            if (isDarkMode) {
-                body.classList.add('dark');
-                darkModeToggle.checked = true;
-            }
-
-            darkModeToggle.addEventListener('change', () => {
-                if (darkModeToggle.checked) {
-                    body.classList.add('dark');
-                    localStorage.setItem('darkMode', 'true');
-                } else {
-                    body.classList.remove('dark');
-                    localStorage.setItem('darkMode', 'false');
-                }
-            });
-        });
-    </script>
-    
-    <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
-    <script type="importmap">
-        {
-            "imports": {
-                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
-                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
-            }
-        }
-    </script>
-    <script type="module">
-        import * as THREE from 'three';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
-
-        // Escutador para o evento de exibição do modal
-        const projectModal = document.getElementById('projectModal');
-        projectModal.addEventListener('shown.bs.modal', () => {
-            initModel();
-        });
-
-        const container = document.getElementById('model-container');
-        const loadingOverlay = document.querySelector('.loading-overlay');
-        const errorMessage = document.getElementById('error-message');
-
-        let renderer, scene, camera, controls, model;
-        let isUserInteracting = false;
-
-        function showLoading() {
-            if (loadingOverlay) {
-                loadingOverlay.classList.remove('hidden');
-            }
-            if (errorMessage) {
-                errorMessage.style.display = 'none';
-            }
-        }
-
-        function hideLoading() {
-            if (loadingOverlay) {
-                loadingOverlay.classList.add('hidden');
-            }
-        }
-
-        function showError(message) {
-            if (errorMessage) {
-                errorMessage.textContent = message;
-                errorMessage.style.display = 'block';
-            }
-            hideLoading();
-        }
-
-        function initModel() {
-            if (!container) {
-                console.error('Container for the 3D model not found.');
-                showError('O contêiner para o modelo 3D não foi encontrado.');
-                return;
-            }
-
-            // Evita a reinicialização se o modelo já estiver carregado
-            if (renderer) {
-                renderer.setSize(container.clientWidth, container.clientHeight);
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
-                return;
-            }
-
-            showLoading();
-
-            // Scene
-            scene = new THREE.Scene();
-            scene.background = null;
-
-            // Camera
-            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.set(0, 1, 3);
-
-            // Renderer
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setClearColor(0x000000, 0); // Fundo transparente
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.toneMapping = THREE.ACESFilmicToneMapping;
-            renderer.toneMappingExposure = 1;
-            renderer.outputEncoding = THREE.sRGBEncoding;
-            container.appendChild(renderer.domElement);
-
-            // Lighting & Environment
-            const pmremGenerator = new THREE.PMREMGenerator(renderer);
-            pmremGenerator.compileEquirectangularShader();
-
-            new RGBELoader()
-                .setDataType(THREE.FloatType)
-                .setPath('../assets/3d/')
-                .load('empty_play_room_4k.hdr', (texture) => {
-                    const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-                    scene.environment = envMap;
-                    texture.dispose();
-                    pmremGenerator.dispose();
-                }, undefined, (error) => {
-                    console.error('An error happened while loading the environment map:', error);
-                });
-
-            // GLTF Loader (3D Model)
-            const loader = new GLTFLoader();
-            loader.load(
-                '../assets/3d/smart_water.glb',
-                (gltf) => {
-                    model = gltf.scene;
-                    scene.add(model);
-                    hideLoading();
-                },
-                (xhr) => {
-                    if (xhr.lengthComputable) {
-                        const percentComplete = xhr.loaded / xhr.total * 100;
-                        const loadingText = loadingOverlay.querySelector('.loading-text');
-                        if (loadingText) {
-                            loadingText.textContent = `Carregando modelo 3D... ${Math.round(percentComplete)}%`;
-                        }
-                    }
-                },
-                (error) => {
-                    console.error('An error happened while loading the model:', error);
-                    showError('Falha ao carregar o modelo 3D. Tente novamente mais tarde.');
-                }
-            );
-
-            // Orbit Controls
-            controls = new OrbitControls(camera, renderer.domElement);
-            controls.enableDamping = true;
-            controls.dampingFactor = 0.05;
-            controls.screenSpacePanning = false;
-            controls.maxPolarAngle = Math.PI / 2;
-
-            controls.addEventListener('start', () => { isUserInteracting = true; });
-            controls.addEventListener('end', () => { isUserInteracting = false; });
-
-            // Animation Loop
-            function animate() {
-                requestAnimationFrame(animate);
-                controls.update();
-
-                if (model && !isUserInteracting) {
-                    model.rotation.y += 0.005;
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Responsive Resize
-            window.addEventListener('resize', onWindowResize);
-        }
-
-        function onWindowResize() {
-            if (renderer) {
-                const newWidth = container.clientWidth;
-                const newHeight = container.clientHeight;
-                camera.aspect = newWidth / newHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(newWidth, newHeight);
-            }
-        }
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
