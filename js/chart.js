@@ -26,16 +26,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     console.log('Cores carregadas:', { primaryColor, accentGreen, accentBrown, accentRed });
 
-    // Dados originais dos gráficos, adaptados para os novos temas
+    // Dados originais dos gráficos
     const dadosGrafico1 = {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
-        fitoplancton: [2000, 2500, 3200, 3500, 4100, 4500],
-        nitratos: [50, 65, 80, 85, 95, 110]
+        labels: ['Espécie A', 'Espécie B', 'Espécie C'],
+        nitrato: [85, 92, 78],
+        fosfato: [75, 88, 80]
     };
 
     const dadosGrafico2 = {
-        labels: ['S. filiforme', 'U. lactuca', 'O. secunda', 'L. obtusa'],
-        remocao: [75, 92, 88, 80]
+        labels: ['Ponto de Coleta 1 (Próximo)', 'Ponto de Coleta 2 (Intermediário)', 'Ponto de Coleta 3 (Distante)'],
+        saude: [30, 65, 90]
     };
 
     // Função para gerar CSV
@@ -56,36 +56,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===========================================
-    // Gráfico 1: Bioindicadores da Qualidade da Água
+    // Gráfico 1: Biofiltração de Efluentes por Macroalgas
     // ===========================================
 
-    const airPollutionChartElement = document.getElementById('airPollutionChart');
-    console.log('Elemento do gráfico 1 encontrado:', airPollutionChartElement);
+    const biofiltrationChartElement = document.getElementById('biofiltrationChart');
+    console.log('Elemento do gráfico 1 encontrado:', biofiltrationChartElement);
     
-    if (airPollutionChartElement) {
+    if (biofiltrationChartElement) {
         try {
             function getDatasetsGrafico1(tipo) {
                 const datasets = [];
-                if (tipo === 'ambos' || tipo === 'nitratos') {
+                if (tipo === 'ambos' || tipo === 'nitrato') {
                     datasets.push({
-                        label: 'Nitratos (µmol/L)',
-                        data: dadosGrafico1.nitratos,
-                        borderColor: accentRed,
-                        backgroundColor: 'rgba(212, 93, 93, 0.2)',
-                        yAxisID: 'y',
+                        label: 'Remoção de Nitrato (%)',
+                        data: dadosGrafico1.nitrato,
+                        borderColor: primaryColor,
+                        backgroundColor: 'rgba(0, 77, 64, 0.2)',
                         tension: 0.4,
                         pointStyle: 'circle',
                         pointRadius: 6,
                         pointHoverRadius: 8
                     });
                 }
-                if (tipo === 'ambos' || tipo === 'fitoplancton') {
+                if (tipo === 'ambos' || tipo === 'fosfato') {
                     datasets.push({
-                        label: 'Densidade de Fitoplâncton (cels/mL)',
-                        data: dadosGrafico1.fitoplancton,
-                        borderColor: primaryColor,
-                        backgroundColor: primaryColor,
-                        yAxisID: 'y1',
+                        label: 'Remoção de Fosfato (%)',
+                        data: dadosGrafico1.fosfato,
+                        borderColor: accentGreen,
+                        backgroundColor: 'rgba(129, 199, 132, 0.2)',
                         tension: 0.4,
                         pointStyle: 'rectRot',
                         pointRadius: 6,
@@ -95,8 +93,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 return datasets;
             }
 
-            let pollutionChart;
-            pollutionChart = new Chart(airPollutionChartElement, {
+            let biofiltrationChart;
+            biofiltrationChart = new Chart(biofiltrationChartElement, {
                 type: 'line',
                 data: {
                     labels: dadosGrafico1.labels,
@@ -112,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Qualidade da Água: Nitratos vs. Fitoplâncton',
+                            text: 'Eficiência de Remoção de Poluentes por Macroalgas',
                             font: { size: 18, family: 'Montserrat' }
                         },
                         tooltip: {
@@ -122,11 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.dataset.label.includes('Nitratos')) {
-                                        label += `${context.parsed.y} µmol/L`;
-                                    } else {
-                                        label += `${context.parsed.y} cels/mL`;
-                                    }
+                                    label += `${context.parsed.y}%`;
                                     return label;
                                 }
                             }
@@ -134,29 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     },
                     scales: {
                         y: {
-                            type: 'linear',
-                            display: true,
-                            position: 'left',
                             title: {
                                 display: true,
-                                text: 'Nitratos (µmol/L)',
+                                text: 'Eficiência de Remoção (%)',
                                 font: { size: 14, family: 'Open Sans' }
                             },
-                            beginAtZero: true
-                        },
-                        y1: {
-                            type: 'linear',
-                            display: true,
-                            position: 'right',
-                            grid: {
-                                drawOnChartArea: false,
-                            },
-                            title: {
-                                display: true,
-                                text: 'Densidade de Fitoplâncton (cels/mL)',
-                                font: { size: 14, family: 'Open Sans' }
-                            },
-                            beginAtZero: true
+                            beginAtZero: true,
+                            suggestedMax: 100
                         }
                     }
                 }
@@ -167,8 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (selectGrafico1) {
                 selectGrafico1.addEventListener('change', (e) => {
                     const tipo = e.target.value;
-                    pollutionChart.data.datasets = getDatasetsGrafico1(tipo);
-                    pollutionChart.update();
+                    biofiltrationChart.data.datasets = getDatasetsGrafico1(tipo);
+                    biofiltrationChart.update();
                 });
             }
 
@@ -176,17 +154,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const btnDownload1 = document.getElementById('download-grafico1');
             if (btnDownload1) {
                 btnDownload1.addEventListener('click', () => {
-                    const headers = ['Mês'];
-                    const rows = dadosGrafico1.labels.map((mes, i) => [mes]);
-                    if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'fitoplancton') {
-                        headers.push('Densidade de Fitoplâncton (cels/mL)');
-                        rows.forEach((row, i) => row.push(dadosGrafico1.fitoplancton[i]));
-                    }
-                    if (selectGrafico1.value === 'ambos' || selectGrafico1.value === 'nitratos') {
-                        headers.push('Nitratos (µmol/L)');
-                        rows.forEach((row, i) => row.push(dadosGrafico1.nitratos[i]));
-                    }
-                    exportarCSV(headers, rows, 'grafico1_bioindicadores.csv');
+                    const headers = ['Espécie', 'Remoção de Nitrato (%)', 'Remoção de Fosfato (%)'];
+                    const rows = dadosGrafico1.labels.map((especie, i) => [especie, dadosGrafico1.nitrato[i], dadosGrafico1.fosfato[i]]);
+                    exportarCSV(headers, rows, 'biofiltracao_macroalgas.csv');
                 });
             }
 
@@ -194,27 +164,27 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao criar o gráfico 1:', error);
         }
     } else {
-        console.error('Elemento airPollutionChart não encontrado');
+        console.error('Elemento biofiltrationChart não encontrado');
     }
 
     // ===========================================
-    // Gráfico 2: Eficiência da Biofiltração de Efluentes por Macroalgas
+    // Gráfico 2: Qualidade da Água (Bioindicadores)
     // ===========================================
 
-    const mangroveChartElement = document.getElementById('mangroveChart');
-    console.log('Elemento do gráfico 2 encontrado:', mangroveChartElement);
+    const waterQualityChartElement = document.getElementById('waterQualityChart');
+    console.log('Elemento do gráfico 2 encontrado:', waterQualityChartElement);
     
-    if (mangroveChartElement) {
+    if (waterQualityChartElement) {
         try {
-            const mangroveChart = new Chart(mangroveChartElement, {
+            const waterQualityChart = new Chart(waterQualityChartElement, {
                 type: 'bar',
                 data: {
                     labels: dadosGrafico2.labels,
                     datasets: [{
-                        label: 'Eficiência de Remoção de Poluentes',
-                        data: dadosGrafico2.remocao,
-                        backgroundColor: [accentGreen, primaryColor, accentBrown, accentRed],
-                        borderColor: [accentGreen, primaryColor, accentBrown, accentRed],
+                        label: 'Índice de Saúde do Ecossistema',
+                        data: dadosGrafico2.saude,
+                        backgroundColor: [accentRed, accentBrown, accentGreen],
+                        borderColor: [accentRed, accentBrown, accentGreen],
                         borderWidth: 1,
                         barPercentage: 0.6,
                     }]
@@ -225,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Eficiência de Macroalgas na Remediação de Efluentes',
+                            text: 'Índice de Saúde do Ecossistema Costeiro por Ponto de Coleta',
                             font: { size: 18, family: 'Montserrat' }
                         },
                         legend: {
@@ -234,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
-                                    return `${context.dataset.label}: ${context.parsed.y}%`;
+                                    return `${context.dataset.label}: ${context.parsed.y}`;
                                 }
                             }
                         }
@@ -244,10 +214,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             beginAtZero: true,
                             title: {
                                 display: true,
-                                text: 'Eficiência de Remoção (%)',
+                                text: 'Índice de Saúde (0-100)',
                                 font: { size: 14, family: 'Open Sans' }
                             },
-                            max: 100
+                            suggestedMax: 100
                         }
                     }
                 }
@@ -257,9 +227,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const btnDownload2 = document.getElementById('download-grafico2');
             if (btnDownload2) {
                 btnDownload2.addEventListener('click', () => {
-                    const headers = ['Espécie de Macroalga', 'Eficiência de Remoção (%)'];
-                    const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.remocao[i]]);
-                    exportarCSV(headers, rows, 'grafico2_biofiltracao.csv');
+                    const headers = ['Ponto de Coleta', 'Índice de Saúde do Ecossistema'];
+                    const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.saude[i]]);
+                    exportarCSV(headers, rows, 'qualidade_agua_suape.csv');
                 });
             }
 
@@ -267,6 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Erro ao criar o gráfico 2:', error);
         }
     } else {
-        console.error('Elemento mangroveChart não encontrado');
+        console.error('Elemento waterQualityChart não encontrado');
     }
 });
