@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loader = new GLTFLoader();
         // Caminho corrigido para o modelo 3D
         loader.load(
-            '../assets/models/container_ship.glb',
+            '../assets/3d/container_ship.glb',
             (gltf) => {
                 model = gltf.scene;
                 scene.add(model);
