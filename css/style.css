@@ -1452,3 +1452,17 @@ ul, ol {
     color: var(--primary-color); /* Utiliza a cor primária */
     margin-bottom: 1rem;
 }
+/* Atualização para corresponder ao ID no projeto.html */
+#three-container {
+    width: 100%;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+/* Estilo para o corpo do modal, retirando o estilo inline do HTML */
+.modal-body {
+    background-color: #f0f0f0;
+}
