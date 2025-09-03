@@ -64,7 +64,7 @@
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                     <label class="form-check-label" for="darkModeToggle">
                                         <i class="fas fa-sun"></i>
                                         <i class="fas fa-moon"></i>
@@ -91,7 +91,7 @@
                 <div class="accordion" id="projetosAccordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThreeYear">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeYear" aria-expanded="false" aria-controls="collapseThreeYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeYear" aria-expanded="false" aria-controls="collapseThreeYear" aria-label="Expandir projetos do 3º ano">
                                 3º Ano
                             </button>
                         </h2>
@@ -99,10 +99,6 @@
                             <div class="accordion-body">
                                 <h3>Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</h3>
                                 <p>Este projeto tem como objetivo principal avaliar a saúde dos ecossistemas costeiros na área de influência do Porto de Suape, utilizando bioindicadores da qualidade da água. A pesquisa visa identificar e monitorar organismos sensíveis a alterações ambientais, fornecendo um panorama sobre os impactos das atividades portuárias e industriais na biodiversidade aquática e na qualidade da água.</p>
-                                
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#model3dModal">
-                                    Ver Modelo 3D
-                                </button>
                                 
                                 <h4>Membros:</h4>
                                 <ul>
@@ -120,7 +116,7 @@
 
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwoYearA">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearA" aria-expanded="false" aria-controls="collapseTwoYearA">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearA" aria-expanded="false" aria-controls="collapseTwoYearA" aria-label="Expandir projetos do 2º ano A">
                                 2º Ano A
                             </button>
                         </h2>
@@ -143,7 +139,7 @@
 
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwoYearB">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearB" aria-expanded="false" aria-controls="collapseTwoYearB">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearB" aria-expanded="false" aria-controls="collapseTwoYearB" aria-label="Expandir projetos do 2º ano B">
                                 2º Ano B
                             </button>
                         </h2>
@@ -167,7 +163,7 @@
 
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingOneYear">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneYear" aria-expanded="false" aria-controls="collapseOneYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneYear" aria-expanded="false" aria-controls="collapseOneYear" aria-label="Expandir projetos do 1º ano">
                                 1º Ano
                             </button>
                         </h2>
@@ -212,6 +208,18 @@
                 <h2>Ferramentas de Visualização</h2>
                 <p>Para a visualização e apresentação dos dados, todos os projetos empregaram o Chart.js, uma biblioteca JavaScript versátil para a criação de gráficos interativos. Essa ferramenta foi fundamental para transformar dados complexos em representações visuais compreensíveis, facilitando a comunicação dos achados de cada pesquisa ao público.</p>
             </section>
+
+            <section class="content-section" data-aos="fade-up" data-aos-delay="500">
+                <h2>Protótipo 3D</h2>
+                <p>Conheça o nosso protótipo de monitoramento de água em um modelo 3D interativo.</p>
+                <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#model3dModal" aria-label="Abrir modelo 3D do protótipo">
+                    Ver Modelo 3D
+                </button>
+            </section>
+
+            <div class="text-center mt-5">
+                <a href="aprofunde.html" class="btn btn-primary btn-lg" aria-label="Clique para aprofundar nos projetos">Clica Aqui para aprofundar mais nos nossos projetos</a>
+            </div>
         </div>
     </main>
 
@@ -260,7 +268,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.es/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://cdn.jsdelivr.es/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <script src="js/main.js"></script>
     <script src="js/three-model.js"></script>
