@@ -4,24 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glossário - LABIC</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta name="description" content="Termos técnicos e conceitos fundamentais para a compreensão dos projetos da Liga Acadêmica de Biologia Imaculada Conceição.">
+    
+    <link rel="icon" href="assets/images/favicon.ico">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="assets/images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
+                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -64,7 +68,7 @@
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
                                     <i class="fas fa-sun"></i>
                                     <i class="fas fa-moon"></i>
@@ -79,48 +83,52 @@
 
     <main>
         <div class="container my-5">
-            <section class="text-center" data-aos="fade-up">
+            <section class="content-section text-center" data-aos="fade-up">
                 <h1 class="display-4 fw-bold">Glossário</h1>
                 <p class="lead">Termos técnicos e conceitos fundamentais para a compreensão dos projetos da Liga.</p>
             </section>
             
             <section class="glossary-list mt-5">
                 <dl class="row">
-                    <dt data-aos="fade-up" data-aos-delay="100">Bioindicadores</dt>
-                    <dd data-aos="fade-up" data-aos-delay="150">Organismos vivos, como plantas, líquens ou animais, usados para monitorar a saúde de um ecossistema. Sua presença, ausência ou condição física refletem a qualidade ambiental.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="100"><img src="assets/images/glossary-icon-1.svg" alt="Ícone de Bioindicadores" class="glossary-icon"> Bioindicadores</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="150">Organismos vivos, como plantas, líquens ou animais, usados para monitorar a saúde de um ecossistema. Sua presença, ausência ou condição física refletem a qualidade ambiental.</dd>
                     
-                    <dt data-aos="fade-up" data-aos-delay="200">Biofiltração</dt>
-                    <dd data-aos="fade-up" data-aos-delay="250">Um processo de tratamento biológico que utiliza microrganismos e organismos maiores, como algas, para remover poluentes da água ou do ar.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="200"><img src="assets/images/glossary-icon-2.svg" alt="Ícone de Biofiltração" class="glossary-icon"> Biofiltração</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="250">Um processo de tratamento biológico que utiliza microrganismos e organismos maiores, como algas, para remover poluentes da água ou do ar.</dd>
 
-                    <dt data-aos="fade-up" data-aos-delay="300">Macroalgas</dt>
-                    <dd data-aos="fade-up" data-aos-delay="350">Organismos fotossintetizantes multicelulares, conhecidos popularmente como "algas marinhas". São bioindicadores importantes e podem ser usadas em processos de biorremediação.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="300"><img src="assets/images/glossary-icon-3.svg" alt="Ícone de Macroalgas" class="glossary-icon"> Macroalgas</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="350">Organismos fotossintetizantes multicelulares, conhecidos popularmente como "algas marinhas". São bioindicadores importantes e podem ser usadas em processos de biorremediação.</dd>
 
-                    <dt data-aos="fade-up" data-aos-delay="400">Efluentes</dt>
-                    <dd data-aos="fade-up" data-aos-delay="450">Resíduos líquidos, como águas de esgoto ou de processos industriais, que são liberados no meio ambiente após tratamento ou não.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="400"><img src="assets/images/glossary-icon-4.svg" alt="Ícone de Efluentes" class="glossary-icon"> Efluentes</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="450">Resíduos líquidos, como águas de esgoto ou de processos industriais, que são liberados no meio ambiente após tratamento ou não.</dd>
 
-                    <dt data-aos="fade-up" data-aos-delay="500">Saneamento Básico</dt>
-                    <dd data-aos="fade-up" data-aos-delay="550">Conjunto de serviços, infraestruturas e instalações operacionais de abastecimento de água, esgoto sanitário, limpeza urbana, drenagem e manejo de resíduos sólidos e de águas pluviais.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="500"><img src="assets/images/glossary-icon-5.svg" alt="Ícone de Saneamento Básico" class="glossary-icon"> Saneamento Básico</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="550">Conjunto de serviços, infraestruturas e instalações operacionais de abastecimento de água, esgoto sanitário, limpeza urbana, drenagem e manejo de resíduos sólidos e de águas pluviais.</dd>
 
-                    <dt data-aos="fade-up" data-aos-delay="600">Biorremediação</dt>
-                    <dd data-aos="fade-up" data-aos-delay="650">Processo que utiliza organismos vivos para remover, degradar ou neutralizar poluentes de um ambiente, como solo ou água.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="600"><img src="assets/images/glossary-icon-6.svg" alt="Ícone de Biorremediação" class="glossary-icon"> Biorremediação</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="650">Processo que utiliza organismos vivos para remover, degradar ou neutralizar poluentes de um ambiente, como solo ou água.</dd>
 
-                    <dt data-aos="fade-up" data-aos-delay="700">Ecossistemas Costeiros</dt>
-                    <dd data-aos="fade-up" data-aos-delay="750">Sistemas biológicos e geológicos encontrados na transição entre o continente e o mar, como manguezais, recifes de coral e estuários, que são de vital importância ecológica.</dd>
+                    <dt class="col-sm-3" data-aos="fade-up" data-aos-delay="700"><img src="assets/images/glossary-icon-7.svg" alt="Ícone de Ecossistemas Costeiros" class="glossary-icon"> Ecossistemas Costeiros</dt>
+                    <dd class="col-sm-9" data-aos="fade-up" data-aos-delay="750">Sistemas biológicos e geológicos encontrados na transição entre o continente e o mar, como manguezais, recifes de coral e estuários, que são de vital importância ecológica.</dd>
                 </dl>
             </section>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-        <p>Orientação: Prof. Vanbasten Rocha</p>
+    <footer class="text-center py-4">
+        <div class="container">
+            <div class="social-footer-container mb-3">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados</p>
+            <p>Orientação: Prof. Vanbasten Rocha</p>
+        </div>
     </footer>
 
-    <script src="js/main.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
