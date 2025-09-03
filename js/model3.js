@@ -1,102 +1,98 @@
-import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-import { GLTFLoader } from 'https://cdn.jsdelivr.es/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
-import { OrbitControls } from 'https://cdn.jsdelivr.es/npm/three@0.128.0/examples/js/controls/OrbitControls.js';
-
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('coral-reef-model-container');
-    if (!container) {
-        console.error("Container 'coral-reef-model-container' não encontrado. Verifique se o ID está correto.");
-        return;
-    }
 
-    // Gerenciador de carregamento para feedback visual
-    const loadingManager = new THREE.LoadingManager();
-    loadingManager.onStart = () => {
-        console.log('Iniciando o carregamento do modelo 3D...');
-        // Você pode adicionar um spinner ou mensagem de "carregando" aqui, se desejar
-    };
-    loadingManager.onLoad = () => {
-        console.log('Modelo 3D carregado com sucesso!');
-        // Remover o spinner ou mensagem de "carregando"
-    };
-    loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-        console.log(`Carregando arquivo: ${url}. ${itemsLoaded} de ${itemsTotal} carregados.`);
-    };
-    loadingManager.onError = (url) => {
-        console.error('Ocorreu um erro ao carregar o modelo 3D:', url);
-        // Exibir uma mensagem de erro para o usuário
-        container.innerHTML = '<p class="error-message">Ocorreu um erro ao carregar o modelo 3D.</p>';
-    };
+    const model3dModal = document.getElementById('model3dModal');
+    if (model3dModal) {
+        let scene, camera, renderer, model, controls;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const container = document.getElementById('three-container');
 
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setClearColor(0x000000, 0); // Fundo transparente
-    renderer.shadowMap.enabled = true; // Habilita o mapa de sombras
-    container.appendChild(renderer.domElement);
+        // Configuração inicial da cena, câmera e renderizador
+        function init() {
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0xf0f0f0); // Cor de fundo do canvas
 
-    camera.position.set(0, 5, 10);
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 1.5, 3);
 
-    // Iluminação
-    const ambientLight = new THREE.AmbientLight(0x404040, 2); // Luz ambiente suave
-    scene.add(ambientLight);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
 
-    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 2);
-    directionalLight1.position.set(5, 10, 7.5);
-    directionalLight1.castShadow = true;
-    scene.add(directionalLight1);
+            // Adicionar luzes para iluminar o modelo
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambientLight);
 
-    const directionalLight2 = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight2.position.set(-5, 10, -7.5);
-    scene.add(directionalLight2);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
 
-    // Controles de órbita
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
-    controls.maxPolarAngle = Math.PI / 2;
+            // Carregar o modelo GLTF
+            const loader = new THREE.GLTFLoader();
+            loader.load(
+                'assets/3d/coral_reef.glb',
+                function (gltf) {
+                    model = gltf.scene;
+                    scene.add(model);
+                },
+                undefined,
+                function (error) {
+                    console.error('An error happened while loading the 3D model:', error);
+                }
+            );
 
-    // Carregar o modelo 3D
-    const loader = new GLTFLoader(loadingManager);
-    loader.load(
-        'assets/3d/coral_reef.glb',
-        (gltf) => {
-            const model = gltf.scene;
-            scene.add(model);
+            // Adicionar controles de órbita para interação
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.25;
+            controls.screenSpacePanning = false;
+            controls.maxPolarAngle = Math.PI / 2;
 
-            // Ajusta automaticamente a posição da câmera e do modelo
-            const box = new THREE.Box3().setFromObject(model);
-            const center = box.getCenter(new THREE.Vector3());
-            const size = box.getSize(new THREE.Vector3());
-            
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = camera.fov * (Math.PI / 180);
-            let cameraZ = Math.abs(maxDim / 2 * 1.5 / Math.sin(fov / 2));
-            
-            camera.position.set(center.x, center.y, center.z + cameraZ);
-            controls.target.set(center.x, center.y, center.z);
-            
-            // Animar a cena
-            const animate = () => {
-                requestAnimationFrame(animate);
-                controls.update();
-                renderer.render(scene, camera);
-            };
             animate();
-        },
-        undefined,
-        (error) => {
-            console.error('Ocorreu um erro ao carregar o modelo GLB:', error);
         }
-    );
 
-    // Ajustar o tamanho quando a janela for redimensionada
-    window.addEventListener('resize', () => {
-        camera.aspect = container.clientWidth / container.clientHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.clientWidth, container.clientHeight);
-    });
+        // Loop de animação
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) {
+                controls.update(); // Necessário se enableDamping estiver ativado
+            }
+            if (renderer && scene && camera) {
+                renderer.render(scene, camera);
+            }
+        }
+
+        // Funções para lidar com o modal
+        model3dModal.addEventListener('shown.bs.modal', () => {
+            // Inicializa a cena somente quando o modal é aberto
+            if (!renderer) {
+                init();
+            }
+            // Garante que o tamanho do renderizador está correto quando o modal é exibido
+            onWindowResize();
+        });
+
+        model3dModal.addEventListener('hidden.bs.modal', () => {
+            // Limpa a cena para economizar recursos
+            if (renderer) {
+                renderer.dispose();
+                renderer = null;
+                container.innerHTML = ''; // Remove o canvas
+                model = null;
+                scene = null;
+                camera = null;
+                controls = null;
+            }
+        });
+
+        // Lidar com o redimensionamento da janela
+        function onWindowResize() {
+            if (renderer) {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            }
+        }
+        window.addEventListener('resize', onWindowResize, false);
+    }
 });
