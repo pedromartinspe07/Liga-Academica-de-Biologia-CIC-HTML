@@ -1,47 +1,64 @@
 // js/auth.js
 
-const API_URL_BASE = 'https://your-labic-backend-production.up.railway.app'; // Replace with your actual backend URL
+const API_URL_BASE = 'https://your-labic-backend-production.up.railway.app'; // Substitua pelo URL do seu backend real
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Existing authentication forms and buttons
-    const loginForm = document.getElementById('login-form');
-    const registerForm = document.getElementById('register-form');
-    const logoutBtn = document.getElementById('logout-btn');
+/**
+ * Helper function to fetch data from the API with authentication headers.
+ * @param {string} endpoint The API endpoint.
+ * @param {object} [options={}] Fetch options.
+ * @returns {Promise<Response>} The fetch response object.
+ */
+async function fetchWithAuth(endpoint, options = {}) {
+    const token = localStorage.getItem('labic-token');
+    const headers = {
+        'Content-Type': 'application/json',
+        ...options.headers,
+    };
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
 
-    // New elements for password recovery and reset
-    const forgotPasswordForm = document.getElementById('forgot-password-form');
-    const resetPasswordForm = document.getElementById('reset-password-form');
-    const loginBtn = document.getElementById('login-btn');
+    const response = await fetch(`${API_URL_BASE}${endpoint}`, {
+        ...options,
+        headers,
+    });
 
-    // Event listeners
-    if (loginForm) loginForm.addEventListener('submit', handleLogin);
-    if (registerForm) registerForm.addEventListener('submit', handleRegister);
-    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
-    if (forgotPasswordForm) forgotPasswordForm.addEventListener('submit', handleForgotPassword);
-    if (resetPasswordForm) resetPasswordForm.addEventListener('submit', handleResetPassword);
-    if (loginBtn) loginBtn.addEventListener('click', () => { window.location.href = '/login.html'; });
-});
+    if (response.status === 401) {
+        console.error('Sessão expirada. Redirecionando para login.');
+        localStorage.removeItem('labic-token');
+        window.location.href = '/login.html';
+    }
 
+    return response;
+}
+
+/**
+ * Handles the login form submission.
+ * @param {Event} e The submit event.
+ */
 async function handleLogin(e) {
     e.preventDefault();
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const messageElement = document.getElementById('login-message');
-    
-    // Clear previous messages
-    if (messageElement) messageElement.textContent = '';
+
+    if (messageElement) {
+        messageElement.textContent = 'Carregando...';
+        messageElement.className = 'message info';
+    }
 
     try {
-        const response = await fetch(`${API_URL_BASE}/api/login`, {
+        const response = await fetchWithAuth('/api/login', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ email, password }),
         });
+
         const data = await response.json();
 
         if (response.ok) {
+            localStorage.setItem('labic-token', data.token); // Save the token
             if (messageElement) {
-                messageElement.textContent = 'Login bem-sucedido! Redirecionando para o painel...';
+                messageElement.textContent = 'Login bem-sucedido! Redirecionando...';
                 messageElement.className = 'message success';
             }
             window.location.href = '/painel.html';
@@ -60,20 +77,27 @@ async function handleLogin(e) {
     }
 }
 
+/**
+ * Handles the registration form submission.
+ * @param {Event} e The submit event.
+ */
 async function handleRegister(e) {
     e.preventDefault();
-    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
     const messageElement = document.getElementById('register-message');
-    
-    if (messageElement) messageElement.textContent = '';
+
+    if (messageElement) {
+        messageElement.textContent = 'Carregando...';
+        messageElement.className = 'message info';
+    }
 
     try {
-        const response = await fetch(`${API_URL_BASE}/api/register`, {
+        const response = await fetchWithAuth('/api/register', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({ email, password }),
         });
+
         const data = await response.json();
 
         if (response.status === 201) {
@@ -84,7 +108,7 @@ async function handleRegister(e) {
             setTimeout(() => { window.location.href = '/login.html'; }, 2000);
         } else {
             if (messageElement) {
-                messageElement.textContent = data.message || 'Erro ao registrar. O nome de usuário pode já existir.';
+                messageElement.textContent = data.message || 'Erro ao registrar. O email pode já existir.';
                 messageElement.className = 'message error';
             }
         }
@@ -97,31 +121,25 @@ async function handleRegister(e) {
     }
 }
 
-async function handleLogout() {
-    try {
-        const response = await fetch(`${API_URL_BASE}/api/logout`, { method: 'POST' });
-        if (response.ok) {
-            window.location.href = '/login.html';
-        } else {
-            console.error('Logout failed.');
-        }
-    } catch (error) {
-        console.error('Network Error:', error);
-    }
-}
-
+/**
+ * Handles the password recovery form submission.
+ * @param {Event} e The submit event.
+ */
 async function handleForgotPassword(e) {
     e.preventDefault();
-    const username = document.getElementById('forgot-username').value;
+    const email = document.getElementById('forgot-email').value;
     const messageElement = document.getElementById('forgot-password-message');
-    
-    if (messageElement) messageElement.textContent = '';
+
+    if (messageElement) {
+        messageElement.textContent = 'Enviando...';
+        messageElement.className = 'message info';
+    }
 
     try {
         const response = await fetch(`${API_URL_BASE}/api/forgot-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username })
+            body: JSON.stringify({ email }),
         });
         const data = await response.json();
 
@@ -145,6 +163,10 @@ async function handleForgotPassword(e) {
     }
 }
 
+/**
+ * Handles the password reset form submission.
+ * @param {Event} e The submit event.
+ */
 async function handleResetPassword(e) {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
@@ -152,8 +174,6 @@ async function handleResetPassword(e) {
     const newPassword = document.getElementById('new-password').value;
     const confirmPassword = document.getElementById('confirm-password').value;
     const messageElement = document.getElementById('reset-password-message');
-    
-    if (messageElement) messageElement.textContent = '';
 
     if (newPassword !== confirmPassword) {
         if (messageElement) {
@@ -163,17 +183,30 @@ async function handleResetPassword(e) {
         return;
     }
 
+    if (!token) {
+        if (messageElement) {
+            messageElement.textContent = 'Token de redefinição não encontrado na URL.';
+            messageElement.className = 'message error';
+        }
+        return;
+    }
+
+    if (messageElement) {
+        messageElement.textContent = 'Redefinindo senha...';
+        messageElement.className = 'message info';
+    }
+
     try {
         const response = await fetch(`${API_URL_BASE}/api/reset-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ token, new_password: newPassword })
+            body: JSON.stringify({ token, new_password: newPassword }),
         });
         const data = await response.json();
 
         if (response.ok) {
             if (messageElement) {
-                messageElement.textContent = 'Senha redefinida com sucesso!';
+                messageElement.textContent = 'Senha redefinida com sucesso! Redirecionando para login...';
                 messageElement.className = 'message success';
             }
             setTimeout(() => { window.location.href = '/login.html'; }, 3000);
@@ -191,3 +224,57 @@ async function handleResetPassword(e) {
         console.error('Reset Password Error:', error);
     }
 }
+
+/**
+ * Handles the logout action.
+ */
+function handleLogout() {
+    localStorage.removeItem('labic-token');
+    window.location.href = '/login.html';
+}
+
+/**
+ * Checks if the user is authenticated and redirects if not.
+ */
+function checkAuthStatus() {
+    const token = localStorage.getItem('labic-token');
+    const path = window.location.pathname;
+
+    const requiresAuth = path.includes('/painel.html');
+    const requiresNoAuth = path.includes('/login.html') || path.includes('/cadastro.html') || path.includes('/forgot-password.html') || path.includes('/reset-password.html');
+
+    if (requiresAuth && !token) {
+        window.location.href = '/login.html';
+    }
+    
+    if (requiresNoAuth && token) {
+        window.location.href = '/painel.html';
+    }
+}
+
+// Initial setup and event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    // Check authentication status on page load
+    checkAuthStatus();
+
+    const loginForm = document.getElementById('login-form');
+    const registerForm = document.getElementById('register-form');
+    const logoutBtn = document.getElementById('logout-btn');
+    const forgotPasswordForm = document.getElementById('forgot-password-form');
+    const resetPasswordForm = document.getElementById('reset-password-form');
+
+    if (loginForm) loginForm.addEventListener('submit', handleLogin);
+    if (registerForm) registerForm.addEventListener('submit', handleRegister);
+    if (logoutBtn) logoutBtn.addEventListener('click', handleLogout);
+    if (forgotPasswordForm) forgotPasswordForm.addEventListener('submit', handleForgotPassword);
+    if (resetPasswordForm) resetPasswordForm.addEventListener('submit', handleResetPassword);
+
+    // Dynamic link to login page
+    const loginBtn = document.getElementById('login-btn');
+    if (loginBtn) {
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/login.html';
+        });
+    }
+});

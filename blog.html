@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - Liga Acadêmica de Biologia Imaculada Conceição</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <title>Blog - LABIC</title>
+    <meta name="description" content="Artigos e atualizações sobre os projetos e a pesquisa da Liga Acadêmica de Biologia Imaculada Conceição.">
+    
+    <link rel="icon" href="assets/images/favicon.ico">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="icon" href="assets/images/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
+                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -64,7 +68,7 @@
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
                                     <i class="fas fa-sun"></i>
                                     <i class="fas fa-moon"></i>
@@ -79,35 +83,39 @@
 
     <main>
         <div class="container my-5">
-            <section class="text-center" data-aos="fade-up">
+            <section class="content-section text-center" data-aos="fade-up">
                 <h1 class="display-4 fw-bold">Blog da Liga</h1>
                 <p class="lead">Artigos e atualizações sobre os projetos e a pesquisa da nossa equipe.</p>
             </section>
             
-            <section class="mt-5">
-                <div class="filter-buttons mb-4">
+            <section class="mt-5" data-aos="fade-up">
+                <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
                     <button class="btn btn-primary active" data-filter="all">Todos</button>
                     <button class="btn btn-secondary" data-filter="noticias">Notícias</button>
                     <button class="btn btn-secondary" data-filter="artigos">Artigos</button>
                     <button class="btn btn-secondary" data-filter="publicacoes">Publicações</button>
                 </div>
+            </section>
 
-                <div id="all-posts">
-                    <div class="text-center mt-5">
-                        <p>Conteúdo do blog a ser adicionado em breve.</p>
+            <section id="blog-posts-container" class="mt-4">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="all-posts">
+                    <div class="text-center w-100" id="initial-loading">
+                        <p>Carregando postagens...</p>
                     </div>
                 </div>
+            </section>
 
-                <div id="add-post-form-container" class="mt-5" style="display: none;">
-                    <h2>Adicionar Nova Postagem</h2>
+            <section id="add-post-form-container" class="mt-5" style="display: none;" data-aos="fade-up" data-aos-delay="200">
+                <div class="card p-4">
+                    <h2 class="h4 fw-bold mb-3">Adicionar Nova Postagem</h2>
                     <form id="add-post-form">
                         <div class="mb-3">
-                            <label for="post-title" class="form-label">Título</label>
-                            <input type="text" class="form-control" id="post-title" required>
+                            <label for="postTitle" class="form-label">Título</label>
+                            <input type="text" class="form-control" id="postTitle" required>
                         </div>
                         <div class="mb-3">
-                            <label for="post-category" class="form-label">Categoria</label>
-                            <select class="form-select" id="post-category" required>
+                            <label for="postCategory" class="form-label">Categoria</label>
+                            <select class="form-select" id="postCategory" required>
                                 <option value="" selected disabled>Selecione uma categoria</option>
                                 <option value="noticias">Notícias</option>
                                 <option value="artigos">Artigos</option>
@@ -115,227 +123,162 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="post-excerpt" class="form-label">Resumo</label>
-                            <textarea class="form-control" id="post-excerpt" rows="3" required></textarea>
+                            <label for="postImage" class="form-label">URL da Imagem</label>
+                            <input type="url" class="form-control" id="postImage" placeholder="https://exemplo.com/imagem.jpg">
                         </div>
                         <div class="mb-3">
-                            <label for="post-content" class="form-label">Conteúdo Completo</label>
-                            <textarea class="form-control" id="post-content" rows="10" required></textarea>
+                            <label for="postExcerpt" class="form-label">Resumo</label>
+                            <textarea class="form-control" id="postExcerpt" rows="3" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="post-tags" class="form-label">Tags (separadas por vírgula)</label>
-                            <input type="text" class="form-control" id="post-tags">
+                            <label for="postContent" class="form-label">Conteúdo Completo</label>
+                            <textarea class="form-control" id="postContent" rows="10" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-success">Publicar</button>
                     </form>
+                    <div id="message-container" class="mt-3"></div>
                 </div>
-
-                <div id="message-container" class="mt-3"></div>
-
             </section>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-        <p>Orientação: Prof. Vanbasten Rocha</p>
+    <footer class="text-center py-4">
+        <div class="container">
+            <div class="social-footer-container mb-3">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados</p>
+            <p>Orientação: Prof. Vanbasten Rocha</p>
+        </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
    
-    <!-- Firebase SDKs -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global variables for Firebase configuration, provided by the environment
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // Mapeia o caminho da sua coleção de dados no Firestore
+        const POSTS_COLLECTION_PATH = "seu_caminho_para_posts"; // Exemplo: "blog/posts"
 
-        // Message box utility
-        const messageBox = document.getElementById('message-box');
-        function showMessage(message, type = 'success') {
-            messageBox.textContent = message;
-            messageBox.className = `alert mt-3 alert-${type}`;
-            messageBox.classList.remove('d-none');
-            setTimeout(() => {
-                messageBox.classList.add('d-none');
-            }, 5000);
-        }
-
-        // Initialize Firebase
+        // 1. Configure seu Firebase aqui
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+        
         let app;
         let db;
         let auth;
-        let userId;
 
-        if (Object.keys(firebaseConfig).length > 0) {
+        // Verifica se a configuração foi fornecida antes de inicializar o Firebase
+        if (Object.values(firebaseConfig).some(val => val.includes("YOUR_"))) {
+            console.error("Firebase não inicializado. Por favor, forneça sua configuração em firebaseConfig.");
+            document.getElementById('initial-loading').innerHTML = '<p class="text-danger">Erro de configuração do Firebase. Por favor, verifique o código-fonte.</p>';
+        } else {
             app = initializeApp(firebaseConfig);
             auth = getAuth(app);
             db = getFirestore(app);
-
-            // Handle authentication state changes
+            
+            // Autentica o usuário anonimamente e carrega os posts após a autenticação
             onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    userId = user.uid;
-                    document.getElementById('user-id-display').textContent = `ID do Usuário: ${userId}`;
-                    console.log("User authenticated:", userId);
-                    
-                    // Fetch and display blog posts after successful authentication
-                    fetchBlogPosts();
-
-                } else {
-                    document.getElementById('user-id-display').textContent = 'ID do Usuário: Não autenticado';
-                    console.log("User not authenticated, signing in anonymously...");
-                    // Sign in with custom token if available, otherwise anonymously
-                    try {
-                        if (initialAuthToken) {
-                            await signInWithCustomToken(auth, initialAuthToken);
-                            console.log("Signed in with custom token.");
-                        } else {
-                            await signInAnonymously(auth);
-                            console.log("Signed in anonymously.");
-                        }
-                    } catch (error) {
-                        console.error("Firebase Auth Error:", error);
-                        showMessage("Erro de autenticação: " + error.message, 'danger');
-                    }
+                if (!user) {
+                    await signInAnonymously(auth);
                 }
+                fetchBlogPosts();
             });
-        } else {
-            console.error("Firebase configuration is missing.");
-            showMessage("Erro: Configuração do Firebase ausente.", 'danger');
         }
 
         // DOM elements
-        const featuredPostsContainer = document.getElementById('featured-posts');
         const allPostsContainer = document.getElementById('all-posts');
         const addPostForm = document.getElementById('add-post-form');
-        const filterButtons = document.querySelectorAll('.filter-btn');
+        const filterButtons = document.querySelectorAll('[data-filter]');
 
-        // Function to render a single blog post
+        // Função para renderizar um post
         function renderPost(post) {
-            const postElement = document.createElement('div');
-            postElement.className = 'blog-post';
-            postElement.setAttribute('data-category', post.category);
-            postElement.setAttribute('data-aos', 'fade-up');
-            
-            // Format the timestamp if it exists
             const date = post.timestamp ? new Date(post.timestamp.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Data Indisponível';
             
-            postElement.innerHTML = `
-                <div class="post-header">
-                    <div class="post-meta">
-                        <span class="post-date">${date}</span>
-                        <span class="post-category">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+            return `
+                <div class="col" data-category="${post.category}" data-aos="fade-up">
+                    <div class="card h-100 shadow-sm blog-post-card">
+                        <img src="${post.imageUrl || 'https://placehold.co/600x400/f0f0f0/909090?text=Imagem+LABIC'}" class="card-img-top blog-post-image" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f0f0f0/909090?text=Imagem+Nao+Encontrada';">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                            <h5 class="card-title fw-bold">${post.title}</h5>
+                            <p class="card-text">${post.excerpt}</p>
+                            <a href="#" class="btn btn-outline-primary mt-auto">Ler mais <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <small class="text-body-secondary">Publicado em ${date}</small>
+                        </div>
                     </div>
-                    <h3>${post.title}</h3>
-                </div>
-                <div class="post-content">
-                    <img src="${post.imageUrl || 'https://placehold.co/600x400/CCCCCC/333333?text=Imagem+do+Post'}" alt="${post.title}" class="post-image" onerror="this.onerror=null;this.src='https://placehold.co/600x400/CCCCCC/333333?text=Imagem+Nao+Encontrada';">
-                    <p class="post-excerpt">${post.excerpt}</p>
-                    <div class="post-tags">
-                        ${(post.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('')}
-                    </div>
-                    <a href="javascript:void(0)" class="read-more-btn">Ler mais <i class="fas fa-arrow-right"></i></a>
                 </div>
             `;
-            return postElement;
         }
 
-        // Function to fetch and display blog posts from Firestore
+        // Função para buscar e exibir os posts
         function fetchBlogPosts() {
-            if (!db) {
-                console.error("Firestore is not initialized.");
-                return;
-            }
-
-            const postsCollection = collection(db, `artifacts/${appId}/public/data/blogPosts`);
+            if (!db) return;
+            
+            const postsCollection = collection(db, POSTS_COLLECTION_PATH);
             const q = query(postsCollection, orderBy("timestamp", "desc"));
             
             onSnapshot(q, (snapshot) => {
-                const posts = [];
+                const postsHTML = [];
                 snapshot.forEach((doc) => {
-                    posts.push({ id: doc.id, ...doc.data() });
+                    postsHTML.push(renderPost(doc.data()));
                 });
                 
-                // Clear existing posts
-                featuredPostsContainer.innerHTML = '';
-                allPostsContainer.innerHTML = '';
-                
-                if (posts.length > 0) {
-                    // Display featured posts (e.g., the first 3 posts)
-                    const featuredPosts = posts.slice(0, 3);
-                    featuredPosts.forEach(post => {
-                        featuredPostsContainer.appendChild(renderPost(post));
-                    });
-
-                    // Display all posts
-                    posts.forEach(post => {
-                        allPostsContainer.appendChild(renderPost(post));
-                    });
-                } else {
-                    allPostsContainer.innerHTML = '<p class="text-center">Nenhuma postagem encontrada. Seja o primeiro a adicionar!</p>';
-                }
+                allPostsContainer.innerHTML = postsHTML.length > 0 ? postsHTML.join('') : '<p class="text-center w-100">Nenhuma postagem encontrada. Seja o primeiro a adicionar!</p>';
             }, (error) => {
-                console.error("Error fetching blog posts:", error);
-                showMessage("Erro ao carregar as postagens. Tente novamente mais tarde.", 'danger');
+                console.error("Erro ao carregar as postagens:", error);
+                document.getElementById('initial-loading').innerHTML = '<p class="text-danger w-100">Erro ao carregar as postagens. Tente novamente mais tarde.</p>';
             });
         }
 
-        // Handle new post form submission
+        // Lidar com o envio do formulário (adicione o formulário se estiver logado)
         addPostForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
-            if (!db) {
-                showMessage("Erro: Firestore não está inicializado.", 'danger');
-                return;
-            }
-            
-            const title = document.getElementById('postTitle').value;
-            const category = document.getElementById('postCategory').value;
-            const imageUrl = document.getElementById('postImage').value;
-            const excerpt = document.getElementById('postExcerpt').value;
-            const content = document.getElementById('postContent').value;
-            const tags = category ? [category] : [];
+            if (!db) return;
 
             const newPost = {
-                title,
-                category,
-                imageUrl,
-                excerpt,
-                content,
-                tags,
+                title: document.getElementById('postTitle').value,
+                category: document.getElementById('postCategory').value,
+                imageUrl: document.getElementById('postImage').value,
+                excerpt: document.getElementById('postExcerpt').value,
+                content: document.getElementById('postContent').value,
                 timestamp: serverTimestamp(),
             };
 
             try {
-                const docRef = await addDoc(collection(db, `artifacts/${appId}/public/data/blogPosts`), newPost);
-                console.log("Document written with ID: ", docRef.id);
-                showMessage("Postagem adicionada com sucesso!");
+                await addDoc(collection(db, POSTS_COLLECTION_PATH), newPost);
+                alert("Postagem adicionada com sucesso!");
                 addPostForm.reset();
             } catch (e) {
-                console.error("Error adding document: ", e);
-                showMessage("Erro ao adicionar a postagem. " + e.message, 'danger');
+                console.error("Erro ao adicionar documento: ", e);
+                alert("Erro ao adicionar a postagem. Tente novamente.");
             }
         });
 
-        // Filtering functionality
+        // Funcionalidade de filtro
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-
+                filterButtons.forEach(btn => btn.classList.remove('active', 'btn-primary'));
+                button.classList.add('active', 'btn-primary');
+                
                 const filter = button.dataset.filter;
-                const allPosts = document.querySelectorAll('#all-posts .blog-post');
-                allPosts.forEach(post => {
+                const posts = document.querySelectorAll('#all-posts .col');
+                
+                posts.forEach(post => {
                     const postCategory = post.dataset.category;
                     if (filter === 'all' || postCategory === filter) {
                         post.style.display = 'block';
@@ -345,7 +288,6 @@
                 });
             });
         });
-
     </script>
 </body>
 </html>

@@ -1483,3 +1483,33 @@ ul, ol {
     height: 100%;
     display: block;
 }
+
+/* Estilos para a galeria de resultados */
+.gallery-thumbnail {
+    width: 150px; /* Largura mínima para as miniaturas */
+    height: auto; /* Altura automática para manter a proporção */
+    object-fit: contain; /* Garante que a imagem inteira seja visível dentro do contêiner */
+    border: 1px solid var(--primary-color);
+    border-radius: var(--border-radius-soft);
+    padding: 5px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.gallery-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+/* Ajuste para imagens maiores na mesma seção, como a de metodologia */
+.img-fluid-large {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow);
+}
+
+/* Ajuste a classe img-fluid para ter um comportamento melhor */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
