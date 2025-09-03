@@ -4,29 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Publicações - LABIC</title>
-    <link rel="icon" href="assets/images/favicon.ico">
     <meta name="description" content="Acesse publicações, artigos, relatórios e apresentações produzidas pela Liga Acadêmica de Biologia Imaculada Conceição.">
     
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/images/favicon.ico">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
+                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                            <a class="nav-link" href="index.html">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="projeto.html">O Projeto</a>
@@ -38,7 +43,7 @@
                             <a class="nav-link" href="resultados.html">Resultados</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="publicacoes.html">Publicações</a>
+                            <a class="nav-link active" aria-current="page" href="publicacoes.html">Publicações</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="blog.html">Blog</a>
@@ -63,7 +68,7 @@
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
                                     <i class="fas fa-sun"></i>
                                     <i class="fas fa-moon"></i>
@@ -85,90 +90,76 @@
             
             <section class="publication-list mt-5">
                 <div class="row">
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="publication-card">
-                            <h3>Avaliação da Qualidade da Água em Ecossistemas Costeiros Utilizando Macroinvertebrados Bentônicos</h3>
-                            <p class="publication-description">Este artigo científico explora a utilização de macroinvertebrados bentônicos como bioindicadores eficazes para monitorar a saúde de rios e estuários, com foco em áreas de influência industrial. A pesquisa demonstra como a diversidade e abundância dessas espécies podem revelar o grau de poluição hídrica e os impactos ambientais crônicos.</p>
-                            <div class="publication-actions">
-                                <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Artigo</a>
+                    <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="publication-item">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <div class="publication-details">
+                                <h3>Avaliação da Qualidade da Água em Ecossistemas Costeiros Utilizando Macroinvertebrados Bentônicos</h3>
+                                <p class="pub-description">Este artigo científico explora a utilização de macroinvertebrados bentônicos como bioindicadores eficazes para monitorar a saúde de rios e estuários, com foco em áreas de influência industrial. A pesquisa demonstra como a diversidade e abundância dessas espécies podem revelar o grau de poluição hídrica e os impactos ambientais crônicos.</p>
+                                <div class="publication-actions">
+                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Artigo</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="publication-card">
-                            <h3>"Rotas Alteradas?": Análise da Relação entre a Expansão Portuária e a Incidência de Tubarões em Pernambuco</h3>
-                            <p class="publication-description">Um estudo aprofundado sobre os possíveis fatores ambientais e comportamentais que podem ter influenciado a migração de tubarões para áreas de banho no litoral pernambucano. A pesquisa avalia o papel da alteração de estuários e manguezais, bem como o tráfego de embarcações, no comportamento de espécies como o tubarão-tigre e o cabeça-chata. Embora o Ministério Público Federal tenha arquivado o inquérito que investigava a relação direta, o estudo científico ressalta a importância da gestão ambiental contínua e da prevenção para reduzir o risco de novos episódios.</p>
-                            <div class="publication-actions">
-                                <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Relatório Técnico</a>
+                    <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="publication-item">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <div class="publication-details">
+                                <h3>"Rotas Alteradas?": Análise da Relação entre a Expansão Portuária e a Incidência de Tubarões em Pernambuco</h3>
+                                <p class="pub-description">Um estudo aprofundado sobre os possíveis fatores ambientais e comportamentais que podem ter influenciado a migração de tubarões para áreas de banho no litoral pernambucano. A pesquisa avalia o papel da alteração de estuários e manguezais, bem como o tráfego de embarcações, no comportamento de espécies como o tubarão-tigre e o cabeça-chata. Embora o Ministério Público Federal tenha arquivado o inquérito que investigava a relação direta, o estudo científico ressalta a importância da gestão ambiental contínua e da prevenção para reduzir o risco de novos episódios.</p>
+                                <div class="publication-actions">
+                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Relatório Técnico</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                     
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="publication-card">
-                            <h3>Saneamento Básico e Saúde Pública: Uma Análise do Impacto em Comunidades Vulneráveis</h3>
-                            <p class="publication-description">Este trabalho avalia a correlação direta entre a deficiência de serviços de saneamento básico e o aumento de doenças infecciosas em comunidades próximas a áreas industriais. O estudo demonstra a urgência de políticas públicas eficazes e de investimentos em infraestrutura sanitária para mitigar agravos à saúde e reduzir gastos públicos com internações evitáveis.</p>
-                            <div class="publication-actions">
-                                <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Estudo</a>
+                    <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                        <div class="publication-item">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <div class="publication-details">
+                                <h3>Saneamento Básico e Saúde Pública: Uma Análise do Impacto em Comunidades Vulneráveis</h3>
+                                <p class="pub-description">Este trabalho avalia a correlação direta entre a deficiência de serviços de saneamento básico e o aumento de doenças infecciosas em comunidades próximas a áreas industriais. O estudo demonstra a urgência de políticas públicas eficazes e de investimentos em infraestrutura sanitária para mitigar agravos à saúde e reduzir gastos públicos com internações evitáveis.</p>
+                                <div class="publication-actions">
+                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Estudo</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
 
-                    <div class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
-                        <div class="publication-card">
-                            <h3>Eficiência de Macroalgas na Biofiltração de Efluentes</h3>
-                            <p class="publication-description">Uma pesquisa inovadora que investiga o potencial de espécies de macroalgas como agentes de biofiltração para a remediação de efluentes industriais. O estudo analisa a capacidade dessas algas de absorver e metabolizar poluentes, propondo uma solução biológica e sustentável para o tratamento de águas contaminadas. O uso de bioindicadores, como macroinvertebrados, na avaliação da qualidade da água também é considerado como um indicador de eficiência na remediação.</p>
-                            <div class="publication-actions">
-                                <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download da Apresentação</a>
+                    <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
+                        <div class="publication-item">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <div class="publication-details">
+                                <h3>Eficiência de Macroalgas na Biofiltração de Efluentes</h3>
+                                <p class="pub-description">Uma pesquisa inovadora que investiga o potencial de espécies de macroalgas como agentes de biofiltração para a remediação de efluentes industriais. O estudo analisa a capacidade dessas algas de absorver e metabolizar poluentes, propondo uma solução biológica e sustentável para o tratamento de águas contaminadas. O uso de bioindicadores, como macroinvertebrados, na avaliação da qualidade da água também é considerado como um indicador de eficiência na remediação.</p>
+                                <div class="publication-actions">
+                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download da Apresentação</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </section>
         </div>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados.</p>
-        <p>Orientação: Prof. Vanbasten Rocha</p>
+    <footer class="text-center py-4">
+        <div class="container">
+            <div class="social-footer-container mb-3">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados</p>
+            <p>Orientação: Prof. Vanbasten Rocha</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    html.classList.add('dark');
-                } else {
-                    html.classList.remove('dark');
-                }
-            };
-
-            const storedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            if (storedTheme) {
-                applyTheme(storedTheme);
-                darkModeToggle.checked = storedTheme === 'dark';
-            } else {
-                applyTheme(prefersDark ? 'dark' : 'light');
-                darkModeToggle.checked = prefersDark;
-            }
-
-            darkModeToggle.addEventListener('change', () => {
-                const newTheme = darkModeToggle.checked ? 'dark' : 'light';
-                applyTheme(newTheme);
-                localStorage.setItem('theme', newTheme);
-            });
-        });
-    </script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
