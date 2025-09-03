@@ -1,16 +1,17 @@
 /* =======================================
    1. Variáveis e Reset
    ======================================= */
-   :root {
+:root {
     /* Paleta de Cores de Natureza Digital */
-    --primary-color: #0165b6; /* Verde Escuro da Floresta */
+    --primary-color: #0165b6; /* Azul Escuro LABIC */
     --secondary-color: #e8f5e9; /* Verde-Claro Acolhedor */
     --tertiary-color: #4a4d6c; /* Verde-Cinza Profundo */
-    --accent-color-blue: #50a4ca; /* Verde Vivo da Planta */
+    --accent-color-blue: #50a4ca; /* Azul Vivo da Planta */
     --accent-color-brown: #a1887f; /* Marrom-Claro da Terra */
     --text-color: #212121; /* Cinza Quase Preto */
     --light-text-color: #f1f8e9; /* Verde-Claro para Texto em Fundo Escuro */
     --background-light: #f9fbe7; /* Fundo de Seções em Creme */
+    --background-dark: #343a40; /* Fundo Escuro para o Rodapé */
     
     /* Sombras e Bordas Suaves */
     --shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
@@ -96,15 +97,34 @@ p {
 footer {
     text-align: center;
     padding: 2.5rem;
-    background-color: var(--primary-color);
+    background-color: var(--background-dark); /* Fundo escuro para o rodapé */
     color: var(--light-text-color);
     margin-top: 3rem;
+}
+
+/* Estilos para o Rodapé Social */
+.social-footer-container {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 1rem;
+}
+
+.social-footer-container .social-link {
+    color: var(--light-text-color);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.social-footer-container .social-link:hover {
+    color: #e4405f; /* Cor do Instagram ao passar o mouse */
 }
 
 /* =======================================
    3. Estilos de Seções e Componentes
    ======================================= */
-/* Seções de Conteúdo (páginas internas) */
 .content-section {
     background-color: var(--background-light);
     padding: 2.5rem;
@@ -113,7 +133,6 @@ footer {
     margin-bottom: 2.5rem;
 }
 
-/* Estilo para a descrição do modelo 3D */
 .model-caption {
     text-align: center;
     color: black;
@@ -131,7 +150,6 @@ footer {
     }
 }
 
-/* Estilos Específicos da Home */
 .hero-section {
     display: flex;
     flex-direction: column;
@@ -144,7 +162,6 @@ footer {
     overflow: hidden;
     position: relative;
     box-shadow: var(--shadow);
-    /* Estilo padrão para mobile e telas menores */
     height: auto;
     background: linear-gradient(rgba(0, 12, 77, 0.8), rgba(5, 0, 77, 0.8)), url('../assets/images/hero-suape.jpg') no-repeat center center/cover;
 }
@@ -365,14 +382,12 @@ footer {
 .youtube-shorts-item .video-container {
     position: relative;
     width: 100%;
-    /* 16:9 Aspect Ratio para vídeos normais, mas 9:16 para shorts */
-    /* Para telas pequenas, vamos limitar a altura para não ficar muito grande */
     max-width: 315px;
 }
 
 .youtube-shorts-item .video-container iframe {
     width: 100%;
-    height: 560px; /* Mantém a altura fixa para o formato Shorts */
+    height: 560px;
     border-radius: 8px;
 }
 
@@ -653,13 +668,12 @@ ul, ol {
         margin-right: 0;
     }
     
-    /* Oculta a imagem de fundo para dispositivos menores, se o modelo 3D for o foco */
     .hero-section {
         background-image: none;
     }
 
     .hero-content {
-        margin-top: 0; /* Remove a margem negativa em mobile para evitar sobreposição */
+        margin-top: 0;
     }
 }
 
@@ -674,13 +688,11 @@ ul, ol {
 }
 
 @media (min-width: 992px) {
-    /* Layout para telas maiores: texto e modelo lado a lado */
     .hero-section {
         flex-direction: row;
         gap: 5rem;
         padding-top: 5rem;
         height: 70vh;
-        /* Restaura a imagem de fundo em telas maiores */
         background: linear-gradient(rgba(0, 27, 77, 0.8), rgba(0, 77, 64, 0.8)), url('../assets/images/hero-suape.jpg') no-repeat center center/cover;
     }
 
@@ -1284,9 +1296,9 @@ ul, ol {
 }
 
 /* =======================================
-    7. Estilos de Formulários de Autenticação
+    6. Estilos de Formulários de Autenticação
    ======================================= */
-   .form-page {
+.form-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1349,7 +1361,7 @@ ul, ol {
 }
 
 /* =======================================
-    8. Estilos do Painel de Controle
+    7. Estilos do Painel de Controle
    ======================================= */
 .admin-header {
     background-color: var(--primary-color);
@@ -1375,9 +1387,9 @@ ul, ol {
 }
 
 /* =======================================
-   9. Estilos para o Modal 3D (Adicionar no style.css)
+   8. Estilos para o Modal e Modelos 3D
    ======================================= */
-   .modal-body-3d {
+.modal-body-3d {
     height: 70vh;
     display: flex;
     align-items: center;
@@ -1426,33 +1438,33 @@ ul, ol {
     color: #ff4d4d;
     text-align: center;
     font-weight: bold;
-    display: none; /* Inicia escondido */
+    display: none;
 }
 
 .error-message:not(.hidden) {
-    display: block; /* Mostra quando a classe 'hidden' é removida */
+    display: block;
 }
 
 /* Melhoria para a seção de projetos */
 .project-card {
     padding: 1.5rem;
-    background-color: var(--background-light); /* Utilize a variável CSS */
-    border-radius: var(--border-radius-lg); /* Utilize a variável CSS */
-    box-shadow: var(--shadow); /* Utilize a variável CSS */
-    border: 1px solid var(--accent-color-light-blue); /* Adiciona uma borda sutil */
+    background-color: var(--background-light);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--accent-color-blue);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card:hover {
-    transform: translateY(-5px); /* Efeito de elevação sutil no hover */
+    transform: translateY(-5px);
     box-shadow: var(--shadow-lg);
 }
 
 .project-card h3 {
-    color: var(--primary-color); /* Utiliza a cor primária */
+    color: var(--primary-color);
     margin-bottom: 1rem;
 }
-/* Atualização para corresponder ao ID no projeto.html */
+
 #three-container {
     width: 100%;
     height: 450px;
@@ -1462,12 +1474,10 @@ ul, ol {
     background: transparent;
 }
 
-/* Estilo para o corpo do modal, retirando o estilo inline do HTML */
 .modal-body {
     background-color: #f0f0f0;
 }
 
-/* Estilo para o novo contêiner 3D em aprofunde.html */
 #coral-reef-model-container {
     width: 100%;
     height: 100%;
