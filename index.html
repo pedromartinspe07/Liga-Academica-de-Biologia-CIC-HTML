@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LABIC - Home</title>
-    <link rel="icon" href="assets/images/favicon.ico">
     <meta name="description" content="Análise crítica e aprofundada sobre os impactos ambientais do Complexo Industrial Portuário de Suape.">
     
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="icon" href="assets/images/favicon.ico">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
     <script type="importmap">
         {
@@ -29,12 +29,12 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
-                    <img src="assets/images/logo.png" alt="Ícone da Logo" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
+                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
@@ -69,7 +69,6 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contato.html">Contato</a>
                         </li>
-                        
                         <li class="nav-item">
                             <a class="nav-link" href="login.html">Login</a>
                         </li>
@@ -78,7 +77,7 @@
                         </li>
                         <li class="nav-item dark-mode-toggle-container">
                             <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                                <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
                                     <i class="fas fa-sun"></i>
                                     <i class="fas fa-moon"></i>
@@ -98,43 +97,42 @@
                 <h1>LABIC</h1>
                 <p class="subtitle">Uma análise crítica sobre o desenvolvimento do Complexo Industrial Portuário de Suape e seus impactos ambientais.</p>
                 <a href="projeto.html" class="cta-button">Conheça os Projetos</a>
-                <div class="model-caption" data-aos="fade-up" data-aos-delay="100">
-                </div>
+                <div class="model-caption" data-aos="fade-up" data-aos-delay="100"></div>
             </div>
         </section>
 
-        <section class="intro-section content-section" data-aos="fade-up">
+        <section id="projetos-pesquisa" class="intro-section content-section" data-aos="fade-up">
             <div class="container">
                 <h2>Projetos de Pesquisa</h2>
                 <div class="row mt-4">
-                    <div class="col-md-6 mb-4">
+                    <article class="col-md-6 mb-4">
                         <div class="card h-100 p-3">
                             <h5 class="card-title">3º ano</h5>
                             <p class="card-text"><strong>Tema:</strong> Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</p>
                             <p class="card-text"><strong>Membros:</strong> Arthur Lemos, Marília Laura, Lyvia Beatriz, Taísa Paiva, Maria Letícia, Maria Eduarda e Pedro Martins.</p>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
+                    </article>
+                    <article class="col-md-6 mb-4">
                         <div class="card h-100 p-3">
                             <h5 class="card-title">2º ano A</h5>
                             <p class="card-text"><strong>Tema:</strong> Rotas Alteradas? Investigando a conexão entre o porto de Suape e a ocorrência de tubarões na região metropolitana do Recife.</p>
                             <p class="card-text"><strong>Membros:</strong> Flora Nascimento, Gabriele Machado, Gabrielly Marinho, Alícia Vitória, Heitor e Bruno.</p>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
+                    </article>
+                    <article class="col-md-6 mb-4">
                         <div class="card h-100 p-3">
                             <h5 class="card-title">2º ano B</h5>
                             <p class="card-text"><strong>Tema:</strong> Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.</p>
                             <p class="card-text"><strong>Membros:</strong> Giovana Silveira, Júlia Silveira, Eutália Duarte, Fernando José, Adélia Amorim, Pedro Miguel e Maria Vitória Galamba.</p>
                         </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
+                    </article>
+                    <article class="col-md-6 mb-4">
                         <div class="card h-100 p-3">
                             <h5 class="card-title">1º ano</h5>
                             <p class="card-text"><strong>Tema:</strong> Biofiltração inteligente: avaliação da eficiência de diferentes espécies de macroalgas na remediação de Efluentes encontradas em áreas portuárias de suape.</p>
                             <p class="card-text"><strong>Membros:</strong> Maria Eduarda Gaspar, Mayra, Maria Clara, Ana Beatriz do Canto, Yasmin Melo, Julia Beatriz e Julie Azevedo.</p>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 <div class="text-center mt-4">
                     <p class="lead"><strong>Orientador de todos os grupos:</strong> Vanbasten Rocha</p>
@@ -142,33 +140,33 @@
             </div>
         </section>
 
-        <section class="highlights-section content-section" data-aos="fade-up" data-aos-delay="400">
+        <section id="destaques-pesquisa" class="highlights-section content-section" data-aos="fade-up" data-aos-delay="400">
             <div class="container">
                 <h2>Destaques da Pesquisa</h2>
                 <div class="highlight-cards">
-                    <div class="card">
+                    <article class="card">
                         <img src="assets/images/chart-icon.svg" alt="Ícone de Gráfico">
                         <h3>Resultados e Gráficos</h3>
                         <p>Descubra as principais conclusões do nosso estudo através de gráficos interativos e análises detalhadas.</p>
-                        <a href="resultados.html" class="card-link">Explorar Resultados →</a>
-                    </div>
-                    <div class="card">
+                        <a href="resultados.html" class="card-link" aria-label="Explorar Resultados da pesquisa">Explorar Resultados →</a>
+                    </article>
+                    <article class="card">
                         <img src="assets/images/doc-icon.svg" alt="Ícone de Documento">
                         <h3>Publicações</h3>
                         <p>Acesse nossos artigos e resumos de pesquisa, documentos que aprofundam a discussão sobre o tema.</p>
-                        <a href="publicacoes.html" class="card-link">Ver Publicações →</a>
-                    </div>
-                    <div class="card">
+                        <a href="publicacoes.html" class="card-link" aria-label="Ver Publicações acadêmicas">Ver Publicações →</a>
+                    </article>
+                    <article class="card">
                         <img src="assets/images/data-icon.svg" alt="Ícone de Dados">
                         <h3>Dados Brutos</h3>
                         <p>Para máxima transparência, disponibilizamos os dados brutos utilizados em nossa pesquisa para consulta e download.</p>
-                        <a href="dados.html" class="card-link">Acessar Dados →</a>
-                    </div>
+                        <a href="dados.html" class="card-link" aria-label="Acessar Dados Brutos da pesquisa">Acessar Dados →</a>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section class="call-to-action-section content-section" data-aos="fade-up" data-aos-delay="200">
+        <section id="chamada-acao" class="call-to-action-section content-section" data-aos="fade-up" data-aos-delay="200">
             <div class="container">
                 <h2>Pronto para Aprofundar o Conhecimento?</h2>
                 <p>Navegue pelas seções do site e descubra todos os detalhes do nosso projeto, desde a metodologia até as conclusões finais.</p>
@@ -177,14 +175,20 @@
         </section>
     </main>
 
-    <footer>
-        <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados</p>
-        <p>Orientação: Prof. Vanbasten Rocha</p>
+    <footer class="text-center py-4">
+        <div class="container">
+            <div class="social-footer-container mb-3">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+            <p>&copy; 2025 Liga Acadêmica de Biologia Imaculada Conceição | Todos os direitos reservados</p>
+            <p>Orientação: Prof. Vanbasten Rocha</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script src="js/main.js" defer></script>
     <script type="module" src="js/model.js" defer></script>
 </body>
