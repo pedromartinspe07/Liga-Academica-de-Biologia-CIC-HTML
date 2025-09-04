@@ -1513,3 +1513,30 @@ ul, ol {
     max-width: 100%;
     height: auto;
 }
+
+.collaborators-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.37);
+    margin-top: 1.5rem;
+    background-color: #50a4ca; /* Fundo azul adicionado */
+}
+
+.collaborators-container img {
+    height: 60px; /* Altura fixa para todos os logos */
+    width: auto;
+    max-width: 120px;
+    filter: grayscale(100%) brightness(150%); /* Deixa as imagens em tons de cinza claro */
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.collaborators-container img:hover {
+    filter: none; /* Remove o filtro de cinza ao passar o mouse */
+    opacity: 1;
+    transform: scale(1.1);
+}
