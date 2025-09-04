@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (model3dModal) {
         let scene, camera, renderer, model, controls;
 
-        const container = document.getElementById('three-container');
+        const container = document.getElementById('coral-reef-model-container');
 
         // Configuração inicial da cena, câmera e renderizador
         function init() {
