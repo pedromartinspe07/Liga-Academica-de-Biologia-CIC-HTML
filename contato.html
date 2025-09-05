@@ -136,7 +136,7 @@
 
     <script>
         (function() {
-            emailjs.init("YOUR_PUBLIC_KEY"); // Substitua YOUR_PUBLIC_KEY pela sua chave pública do EmailJS
+            emailjs.init("vGMxrage4oBTdj1R5"); // Substitua YOUR_PUBLIC_KEY pela sua chave pública do EmailJS
         })();
 
         document.getElementById('contact-form').addEventListener('submit', function(event) {
@@ -147,7 +147,7 @@
             
             btn.value = 'Enviando...';
             
-            emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+            emailjs.sendForm('service_u52m1bt', 'template_c7x02v1', this)
                 .then(() => {
                     btn.value = 'Enviar Mensagem';
                     statusMessage.className = 'mt-3 text-success';
