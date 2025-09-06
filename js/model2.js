@@ -1,8 +1,8 @@
 /*
-* model2.js - Módulo para visualização de modelos 3D com Three.js.
-* Este script gerencia a inicialização, carregamento e interação
-* com um modelo 3D dentro de um modal.
-*/
+ * model2.js - Módulo para visualização de modelos 3D com Three.js.
+ * Este script gerencia a inicialização, carregamento e interação
+ * com um modelo 3D dentro de um modal.
+ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -32,11 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cena
         scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0);
+        scene.background = new THREE.Color(getBackgroundColor());
         
         // Câmera
         camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
-        camera.position.set(0, 1.5, 3);
+        camera.position.set(2, 2, 4);
         
         // Renderizador
         renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -66,11 +66,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
+     * Determina a cor de fundo da cena com base no tema atual (claro/escuro).
+     * @returns {number} Cor de fundo em hexadecimal.
+     */
+    function getBackgroundColor() {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        return isDarkMode ? 0x2c313a : 0xf0f0f0;
+    }
+
+    /**
      * @function loadModel
      * Carrega o modelo 3D GLTF de forma assíncrona.
      * @param {string} url - O caminho para o arquivo do modelo.
      */
     function loadModel(url) {
+        showLoadingState();
+
         const loader = new THREE.GLTFLoader();
         loader.load(
             url,
@@ -81,14 +92,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const center = box.getCenter(new THREE.Vector3());
                 model.position.sub(center);
                 scene.add(model);
+                hideLoadingState();
                 console.log('Modelo 3D carregado com sucesso.');
             },
             (xhr) => {
-                // Progresso de carregamento (opcional)
-                console.log(`Progresso do carregamento: ${Math.round(xhr.loaded / xhr.total * 100)}%`);
+                // Progresso de carregamento
+                const progress = (xhr.loaded / xhr.total) * 100;
+                updateLoadingProgress(progress);
             },
             (error) => {
                 console.error('Um erro ocorreu durante o carregamento do modelo 3D:', error);
+                showErrorState('Não foi possível carregar o modelo. Tente novamente mais tarde.');
             }
         );
     }
@@ -132,7 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (controls) controls.dispose();
         
         // Remove o canvas do DOM
-        container.removeChild(renderer.domElement);
+        const canvas = container.querySelector('canvas');
+        if (canvas) {
+            container.removeChild(canvas);
+        }
 
         // Reseta as variáveis para o estado inicial
         renderer = null;
@@ -144,10 +161,43 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Recursos do Three.js liberados.');
     }
 
+    // Funções de feedback para o usuário
+    function showLoadingState() {
+        container.innerHTML = `<div class="loading-overlay">
+            <div class="spinner-border text-primary" role="status"></div>
+            <p class="mt-2 text-center">Carregando modelo 3D...</p>
+        </div>`;
+    }
+
+    function updateLoadingProgress(progress) {
+        const loadingText = container.querySelector('.loading-overlay p');
+        if (loadingText) {
+            loadingText.textContent = `Carregando modelo 3D... (${Math.round(progress)}%)`;
+        }
+    }
+
+    function hideLoadingState() {
+        const loadingOverlay = container.querySelector('.loading-overlay');
+        if (loadingOverlay) {
+            loadingOverlay.remove();
+        }
+    }
+
+    function showErrorState(message) {
+        container.innerHTML = `<div class="error-message">
+            <p class="text-danger text-center">${message}</p>
+        </div>`;
+    }
+
     // Event Listeners do Modal
     model3dModal.addEventListener('shown.bs.modal', () => {
         initThreeJS(); // Inicializa a cena quando o modal é exibido
         onWindowResize(); // Garante o redimensionamento correto
+        
+        // Atualiza a cor de fundo caso o tema mude
+        if (scene) {
+            scene.background.set(getBackgroundColor());
+        }
     });
 
     model3dModal.addEventListener('hidden.bs.modal', () => {

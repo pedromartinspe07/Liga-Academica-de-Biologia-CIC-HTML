@@ -11,19 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu de navegação principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
-                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial da Liga Acadêmica de Biologia Imaculada Conceição">
+                    <img src="assets/images/logo.png" alt="Logo da Liga Acadêmica de Biologia Imaculada Conceição (LABIC)" height="40">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
@@ -70,8 +71,8 @@
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
-                                    <i class="fas fa-sun"></i>
-                                    <i class="fas fa-moon"></i>
+                                    <i class="fas fa-sun" aria-hidden="true"></i>
+                                    <i class="fas fa-moon" aria-hidden="true"></i>
                                 </label>
                             </div>
                         </li>
@@ -84,24 +85,24 @@
     <main class="page-content">
         <div class="container py-5">
             <h1 class="text-center display-4 fw-bold" data-aos="fade-up">Nossos Projetos de Pesquisa</h1>
-            <section class="content-section" data-aos="fade-up" data-aos-delay="100">
+            <section class="content-section" data-aos="fade-up" data-aos-delay="100" aria-labelledby="intro-heading">
                 <p class="lead text-center">Nesta seção, apresentamos os projetos de pesquisa desenvolvidos pelos alunos, sob a orientação do Professor Vanbasten Rocha. Cada projeto aborda um aspecto relevante dos impactos do Complexo Industrial Portuário de Suape, buscando soluções e análises aprofundadas sobre o equilíbrio entre o desenvolvimento e a sustentabilidade ambiental e social na região.</p>
             </section>
             
-            <section class="content-section" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="text-center fw-bold">Projetos por Ano</h2>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="200" aria-labelledby="projetos-por-ano-heading">
+                <h2 id="projetos-por-ano-heading" class="text-center fw-bold">Projetos por Ano</h2>
                 <div class="accordion" id="projetosAccordion">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThreeYear">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeYear" aria-expanded="false" aria-controls="collapseThreeYear" aria-label="Expandir projetos do 3º ano">
+                        <h3 class="accordion-header" id="headingThreeYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeYear" aria-expanded="false" aria-controls="collapseThreeYear">
                                 3º Ano
                             </button>
-                        </h2>
+                        </h3>
                         <div id="collapseThreeYear" class="accordion-collapse collapse" aria-labelledby="headingThreeYear" data-bs-parent="#projetosAccordion">
                             <div class="accordion-body">
-                                <h3 class="fw-bold">Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</h3>
+                                <h4>Bioindicadores da Qualidade da Água em Áreas de Influência do Porto de Suape: Avaliação da Saúde de Ecossistemas Costeiros.</h4>
                                 <p>Este projeto tem como objetivo principal avaliar a saúde dos ecossistemas costeiros na área de influência do Porto de Suape, utilizando bioindicadores da qualidade da água. A pesquisa visa identificar e monitorar organismos sensíveis a alterações ambientais, fornecendo um panorama sobre os impactos das atividades portuárias e industriais na biodiversidade aquática e na qualidade da água.</p>
-                                <h4 class="fw-bold">Membros:</h4>
+                                <h5>Membros:</h5>
                                 <ul>
                                     <li>Arthur Lemos</li>
                                     <li>Marília Laura</li>
@@ -115,16 +116,16 @@
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwoYearA">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearA" aria-expanded="false" aria-controls="collapseTwoYearA" aria-label="Expandir projetos do 2º ano A">
+                        <h3 class="accordion-header" id="headingTwoYearA">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearA" aria-expanded="false" aria-controls="collapseTwoYearA">
                                 2º Ano A
                             </button>
-                        </h2>
+                        </h3>
                         <div id="collapseTwoYearA" class="accordion-collapse collapse" aria-labelledby="headingTwoYearA" data-bs-parent="#projetosAccordion">
                             <div class="accordion-body">
-                                <h3 class="fw-bold">Rotas Alteradas? Investigando a conexão entre o porto de Suape e a ocorrência de tubarões na região metropolitana do Recife.</h3>
+                                <h4>Rotas Alteradas? Investigando a conexão entre o porto de Suape e a ocorrência de tubarões na região metropolitana do Recife.</h4>
                                 <p>Este projeto investiga a possível relação entre a expansão e as atividades do Porto de Suape e as mudanças nas rotas migratórias e na ocorrência de tubarões na região metropolitana do Recife. A pesquisa busca analisar dados de avistamentos, condições oceanográficas e o tráfego portuário para compreender se há uma correlação e quais as implicações para a segurança costeira e o ecossistema marinho.</p>
-                                <h4 class="fw-bold">Membros:</h4>
+                                <h5>Membros:</h5>
                                 <ul>
                                     <li>Flora Nascimento</li>
                                     <li>Gabriele Machado</li>
@@ -137,16 +138,16 @@
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwoYearB">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearB" aria-expanded="false" aria-controls="collapseTwoYearB" aria-label="Expandir projetos do 2º ano B">
+                        <h3 class="accordion-header" id="headingTwoYearB">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoYearB" aria-expanded="false" aria-controls="collapseTwoYearB">
                                 2º Ano B
                             </button>
-                        </h2>
+                        </h3>
                         <div id="collapseTwoYearB" class="accordion-collapse collapse" aria-labelledby="headingTwoYearB" data-bs-parent="#projetosAccordion">
                             <div class="accordion-body">
-                                <h3 class="fw-bold">Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.</h3>
+                                <h4>Análise dos Impactos do saneamento básico na saúde na ilha de Tatuoquinha, Porto de Suape.</h4>
                                 <p>O projeto se dedica a analisar os impactos do saneamento básico, ou a sua ausência, na saúde da população da ilha de Tatuoquinha, localizada na área do Porto de Suape. A pesquisa visa documentar as condições sanitárias, coletar dados epidemiológicos e correlacionar a infraestrutura de saneamento com a incidência de doenças, buscando propor melhorias e sensibilizar para a importância de investimentos na área.</p>
-                                <h4 class="fw-bold">Membros:</h4>
+                                <h5>Membros:</h5>
                                 <ul>
                                     <li>Giovana Silveira</li>
                                     <li>Júlia Silveira</li>
@@ -160,16 +161,16 @@
                         </div>
                     </div>
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOneYear">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneYear" aria-expanded="false" aria-controls="collapseOneYear" aria-label="Expandir projetos do 1º ano">
+                        <h3 class="accordion-header" id="headingOneYear">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneYear" aria-expanded="false" aria-controls="collapseOneYear">
                                 1º Ano
                             </button>
-                        </h2>
+                        </h3>
                         <div id="collapseOneYear" class="accordion-collapse collapse" aria-labelledby="headingOneYear" data-bs-parent="#projetosAccordion">
                             <div class="accordion-body">
-                                <h3 class="fw-bold">Biofiltração inteligente: avaliação da eficiência de diferentes espécies de macroalgas na remediação de Efluentes encontradas em áreas portuárias de Suape.</h3>
+                                <h4>Biofiltração inteligente: avaliação da eficiência de diferentes espécies de macroalgas na remediação de Efluentes encontradas em áreas portuárias de Suape.</h4>
                                 <p>Este projeto explora o potencial da biofiltração utilizando macroalgas para a remediação de efluentes em áreas portuárias de Suape. A pesquisa avaliará a eficiência de diferentes espécies de macroalgas na remoção de poluentes da água, buscando uma solução biológica e sustentável para o tratamento de resíduos industriais e portuários.</p>
-                                <h4 class="fw-bold">Membros:</h4>
+                                <h5>Membros:</h5>
                                 <ul>
                                     <li>Maria Eduarda Gaspar</li>
                                     <li>Mayra</li>
@@ -185,14 +186,14 @@
                 </div>
             </section>
             
-            <section class="content-section" data-aos="fade-up" data-aos-delay="300">
-                <h2 class="text-center fw-bold">Orientador</h2>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="300" aria-labelledby="orientador-heading">
+                <h2 id="orientador-heading" class="text-center fw-bold">Orientador</h2>
                 <p class="text-center">Todos os projetos são orientados pelo:</p>
                 <p class="lead text-center"><strong>Professor Vanbasten Rocha</strong></p>
             </section>
 
-            <section class="content-section" data-aos="fade-up" data-aos-delay="400">
-                <h2 class="text-center fw-bold">Metodologia Comum</h2>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="400" aria-labelledby="metodologia-heading">
+                <h2 id="metodologia-heading" class="text-center fw-bold">Metodologia Comum</h2>
                 <p class="text-center">Nossas pesquisas são de natureza exploratória e descritiva, utilizando abordagens quantitativas e qualitativas para garantir uma compreensão aprofundada e multifacetada dos temas. Cada grupo seguiu um processo estruturado em etapas claras e bem definidas, incluindo:</p>
                 <ol class="metodologia-list mx-auto" style="max-width: 800px;">
                     <li><strong>Revisão Bibliográfica Aprofundada:</strong> Levantamento e análise crítica de artigos científicos, teses, relatórios técnicos e publicações relevantes. <a href="https://scholar.google.com.br/" target="_blank" rel="noopener">Ver exemplos</a></li>
@@ -202,16 +203,16 @@
                 </ol>
             </section>
             
-            <section class="content-section" data-aos="fade-up" data-aos-delay="500">
-                <h2 class="text-center fw-bold">Ferramentas de Visualização</h2>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="500" aria-labelledby="ferramentas-visualizacao-heading">
+                <h2 id="ferramentas-visualizacao-heading" class="text-center fw-bold">Ferramentas de Visualização</h2>
                 <p class="text-center">Para a visualização e apresentação dos dados, todos os projetos empregaram o Chart.js, uma biblioteca JavaScript versátil para a criação de gráficos interativos. Essa ferramenta foi fundamental para transformar dados complexos em representações visuais compreensíveis, facilitando a comunicação dos achados de cada pesquisa ao público.</p>
             </section>
 
-            <section class="content-section" data-aos="fade-up" data-aos-delay="600">
-                <h2 class="text-center fw-bold">Protótipo 3D</h2>
+            <section class="content-section" data-aos="fade-up" data-aos-delay="600" aria-labelledby="prototipo-3d-heading">
+                <h2 id="prototipo-3d-heading" class="text-center fw-bold">Protótipo 3D</h2>
                 <p class="text-center">Conheça o nosso protótipo de monitoramento de água em um modelo 3D interativo.</p>
                 <div class="text-center mt-4">
-                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#model3dModal" aria-label="Abrir modelo 3D do protótipo">
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#model3dModal" aria-label="Abrir modelo 3D do protótipo de monitoramento de água">
                         Ver Modelo 3D
                     </button>
                 </div>
@@ -226,7 +227,7 @@
     <footer class="text-center py-4">
         <div class="container">
             <div class="social-footer-container mb-3">
-                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram da LABIC">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -246,7 +247,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6 d-flex justify-content-center align-items-center mb-3 mb-md-0">
-                                <div id="three-container" style="width: 100%; height: 400px;"></div>
+                                <div id="coral-reef-model-container" style="width: 100%; height: 400px;"></div>
                             </div>
                             <div class="col-md-6 modal-description">
                                 <p>Nós, como equipe, estamos criando um Protótipo de Monitoramento de Água do Porto de Suape Inteligente. Esse protótipo tem como propósito verificar o pH, a turbidez e a temperatura da água, identificando se há algum problema de pH.</p>
@@ -272,41 +273,6 @@
     <script src="js/main.js"></script>
     <script src="js/model2.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    html.classList.add('dark');
-                } else {
-                    html.classList.remove('dark');
-                }
-            };
-
-            const storedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (storedTheme) {
-                applyTheme(storedTheme);
-                if (darkModeToggle) {
-                    darkModeToggle.checked = storedTheme === 'dark';
-                }
-            } else {
-                applyTheme(prefersDark ? 'dark' : 'light');
-                if (darkModeToggle) {
-                    darkModeToggle.checked = prefersDark;
-                }
-            }
-
-            if (darkModeToggle) {
-                darkModeToggle.addEventListener('change', () => {
-                    const newTheme = darkModeToggle.checked ? 'dark' : 'light';
-                    applyTheme(newTheme);
-                    localStorage.setItem('theme', newTheme);
-                });
-            }
-        });
         AOS.init();
     </script>
 </body>

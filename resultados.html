@@ -11,19 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5e5p5d5e5p5u5g5u5g5u5g5u5g5u5g5u5g5u5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu de navegação principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
-                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial da Liga Acadêmica de Biologia Imaculada Conceição">
+                    <img src="assets/images/logo.png" alt="Logo da Liga Acadêmica de Biologia Imaculada Conceição (LABIC)" height="40">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
@@ -70,8 +71,8 @@
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
-                                    <i class="fas fa-sun"></i>
-                                    <i class="fas fa-moon"></i>
+                                    <i class="fas fa-sun" aria-hidden="true"></i>
+                                    <i class="fas fa-moon" aria-hidden="true"></i>
                                 </label>
                             </div>
                         </li>
@@ -85,16 +86,16 @@
         <div class="container py-5">
             <h1 class="text-center display-4 fw-bold" data-aos="fade-up">Análise e Conclusões dos Projetos</h1>
 
-            <section class="content-section" data-aos="fade-up" data-aos-delay="100">
-                <h2 class="fw-bold">Resumo dos Resultados</h2>
+            <section class="content-section" aria-labelledby="resumo-heading" data-aos="fade-up" data-aos-delay="100">
+                <h2 id="resumo-heading" class="fw-bold">Resumo dos Resultados</h2>
                 <p class="lead">Nesta seção, apresentamos os resultados obtidos por meio das pesquisas de nossos grupos. As análises dos dados e estudos secundários revelam correlações significativas entre as atividades do Complexo de Suape e diversos indicadores ambientais e sociais. Os gráficos interativos a seguir ilustram essas tendências, fornecendo uma base visual para nossas conclusões.</p>
             </section>
 
-            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="200">
-                <h2 class="fw-bold">Gráfico 1: Biofiltração de Efluentes por Macroalgas (1º Ano)</h2>
+            <section class="content-section chart-container" aria-labelledby="grafico1-heading" data-aos="fade-up" data-aos-delay="200">
+                <h2 id="grafico1-heading" class="fw-bold">Gráfico 1: Biofiltração de Efluentes por Macroalgas (1º Ano)</h2>
                 <div class="chart-controls mb-3">
                     <label for="grafico1-variavel" class="form-label">Visualizar:</label>
-                    <select id="grafico1-variavel" class="form-select d-inline-block w-auto">
+                    <select id="grafico1-variavel" class="form-select d-inline-block w-auto" aria-label="Selecionar variável do gráfico de biofiltração">
                         <option value="ambos">Eficiência de Remoção</option>
                         <option value="nitrato">Apenas Nitrato</option>
                         <option value="fosfato">Apenas Fosfato</option>
@@ -106,13 +107,13 @@
                     <canvas id="biofiltrationChart"></canvas>
                 </div>
                 <div class="chart-caption destaque-cientifico mt-3">
-                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
+                    <span class="badge bg-primary me-2"><i class="fas fa-flask" aria-hidden="true"></i> Análise</span>
                     <strong>Os dados indicam que as macroalgas possuem alta eficiência na remoção de nitratos e fosfatos.</strong> Esse achado é promissor para o desenvolvimento de sistemas de biofiltração inovadores e de baixo custo, que podem contribuir significativamente para a redução da poluição da água em Suape.
                 </div>
             </section>
 
-            <section class="content-section chart-container" data-aos="fade-up" data-aos-delay="300">
-                <h2 class="fw-bold">Gráfico 2: Qualidade da Água (3º Ano)</h2>
+            <section class="content-section chart-container" aria-labelledby="grafico2-heading" data-aos="fade-up" data-aos-delay="300">
+                <h2 id="grafico2-heading" class="fw-bold">Gráfico 2: Qualidade da Água (3º Ano)</h2>
                 <div class="chart-controls mb-3">
                     <button id="download-grafico2" class="btn btn-success">Baixar Dados CSV</button>
                 </div>
@@ -121,13 +122,13 @@
                     <canvas id="waterQualityChart"></canvas>
                 </div>
                 <div class="chart-caption destaque-cientifico mt-3">
-                    <span class="badge bg-primary me-2"><i class="fas fa-flask"></i> Análise</span>
+                    <span class="badge bg-primary me-2"><i class="fas fa-flask" aria-hidden="true"></i> Análise</span>
                     <strong>A análise dos bioindicadores mostra uma deterioração da qualidade da água em pontos próximos ao Complexo Portuário.</strong> Isso sugere que a descarga de efluentes e outras atividades estão impactando a saúde dos ecossistemas costeiros, reforçando a necessidade de monitoramento e controle rigorosos.
                 </div>
             </section>
 
-            <section class="content-section" data-aos="fade-up" data-aos-delay="400">
-                <h2 class="fw-bold">Conclusão Final</h2>
+            <section class="content-section" aria-labelledby="conclusao-heading" data-aos="fade-up" data-aos-delay="400">
+                <h2 id="conclusao-heading" class="fw-bold">Conclusão Final</h2>
                 <p>Nossos resultados confirmam que o progresso econômico de Suape, embora notável, não veio sem um custo ambiental considerável. A correlação direta entre o crescimento do polo industrial e o aumento da poluição da água e a degradação de ecossistemas demonstra a urgência de políticas de desenvolvimento mais sustentáveis e de tecnologias de mitigação mais eficazes. Este trabalho aponta para a necessidade de um monitoramento contínuo e de uma gestão ambiental mais rigorosa para que o desenvolvimento de Suape possa, de fato, se alinhar com a sustentabilidade. Esperamos que nossa pesquisa sirva como um ponto de partida para discussões futuras e ações concretas em prol do meio ambiente e das comunidades locais.</p>
             </section>
         </div>
@@ -136,7 +137,7 @@
     <footer class="text-center py-4">
         <div class="container">
             <div class="social-footer-container mb-3">
-                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram da LABIC">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -151,41 +152,6 @@
     <script src="js/main.js" defer></script>
     <script src="js/chart.js" defer></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const darkModeToggle = document.getElementById('darkModeToggle');
-            const html = document.documentElement;
-
-            const applyTheme = (theme) => {
-                if (theme === 'dark') {
-                    html.classList.add('dark');
-                } else {
-                    html.classList.remove('dark');
-                }
-            };
-
-            const storedTheme = localStorage.getItem('theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-            if (storedTheme) {
-                applyTheme(storedTheme);
-                if (darkModeToggle) {
-                    darkModeToggle.checked = storedTheme === 'dark';
-                }
-            } else {
-                applyTheme(prefersDark ? 'dark' : 'light');
-                if (darkModeToggle) {
-                    darkModeToggle.checked = prefersDark;
-                }
-            }
-
-            if (darkModeToggle) {
-                darkModeToggle.addEventListener('change', () => {
-                    const newTheme = darkModeToggle.checked ? 'dark' : 'light';
-                    applyTheme(newTheme);
-                    localStorage.setItem('theme', newTheme);
-                });
-            }
-        });
         AOS.init();
     </script>
 </body>

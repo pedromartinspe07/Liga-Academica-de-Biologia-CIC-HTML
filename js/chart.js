@@ -1,5 +1,4 @@
-// js/chart.js - Versão compatível com GitHub Pages
-
+// js/chart.js - Versão aprimorada e compatível com o tema do site
 console.log('Chart.js script carregado');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,12 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Cores obtidas do seu arquivo style.css
-    const primaryColor = getCssVariable('--primary-color') || '#004d40';
-    const accentGreen = getCssVariable('--accent-color-green') || '#81c784';
+    const primaryColor = getCssVariable('--primary-color') || '#0165b6';
+    const accentBlue = getCssVariable('--accent-color-blue') || '#50a4ca';
     const accentBrown = getCssVariable('--accent-color-brown') || '#a1887f';
-    const accentRed = '#D45D5D';
-    
-    console.log('Cores carregadas:', { primaryColor, accentGreen, accentBrown, accentRed });
+    const accentRed = '#D45D5D'; // Mantido para contraste visual
+
+    console.log('Cores carregadas:', { primaryColor, accentBlue, accentBrown, accentRed });
 
     // Dados originais dos gráficos
     const dadosGrafico1 = {
@@ -38,7 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         saude: [30, 65, 90]
     };
 
-    // Função para gerar CSV
+    /**
+     * @function exportarCSV
+     * Gera e baixa um arquivo CSV a partir dos dados fornecidos.
+     */
     function exportarCSV(headers, rows, nomeArquivo) {
         let csv = headers.join(',') + '\n';
         rows.forEach(row => {
@@ -55,188 +57,187 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(url);
     }
 
-    // ===========================================
-    // Gráfico 1: Biofiltração de Efluentes por Macroalgas
-    // ===========================================
+    /**
+     * @function initBiofiltrationChart
+     * Inicializa o primeiro gráfico de linha.
+     */
+    function initBiofiltrationChart() {
+        const chartElement = document.getElementById('biofiltrationChart');
+        if (!chartElement) {
+            console.error('Elemento do gráfico de biofiltração não encontrado.');
+            return;
+        }
 
-    const biofiltrationChartElement = document.getElementById('biofiltrationChart');
-    console.log('Elemento do gráfico 1 encontrado:', biofiltrationChartElement);
-    
-    if (biofiltrationChartElement) {
-        try {
-            function getDatasetsGrafico1(tipo) {
-                const datasets = [];
-                if (tipo === 'ambos' || tipo === 'nitrato') {
-                    datasets.push({
-                        label: 'Remoção de Nitrato (%)',
-                        data: dadosGrafico1.nitrato,
-                        borderColor: primaryColor,
-                        backgroundColor: 'rgba(0, 77, 64, 0.2)',
-                        tension: 0.4,
-                        pointStyle: 'circle',
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    });
-                }
-                if (tipo === 'ambos' || tipo === 'fosfato') {
-                    datasets.push({
-                        label: 'Remoção de Fosfato (%)',
-                        data: dadosGrafico1.fosfato,
-                        borderColor: accentGreen,
-                        backgroundColor: 'rgba(129, 199, 132, 0.2)',
-                        tension: 0.4,
-                        pointStyle: 'rectRot',
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    });
-                }
-                return datasets;
+        function getDatasets(tipo) {
+            const datasets = [];
+            if (tipo === 'ambos' || tipo === 'nitrato') {
+                datasets.push({
+                    label: 'Remoção de Nitrato (%)',
+                    data: dadosGrafico1.nitrato,
+                    borderColor: primaryColor,
+                    backgroundColor: 'rgba(1, 101, 182, 0.2)',
+                    tension: 0.4,
+                    pointStyle: 'circle',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                });
             }
+            if (tipo === 'ambos' || tipo === 'fosfato') {
+                datasets.push({
+                    label: 'Remoção de Fosfato (%)',
+                    data: dadosGrafico1.fosfato,
+                    borderColor: accentBlue,
+                    backgroundColor: 'rgba(80, 164, 202, 0.2)',
+                    tension: 0.4,
+                    pointStyle: 'rectRot',
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                });
+            }
+            return datasets;
+        }
 
-            let biofiltrationChart;
-            biofiltrationChart = new Chart(biofiltrationChartElement, {
-                type: 'line',
-                data: {
-                    labels: dadosGrafico1.labels,
-                    datasets: getDatasetsGrafico1('ambos')
+        const biofiltrationChart = new Chart(chartElement, {
+            type: 'line',
+            data: {
+                labels: dadosGrafico1.labels,
+                datasets: getDatasets('ambos')
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Eficiência de Remoção de Poluentes por Macroalgas',
+                        font: { size: 18, family: 'Merriweather' }
                     },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Eficiência de Remoção de Poluentes por Macroalgas',
-                            font: { size: 18, family: 'Montserrat' }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += `${context.parsed.y}%`;
-                                    return label;
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
                                 }
+                                label += `${context.parsed.y}%`;
+                                return label;
                             }
                         }
-                    },
-                    scales: {
-                        y: {
-                            title: {
-                                display: true,
-                                text: 'Eficiência de Remoção (%)',
-                                font: { size: 14, family: 'Open Sans' }
-                            },
-                            beginAtZero: true,
-                            suggestedMax: 100
-                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Eficiência de Remoção (%)',
+                            font: { size: 14, family: 'Poppins' }
+                        },
+                        beginAtZero: true,
+                        suggestedMax: 100
                     }
                 }
+            }
+        });
+
+        // Event listener para o filtro
+        const selectElement = document.getElementById('grafico1-variavel');
+        if (selectElement) {
+            selectElement.addEventListener('change', (e) => {
+                const tipo = e.target.value;
+                biofiltrationChart.data.datasets = getDatasets(tipo);
+                biofiltrationChart.update();
             });
-
-            // Filtro de variáveis
-            const selectGrafico1 = document.getElementById('grafico1-variavel');
-            if (selectGrafico1) {
-                selectGrafico1.addEventListener('change', (e) => {
-                    const tipo = e.target.value;
-                    biofiltrationChart.data.datasets = getDatasetsGrafico1(tipo);
-                    biofiltrationChart.update();
-                });
-            }
-
-            // Botão de download CSV
-            const btnDownload1 = document.getElementById('download-grafico1');
-            if (btnDownload1) {
-                btnDownload1.addEventListener('click', () => {
-                    const headers = ['Espécie', 'Remoção de Nitrato (%)', 'Remoção de Fosfato (%)'];
-                    const rows = dadosGrafico1.labels.map((especie, i) => [especie, dadosGrafico1.nitrato[i], dadosGrafico1.fosfato[i]]);
-                    exportarCSV(headers, rows, 'biofiltracao_macroalgas.csv');
-                });
-            }
-
-        } catch (error) {
-            console.error('Erro ao criar o gráfico 1:', error);
         }
-    } else {
-        console.error('Elemento biofiltrationChart não encontrado');
+        
+        // Event listener para o download
+        const downloadBtn = document.getElementById('download-grafico1');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                const headers = ['Espécie', 'Remoção de Nitrato (%)', 'Remoção de Fosfato (%)'];
+                const rows = dadosGrafico1.labels.map((especie, i) => [especie, dadosGrafico1.nitrato[i], dadosGrafico1.fosfato[i]]);
+                exportarCSV(headers, rows, 'biofiltracao_macroalgas.csv');
+            });
+        }
     }
 
-    // ===========================================
-    // Gráfico 2: Qualidade da Água (Bioindicadores)
-    // ===========================================
+    /**
+     * @function initWaterQualityChart
+     * Inicializa o segundo gráfico de barras.
+     */
+    function initWaterQualityChart() {
+        const chartElement = document.getElementById('waterQualityChart');
+        if (!chartElement) {
+            console.error('Elemento do gráfico de qualidade da água não encontrado.');
+            return;
+        }
 
-    const waterQualityChartElement = document.getElementById('waterQualityChart');
-    console.log('Elemento do gráfico 2 encontrado:', waterQualityChartElement);
-    
-    if (waterQualityChartElement) {
-        try {
-            const waterQualityChart = new Chart(waterQualityChartElement, {
-                type: 'bar',
-                data: {
-                    labels: dadosGrafico2.labels,
-                    datasets: [{
-                        label: 'Índice de Saúde do Ecossistema',
-                        data: dadosGrafico2.saude,
-                        backgroundColor: [accentRed, accentBrown, accentGreen],
-                        borderColor: [accentRed, accentBrown, accentGreen],
-                        borderWidth: 1,
-                        barPercentage: 0.6,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Índice de Saúde do Ecossistema Costeiro por Ponto de Coleta',
-                            font: { size: 18, family: 'Montserrat' }
-                        },
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    return `${context.dataset.label}: ${context.parsed.y}`;
-                                }
+        const waterQualityChart = new Chart(chartElement, {
+            type: 'bar',
+            data: {
+                labels: dadosGrafico2.labels,
+                datasets: [{
+                    label: 'Índice de Saúde do Ecossistema',
+                    data: dadosGrafico2.saude,
+                    backgroundColor: [accentRed, accentBrown, accentBlue],
+                    borderColor: [accentRed, accentBrown, accentBlue],
+                    borderWidth: 1,
+                    barPercentage: 0.6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Índice de Saúde do Ecossistema Costeiro por Ponto de Coleta',
+                        font: { size: 18, family: 'Merriweather' }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.dataset.label}: ${context.parsed.y}`;
                             }
                         }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Índice de Saúde (0-100)',
-                                font: { size: 14, family: 'Open Sans' }
-                            },
-                            suggestedMax: 100
-                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Índice de Saúde (0-100)',
+                            font: { size: 14, family: 'Poppins' }
+                        },
+                        suggestedMax: 100
                     }
                 }
-            });
-
-            // Botão de download CSV para gráfico 2
-            const btnDownload2 = document.getElementById('download-grafico2');
-            if (btnDownload2) {
-                btnDownload2.addEventListener('click', () => {
-                    const headers = ['Ponto de Coleta', 'Índice de Saúde do Ecossistema'];
-                    const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.saude[i]]);
-                    exportarCSV(headers, rows, 'qualidade_agua_suape.csv');
-                });
             }
+        });
 
-        } catch (error) {
-            console.error('Erro ao criar o gráfico 2:', error);
+        // Event listener para o download
+        const downloadBtn = document.getElementById('download-grafico2');
+        if (downloadBtn) {
+            downloadBtn.addEventListener('click', () => {
+                const headers = ['Ponto de Coleta', 'Índice de Saúde do Ecossistema'];
+                const rows = dadosGrafico2.labels.map((label, i) => [label, dadosGrafico2.saude[i]]);
+                exportarCSV(headers, rows, 'qualidade_agua_suape.csv');
+            });
         }
-    } else {
-        console.error('Elemento waterQualityChart não encontrado');
+    }
+
+    // Inicializa os gráficos
+    try {
+        initBiofiltrationChart();
+        initWaterQualityChart();
+    } catch (error) {
+        console.error('Um erro ocorreu durante a inicialização dos gráficos:', error);
     }
 });

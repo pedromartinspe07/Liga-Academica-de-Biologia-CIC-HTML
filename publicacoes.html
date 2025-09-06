@@ -11,19 +11,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu principal">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" aria-label="Menu de navegação principal">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html" aria-label="Página inicial LABIC">
-                    <img src="assets/images/logo.png" alt="Logo LABIC" height="40">
+                <a class="navbar-brand" href="index.html" aria-label="Página inicial da Liga Acadêmica de Biologia Imaculada Conceição">
+                    <img src="assets/images/logo.png" alt="Logo da Liga Acadêmica de Biologia Imaculada Conceição (LABIC)" height="40">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alternar navegação">
                     <span class="navbar-toggler-icon"></span>
@@ -70,8 +71,8 @@
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle" aria-label="Alternar modo escuro">
                                 <label class="form-check-label" for="darkModeToggle">
-                                    <i class="fas fa-sun"></i>
-                                    <i class="fas fa-moon"></i>
+                                    <i class="fas fa-sun" aria-hidden="true"></i>
+                                    <i class="fas fa-moon" aria-hidden="true"></i>
                                 </label>
                             </div>
                         </li>
@@ -81,23 +82,24 @@
         </nav>
     </header>
 
-    <main>
+    <main class="page-content">
         <div class="container my-5">
-            <section class="content-section">
-                <h1 class="text-center" data-aos="fade-up">Publicações</h1>
+            <section class="content-section" aria-labelledby="publicacoes-heading">
+                <h1 id="publicacoes-heading" class="text-center display-4 fw-bold" data-aos="fade-up">Publicações</h1>
                 <p class="text-center lead" data-aos="fade-up" data-aos-delay="100">Acesse artigos, relatórios e apresentações produzidos pelos grupos de pesquisa da Liga Acadêmica de Biologia Imaculada Conceição.</p>
             </section>
             
-            <section class="publication-list mt-5">
+            <section class="publication-list mt-5" aria-labelledby="lista-publicacoes-heading">
+                <h2 id="lista-publicacoes-heading" class="visually-hidden">Lista de Publicações</h2>
                 <div class="row">
                     <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="publication-item">
-                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento PDF" class="publication-icon">
                             <div class="publication-details">
                                 <h3>Avaliação da Qualidade da Água em Ecossistemas Costeiros Utilizando Macroinvertebrados Bentônicos</h3>
                                 <p class="pub-description">Este artigo científico explora a utilização de macroinvertebrados bentônicos como bioindicadores eficazes para monitorar a saúde de rios e estuários, com foco em áreas de influência industrial. A pesquisa demonstra como a diversidade e abundância dessas espécies podem revelar o grau de poluição hídrica e os impactos ambientais crônicos.</p>
                                 <div class="publication-actions">
-                                    <a href="assets/docs/relatorio_3_ano_1.pdf" class="download-link"><i class="fas fa-file-pdf"></i> Download do Artigo</a>
+                                    <a href="assets/docs/relatorio_3_ano_1.pdf" class="download-link" aria-label="Baixar o Artigo em PDF: Avaliação da Qualidade da Água"><i class="fas fa-file-pdf"></i> Download do Artigo</a>
                                 </div>
                             </div>
                         </div>
@@ -105,12 +107,12 @@
 
                     <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="publication-item">
-                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento PDF" class="publication-icon">
                             <div class="publication-details">
                                 <h3>"Rotas Alteradas?": Análise da Relação entre a Expansão Portuária e a Incidência de Tubarões em Pernambuco</h3>
                                 <p class="pub-description">Um estudo aprofundado sobre os possíveis fatores ambientais e comportamentais que podem ter influenciado a migração de tubarões para áreas de banho no litoral pernambucano. A pesquisa avalia o papel da alteração de estuários e manguezais, bem como o tráfego de embarcações, no comportamento de espécies como o tubarão-tigre e o cabeça-chata. Embora o Ministério Público Federal tenha arquivado o inquérito que investigava a relação direta, o estudo científico ressalta a importância da gestão ambiental contínua e da prevenção para reduzir o risco de novos episódios.</p>
                                 <div class="publication-actions">
-                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Relatório Técnico</a>
+                                    <a href="#" class="download-link" aria-label="Baixar o Relatório Técnico em PDF: Rotas Alteradas?"><i class="fas fa-file-pdf"></i> Download do Relatório Técnico</a>
                                 </div>
                             </div>
                         </div>
@@ -118,12 +120,12 @@
                     
                     <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
                         <div class="publication-item">
-                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento PDF" class="publication-icon">
                             <div class="publication-details">
                                 <h3>Saneamento Básico e Saúde Pública: Uma Análise do Impacto em Comunidades Vulneráveis</h3>
                                 <p class="pub-description">Este trabalho avalia a correlação direta entre a deficiência de serviços de saneamento básico e o aumento de doenças infecciosas em comunidades próximas a áreas industriais. O estudo demonstra a urgência de políticas públicas eficazes e de investimentos em infraestrutura sanitária para mitigar agravos à saúde e reduzir gastos públicos com internações evitáveis.</p>
                                 <div class="publication-actions">
-                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download do Estudo</a>
+                                    <a href="#" class="download-link" aria-label="Baixar o Estudo em PDF: Saneamento Básico e Saúde Pública"><i class="fas fa-file-pdf"></i> Download do Estudo</a>
                                 </div>
                             </div>
                         </div>
@@ -131,12 +133,12 @@
 
                     <article class="col-md-6 mb-4" data-aos="fade-up" data-aos-delay="500">
                         <div class="publication-item">
-                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento" class="publication-icon">
+                            <img src="assets/images/doc-icon.svg" alt="Ícone de Documento PDF" class="publication-icon">
                             <div class="publication-details">
                                 <h3>Eficiência de Macroalgas na Biofiltração de Efluentes</h3>
                                 <p class="pub-description">Uma pesquisa inovadora que investiga o potencial de espécies de macroalgas como agentes de biofiltração para a remediação de efluentes industriais. O estudo analisa a capacidade dessas algas de absorver e metabolizar poluentes, propondo uma solução biológica e sustentável para o tratamento de águas contaminadas. O uso de bioindicadores, como macroinvertebrados, na avaliação da qualidade da água também é considerado como um indicador de eficiência na remediação.</p>
                                 <div class="publication-actions">
-                                    <a href="#" class="download-link"><i class="fas fa-file-pdf"></i> Download da Apresentação</a>
+                                    <a href="#" class="download-link" aria-label="Baixar a Apresentação em PDF: Eficiência de Macroalgas na Biofiltração"><i class="fas fa-file-pdf"></i> Download da Apresentação</a>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +151,7 @@
     <footer class="text-center py-4">
         <div class="container">
             <div class="social-footer-container mb-3">
-                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram">
+                <a href="https://www.instagram.com/labic.imaculada?igsh=MTU4bWVoMGsxOGxvbg==" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Perfil do Instagram da LABIC">
                     <i class="fab fa-instagram"></i>
                 </a>
             </div>
@@ -161,5 +163,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="js/main.js" defer></script>
+    <script>
+        AOS.init();
+    </script>
 </body>
 </html>
