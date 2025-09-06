@@ -20,6 +20,19 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Estilos específicos para a imagem do time LABIC em dispositivos móveis */
+        @media (max-width: 768px) { /* Aplica para telas com largura máxima de 768px (típico para tablets e celulares) */
+            .hero-section .hero-image {
+                width: 100%; /* Largura total da tela */
+                max-width: 300px; /* Limita a largura máxima para não ficar muito grande em alguns celulares */
+                height: auto; /* Mantém a proporção da imagem */
+                display: block; /* Garante que a imagem se comporta como um bloco para margin auto funcionar */
+                margin: 0 auto; /* Centraliza a imagem */
+            }
+        }
+    </style>
 </head>
 <body>
 
