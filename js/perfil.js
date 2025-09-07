@@ -21,76 +21,84 @@ const logoutButton = document.getElementById('logout-button');
 const uploadPhotoForm = document.getElementById('upload-photo-form');
 const photoInput = document.getElementById('photo-input');
 const uploadStatusMessage = document.getElementById('upload-status-message');
-const progressBar = document.querySelector('.progress');
+const painelLink = document.getElementById('painel-link'); // Novo elemento para o link do painel
 
-// Verifica o estado da autenticação do usuário
+
+// Listener de autenticação para carregar dados do usuário
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         // Usuário logado
-        userNameDisplay.textContent = user.displayName || 'Usuário sem nome';
-        userEmailDisplay.textContent = user.email || 'E-mail não disponível';
-        userPhotoDisplay.src = user.photoURL || 'assets/images/default-avatar.png';
+        userEmailDisplay.textContent = user.email;
         userIdDisplay.textContent = user.uid;
 
-        // Busca dados adicionais do Firestore
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDocSnap = await getDoc(userDocRef);
-        if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            userSerieDisplay.textContent = userData.serie || 'Não informado';
-            userTurmaDisplay.textContent = userData.turma || 'Não informado';
-            userRoleDisplay.textContent = userData.role || 'Não informado';
-        } else {
-            console.log("Documento do usuário não encontrado no Firestore!");
+        // Ocultar a seção de upload se ela não for relevante para o usuário
+        if (uploadPhotoForm) {
+            uploadPhotoForm.style.display = 'block';
         }
 
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const role = userData.role || 'membro'; // Pega o cargo do usuário ou define como 'membro'
+
+            if (userNameDisplay) userNameDisplay.textContent = userData.name || 'Nome não definido';
+            if (userPhotoDisplay) userPhotoDisplay.src = userData.photoURL || user.photoURL || 'assets/images/default-avatar.png';
+            if (userSerieDisplay) userSerieDisplay.textContent = userData.serie || 'Não informado';
+            if (userTurmaDisplay) userTurmaDisplay.textContent = userData.turma || 'Não informado';
+            if (userRoleDisplay) userRoleDisplay.textContent = role;
+
+            // Mostra o link do painel de controle apenas se o cargo for 'editorChefe' ou 'developer'
+            if (painelLink && (role === 'editorChefe' || role === 'developer')) {
+                painelLink.classList.remove('d-none');
+            }
+
+        } else {
+            console.log("Documento do usuário não encontrado no Firestore.");
+        }
     } else {
         // Usuário não logado, redireciona para a página de login
         window.location.href = 'login.html';
     }
 });
 
-// Lida com o upload da foto de perfil
+// Lidar com o upload de fotos de perfil (se o formulário existir)
 uploadPhotoForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const user = auth.currentUser;
-    if (!user) {
-        uploadStatusMessage.className = 'alert alert-danger';
-        uploadStatusMessage.textContent = 'Nenhum usuário logado.';
-        return;
-    }
 
     const file = photoInput.files[0];
     if (!file) {
-        uploadStatusMessage.className = 'alert alert-warning';
-        uploadStatusMessage.textContent = 'Nenhuma foto selecionada.';
+        uploadStatusMessage.className = 'alert alert-danger';
+        uploadStatusMessage.textContent = 'Por favor, selecione uma imagem para upload.';
         return;
     }
 
-    // Cria uma referência para o arquivo no Firebase Storage
-    // O nome do arquivo será o UID do usuário para garantir unicidade
-    const storageRef = ref(storage, `profile_pictures/${user.uid}/${file.name}`);
+    const user = auth.currentUser;
+    if (!user) {
+        uploadStatusMessage.className = 'alert alert-danger';
+        uploadStatusMessage.textContent = 'Erro de autenticação. Tente fazer login novamente.';
+        return;
+    }
+
+    const storageRef = ref(storage, `profile_photos/${user.uid}/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Exibe a barra de progresso
+    const progressBar = document.getElementById('upload-progress');
     progressBar.style.display = 'block';
 
-    // Monitora o progresso do upload
-    uploadTask.on('state_changed', 
+    uploadTask.on('state_changed',
         (snapshot) => {
+            // Progresso do upload
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            const progressBarElement = progressBar.querySelector('.progress-bar');
-            progressBarElement.style.width = progress + '%';
-            progressBarElement.setAttribute('aria-valuenow', progress);
-            uploadStatusMessage.className = 'alert alert-info';
-            uploadStatusMessage.textContent = `Upload em andamento... ${Math.round(progress)}%`;
-        }, 
+            progressBar.style.width = `${progress}%`;
+        },
         (error) => {
+            // Lidar com erros
             console.error("Erro no upload: ", error);
             uploadStatusMessage.className = 'alert alert-danger';
             uploadStatusMessage.textContent = `Erro no upload: ${error.message}`;
             progressBar.style.display = 'none';
-        }, 
+        },
         async () => {
             // Upload concluído com sucesso
             try {
