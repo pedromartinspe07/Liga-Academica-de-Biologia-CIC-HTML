@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle - LABIC</title>
-    <meta name="description" content="Painel de controle para membros da equipe LABIC.">
+    <meta name="description" content="Painel de controle para gerenciar conteúdo do site.">
     
     <link rel="icon" href="assets/images/favicon.ico">
     
@@ -61,14 +61,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contato.html">Contato</a>
                         </li>
-                        <li class="nav-item" id="nav-login-link">
+                        <li class="nav-item d-none" id="nav-login-link">
                             <a class="nav-link" href="login.html">Login</a>
                         </li>
-                        <li class="nav-item" id="nav-cadastro-link">
+                        <li class="nav-item d-none" id="nav-cadastro-link">
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
                         </li>
-                        <li class="nav-item" id="nav-perfil-link">
+                        <li class="nav-item d-none" id="nav-perfil-link">
                             <a class="nav-link" href="perfil.html">Perfil</a>
+                        </li>
+                        <li class="nav-item d-none" id="nav-painel-link">
+                            <a class="nav-link active" aria-current="page" href="painel.html">Painel</a>
                         </li>
                         <li class="nav-item d-flex align-items-center me-3">
                             <a href="https://limewire.com/d/5uHSc#LsMhcOLtu5" target="_blank" class="btn btn-primary app-download-btn d-flex flex-column align-items-center" aria-label="Baixar o aplicativo LABIC (versão Android)">
@@ -93,34 +96,49 @@
     </header>
 
     <main class="page-content">
-        <div class="container my-5">
-            <section class="content-section text-center" aria-labelledby="painel-heading" data-aos="fade-up">
-                <h1 id="painel-heading" class="display-4 fw-bold">Painel de Controle</h1>
-                <p class="lead">Área exclusiva para a gestão de conteúdo e dados do projeto.</p>
-                <div class="row mt-5">
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 p-3">
-                            <h4>Gerenciar Dados</h4>
-                            <p>Atualize e visualize dados de pesquisa, gráficos e tabelas.</p>
-                            <a href="#" class="btn btn-primary mt-auto">Acessar</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 p-3">
-                            <h4>Gerenciar Publicações</h4>
-                            <p>Adicione, edite ou remova publicações e artigos científicos.</p>
-                            <a href="#" class="btn btn-primary mt-auto">Acessar</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="card h-100 p-3">
-                            <h4>Gerenciar Blog</h4>
-                            <p>Publique novas postagens e atualize o conteúdo do blog.</p>
-                            <a href="#" class="btn btn-primary mt-auto">Acessar</a>
+        <div class="container my-5" data-aos="fade-up">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <h1 class="card-title text-center mb-4">Painel de Controle</h1>
+                            <p class="text-center text-muted">Adicione ou edite o conteúdo do site.</p>
+                            <hr>
+                            <div id="painel-content">
+                                <div id="status-message"></div>
+                                <form id="add-blog-post-form">
+                                    <h3 class="mb-3">Adicionar Novo Post no Blog</h3>
+                                    <div class="mb-3">
+                                        <label for="post-title" class="form-label">Título do Post</label>
+                                        <input type="text" class="form-control" id="post-title" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="post-category" class="form-label">Categoria</label>
+                                        <select class="form-select" id="post-category" required>
+                                            <option value="noticias">Notícias</option>
+                                            <option value="artigos">Artigos</option>
+                                            <option value="publicacoes">Publicações</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="post-image-url" class="form-label">URL da Imagem</label>
+                                        <input type="url" class="form-control" id="post-image-url" placeholder="https://exemplo.com/imagem.jpg">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="post-excerpt" class="form-label">Resumo</label>
+                                        <textarea class="form-control" id="post-excerpt" rows="3" required></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="post-content" class="form-label">Conteúdo do Post</label>
+                                        <textarea class="form-control" id="post-content" rows="10" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Adicionar Post</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </main>
     
@@ -136,37 +154,28 @@
         </div>
     </footer>
 
-    <div class="collaborators-container mb-3">
-        <a href="https://cicrecife.com.br/novo/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da CIC">
-            <img src="assets/images/cic_profile_1.png" alt="Logo CIC">
-        </a>
-        <a href="https://www.instagram.com/capibar_recapibaribe/" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram da Recapibaribe">
-            <img src="assets/images/recapibaribe_profile_1.png" alt="Logo Recapibaribe">
-        </a>
-        <a href="https://cicrecife.com.br/novo/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da RFBC">
-            <img src="assets/images/rfbc_profile_1.png" alt="Logo RFBC">
-        </a>
-        <a href="https://www.neoenergia.com/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da Neoenergia">
-            <img src="assets/images/neoenergia_profile_1.png" alt="Logo Neoenergia">
-        </a>
-        <a href="https://www.instagram.com/grupofausto/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram do Grupo Fausto">
-            <img src="assets/images/fausto_profile_1.png" alt="Logo Fausto">
-        </a>
-        <a href="https://asanet.com.br/asa/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da ASA">
-            <img src="assets/images/asa_profile_1.png" alt="Logo ASA">
-        </a>
-        <a href="https://portalfazenda.org.br/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da Fazenda da Esperança">
-            <img src="assets/images/fazenda_da_esperanca_profile_1.png" alt="Logo Fazenda da Esperança">
-        </a>
-    </div>
+    <aside class="collaborators-container mb-3" aria-labelledby="collaborators-heading">
+        <h2 id="collaborators-heading" class="visually-hidden">Colaboradores e Parceiros</h2>
+        <ul class="list-unstyled d-flex flex-wrap justify-content-center gap-3">
+            <li><a href="https://cicrecife.com.br/novo/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da CIC"><img src="assets/images/cic_profile_1.png" alt="Logo da CIC"></a></li>
+            <li><a href="https://www.instagram.com/capibar_recapibaribe/" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram da Recapibaribe"><img src="assets/images/recapibaribe_profile_1.png" alt="Logo da Recapibaribe"></a></li>
+            <li><a href="https://cicrecife.com.br/novo/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da RFBC"><img src="assets/images/rfbc_profile_1.png" alt="Logo da RFBC"></a></li>
+            <li><a href="https://www.neoenergia.com/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da Neoenergia"><img src="assets/images/neoenergia_profile_1.png" alt="Logo da Neoenergia"></a></li>
+            <li><a href="https://www.instagram.com/grupofausto/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Acessar Instagram do Grupo Fausto"><img src="assets/images/fausto_profile_1.png" alt="Logo do Grupo Fausto"></a></li>
+            <li><a href="https://asanet.com.br/asa/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da ASA"><img src="assets/images/asa_profile_1.png" alt="Logo da ASA"></a></li>
+            <li><a href="https://portalfazenda.org.br/" target="_blank" rel="noopener noreferrer" aria-label="Acessar site da Fazenda da Esperança"><img src="assets/images/fazenda_da_esperanca_profile_1.png" alt="Logo da Fazenda da Esperança"></a></li>
+        </ul>
+    </aside>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="js/main.js" defer></script>
-    <script src="js/log.js" defer></script>
-    <script type="module" src="js/perfil.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/painel.js"></script>
     <script>
-        AOS.init();
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init();
+        });
     </script>
 </body>
 </html>

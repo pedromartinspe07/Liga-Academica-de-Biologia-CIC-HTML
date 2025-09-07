@@ -1,22 +1,22 @@
 // js/blog.js
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, addDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
 // Mapeia o caminho da sua coleção de dados no Firestore
-const POSTS_COLLECTION_PATH = "posts";
+// Usamos "blog_posts" conforme o painel de controle criado
+const POSTS_COLLECTION_PATH = "blog_posts";
 
-// 1. Configure seu Firebase aqui
-// Substitua "YOUR_..." pela sua configuração real do Firebase
+// Sua configuração do app Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDaAawNtQVo1ovIPGyN_LlTeR5KquZDfJ8",
     authDomain: "labic-html.firebaseapp.com",
     projectId: "labic-html",
     storageBucket: "labic-html.firebasestorage.app",
     messagingSenderId: "283475569681",
-    appId: "1:283475569681:web:4108a0c6fe9621972e55b0",
-    measurementId: "G-ZTLBKTZNYV"
+    appId: "1:283475569681:web:266a4f6cb5806a7d2e55b0",
+    measurementId: "G-PXYHN7HKSF"
 };
 
 let app;
@@ -24,7 +24,6 @@ let db;
 let auth;
 
 // Melhoria: Inicializa o Firebase de forma mais robusta com tratamento de erros.
-// Isso resolve o erro 'auth/configuration-not-found' de forma mais segura.
 try {
     app = initializeApp(firebaseConfig);
     auth = getAuth(app);
@@ -45,9 +44,7 @@ try {
 
 // Otimização: Cache de elementos DOM para evitar buscas repetidas.
 const allPostsContainer = document.getElementById('all-posts');
-const addPostForm = document.getElementById('add-post-form');
 const filterButtons = document.querySelectorAll('[data-filter]');
-const messageContainer = document.getElementById('message-container');
 const initialLoading = document.getElementById('initial-loading');
 
 /**
@@ -56,19 +53,20 @@ const initialLoading = document.getElementById('initial-loading');
  * @returns {string} O HTML do card.
  */
 function renderPost(post) {
-    const date = post.timestamp ? new Date(post.timestamp.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Data Indisponível';
+    const date = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Data Indisponível';
     
     // Melhoria: Usando uma imagem de fallback mais genérica e segura.
     const imageUrl = post.imageUrl && post.imageUrl.startsWith('http') ? post.imageUrl : 'https://placehold.co/600x400/f0f0f0/909090?text=Imagem+LABIC';
+    const category = post.category ? post.category.charAt(0).toUpperCase() + post.category.slice(1) : 'Geral';
 
     return `
-        <div class="col" data-category="${post.category}" data-aos="fade-up">
+        <div class="col" data-category="${post.category || 'geral'}" data-aos="fade-up">
             <div class="card h-100 shadow-sm blog-post-card">
                 <img src="${imageUrl}" class="card-img-top blog-post-image" alt="${post.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/f0f0f0/909090?text=Imagem+Nao+Encontrada';">
-                <div class="card-body">
-                    <span class="badge bg-primary mb-2">${post.category.charAt(0).toUpperCase() + post.category.slice(1)}</span>
+                <div class="card-body d-flex flex-column">
+                    <span class="badge bg-primary mb-2" style="width: fit-content;">${category}</span>
                     <h5 class="card-title fw-bold">${post.title}</h5>
-                    <p class="card-text">${post.excerpt}</p>
+                    <p class="card-text">${post.excerpt || post.content.substring(0, 150) + '...'}</p>
                     <a href="#" class="btn btn-outline-primary mt-auto">Ler mais <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
                 </div>
                 <div class="card-footer text-muted">
@@ -86,7 +84,7 @@ function fetchBlogPosts() {
     if (!db) return;
     
     const postsCollection = collection(db, POSTS_COLLECTION_PATH);
-    const q = query(postsCollection, orderBy("timestamp", "desc"));
+    const q = query(postsCollection, orderBy("createdAt", "desc"));
     
     // Otimização: Acompanha as mudanças na coleção em tempo real.
     onSnapshot(q, (snapshot) => {
@@ -105,34 +103,6 @@ function fetchBlogPosts() {
         initialLoading.innerHTML = '<p class="text-danger w-100">Erro ao carregar as postagens. Tente novamente mais tarde.</p>';
     });
 }
-
-// Lidar com o envio do formulário para adicionar um novo post
-addPostForm?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!db) {
-        messageContainer.innerHTML = '<div class="alert alert-danger" role="alert">O banco de dados não está disponível.</div>';
-        return;
-    }
-
-    const formElements = e.target.elements;
-    const newPost = {
-        title: formElements.postTitle.value,
-        category: formElements.postCategory.value,
-        imageUrl: formElements.postImage.value,
-        excerpt: formElements.postExcerpt.value,
-        content: formElements.postContent.value,
-        timestamp: serverTimestamp(),
-    };
-
-    try {
-        await addDoc(collection(db, POSTS_COLLECTION_PATH), newPost);
-        messageContainer.innerHTML = '<div class="alert alert-success" role="alert">Postagem adicionada com sucesso!</div>';
-        addPostForm.reset();
-    } catch (error) {
-        console.error("Erro ao adicionar documento: ", error);
-        messageContainer.innerHTML = '<div class="alert alert-danger" role="alert">Erro ao adicionar a postagem. Tente novamente.</div>';
-    }
-});
 
 // Funcionalidade de filtro
 filterButtons.forEach(button => {
@@ -157,9 +127,4 @@ filterButtons.forEach(button => {
         });
         AOS.refreshHard();
     });
-});
-
-// Inicializa a biblioteca AOS para animações ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-    AOS.init();
 });
