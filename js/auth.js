@@ -9,7 +9,7 @@ import {
     GoogleAuthProvider, 
     signInWithPopup
 } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
 
 // Sua configuração do app Firebase (você pode manter ou mover para um arquivo separado)
 const firebaseConfig = {
@@ -40,13 +40,13 @@ if (registerForm) {
                 const user = userCredential.user;
                 console.log("Usuário cadastrado com e-mail:", user);
                 
-                // Cria um documento no Firestore com o papel 'membro'
+                // Cria um documento no Firestore com o papel 'pendente'
                 const userRef = doc(db, "users", user.uid);
                 await setDoc(userRef, {
-                    role: "membro"
+                    role: "pendente"
                 });
                 
-                window.location.href = "perfil.html";
+                window.location.href = "aprovacao_pendente.html";
             })
             .catch((error) => {
                 console.error("Erro no cadastro:", error.message);
@@ -65,13 +65,13 @@ if (googleSignInButton) {
                 const user = result.user;
                 console.log("Usuário cadastrado com Google:", user);
 
-                // Cria um documento no Firestore com o papel 'membro'
+                // Cria um documento no Firestore com o papel 'pendente'
                 const userRef = doc(db, "users", user.uid);
                 await setDoc(userRef, {
-                    role: "membro"
+                    role: "pendente"
                 });
 
-                window.location.href = "perfil.html";
+                window.location.href = "aprovacao_pendente.html";
             })
             .catch((error) => {
                 console.error("Erro no cadastro com Google:", error.message);
@@ -115,17 +115,39 @@ if (logoutButton) {
 }
 
 // --- Monitora o estado da autenticação (para todas as páginas que o usam) ---
-onAuthStateChanged(auth, (user) => {
-    // Se o usuário não estiver logado e a página for a de perfil, redireciona para login
-    if (!user && window.location.pathname.endsWith("perfil.html")) {
+onAuthStateChanged(auth, async (user) => {
+    // Se o usuário não estiver logado, redireciona para login (se a página atual não for login ou cadastro)
+    if (!user && !['login.html', 'cadastro.html'].some(path => window.location.pathname.endsWith(path))) {
         window.location.href = "login.html";
+        return; // Sai da função para evitar processamento adicional
     }
 
-    // Se o usuário estiver logado e a página for a de perfil, exibe as informações
-    if (user && window.location.pathname.endsWith("perfil.html")) {
-        const userEmailDisplay = document.getElementById('user-email-display');
-        const userIdDisplay = document.getElementById('user-id-display');
-        if (userEmailDisplay) userEmailDisplay.textContent = user.email;
-        if (userIdDisplay) userIdDisplay.textContent = user.uid;
+    // Se o usuário estiver logado, verifica o seu cargo
+    if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userRef);
+
+        // Se o documento do usuário existir e tiver um cargo
+        if (userDoc.exists()) {
+            const role = userDoc.data().role;
+            
+            // Redireciona com base no cargo do usuário
+            if (role === 'pendente') {
+                if (!window.location.pathname.endsWith("aprovacao_pendente.html")) {
+                    window.location.href = "aprovacao_pendente.html";
+                }
+            } else if (role === 'membro' || role === 'editor' || role === 'editorChefe') {
+                // Exibe as informações na página de perfil
+                const userEmailDisplay = document.getElementById('user-email-display');
+                const userIdDisplay = document.getElementById('user-id-display');
+                if (userEmailDisplay) userEmailDisplay.textContent = user.email;
+                if (userIdDisplay) userIdDisplay.textContent = user.uid;
+
+                // Redireciona para o perfil se a página for de cadastro ou login
+                if (window.location.pathname.endsWith("cadastro.html") || window.location.pathname.endsWith("login.html")) {
+                    window.location.href = "perfil.html";
+                }
+            }
+        }
     }
 });
