@@ -61,11 +61,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="contato.html">Contato</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="nav-login-link">
                             <a class="nav-link" href="login.html">Login</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="nav-cadastro-link">
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
+                        </li>
+                        <li class="nav-item d-none" id="nav-perfil-link">
+                            <a class="nav-link active" aria-current="page" href="perfil.html">Perfil</a>
                         </li>
                         <li class="nav-item d-flex align-items-center me-3">
                             <a href="https://limewire.com/d/5uHSc#LsMhcOLtu5" target="_blank" class="btn btn-primary app-download-btn d-flex flex-column align-items-center" aria-label="Baixar o aplicativo LABIC (versão Android)">
@@ -94,11 +97,26 @@
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card shadow-sm">
-                        <div class="card-body p-4 text-center">
-                            <h1 class="card-title mb-4">Seja bem-vindo, <span id="user-email-display"></span>!</h1>
-                            <p class="text-muted">Esta é sua página de perfil. Aqui você poderá gerenciar suas informações e ter acesso exclusivo ao conteúdo do site.</p>
-                            <p>Usuário ID: <span id="user-id-display"></span></p>
-                            <button id="logout-button" class="btn btn-danger mt-4">Sair da Conta</button>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <img src="assets/images/default-avatar.png" class="img-fluid rounded-circle mb-3" id="user-photo-display" alt="Foto de Perfil do Usuário" style="width: 150px; height: 150px; object-fit: cover;">
+                                <h2 id="user-name-display">Carregando...</h2>
+                                <p class="text-muted" id="user-email-display">Carregando...</p>
+                            </div>
+                            <ul class="list-group list-group-flush mt-4">
+                                <li class="list-group-item">
+                                    <strong>Série:</strong> <span id="user-serie-display">Carregando...</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Turma:</strong> <span id="user-turma-display">Carregando...</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>ID do Usuário:</strong> <span id="user-id-display">Carregando...</span>
+                                </li>
+                            </ul>
+                            <div class="text-center">
+                                <button id="logout-button" class="btn btn-danger mt-4">Sair da Conta</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -146,7 +164,6 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/log.js" defer></script>
-    <script type="module" src="js/perfil.js"></script>
     <script type="module" src="js/auth.js"></script>
     <script>
         AOS.init();
