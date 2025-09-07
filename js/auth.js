@@ -1,5 +1,8 @@
-// Importa as funções necessárias dos SDKs do Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+// auth.js
+// Autenticação e Funções do Firestore para o LABIC
+
+// Importa as funções necessárias dos SDKs do Firebase (v10.11.1 - versão mais recente)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { 
     getAuth, 
     createUserWithEmailAndPassword, 
@@ -8,9 +11,10 @@ import {
     onAuthStateChanged,
     GoogleAuthProvider, 
     signInWithPopup
-} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
+// --- 1. Configuração do Firebase ---
 // Sua configuração do app Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyDaAawNtQVo1ovIPGyN_LlTeR5KquZDfJ8",
@@ -27,114 +31,135 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Exporta o 'app' para que outros módulos possam usá-lo
-export { app };
+// Exporta o 'app' e 'auth' para que outros módulos (como perfil.js) possam usá-los
+export { app, auth };
 
-// --- Lógica de Cadastro (para cadastro.html) ---
+// Cache de elementos do DOM para evitar buscas repetidas
 const registerForm = document.getElementById('register-form');
+const loginForm = document.getElementById('login-form');
+const logoutButton = document.getElementById('logout-button');
+const googleSignInButton = document.getElementById('google-signin-button');
+const statusMessage = document.getElementById('status-message'); // Adicione este elemento no seu HTML
+
+// Função para exibir mensagens de status
+function showStatusMessage(message, type) {
+    if (statusMessage) {
+        statusMessage.textContent = message;
+        statusMessage.className = `alert alert-${type}`;
+        statusMessage.style.display = 'block';
+    }
+}
+
+// --- 2. Gerenciadores de Formulários e Botões ---
+
+// Lógica de Cadastro (para cadastro.html)
 if (registerForm) {
-    registerForm.addEventListener('submit', (e) => {
+    registerForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        showStatusMessage("Cadastrando...", "info");
         const name = document.getElementById('register-name').value;
         const email = document.getElementById('register-email').value;
         const password = document.getElementById('register-password').value;
         const serie = document.getElementById('register-serie').value;
         const turma = document.getElementById('register-turma').value;
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then(async (userCredential) => {
-                const user = userCredential.user;
-                console.log("Usuário cadastrado com e-mail:", user);
-                
-                const userRef = doc(db, "users", user.uid);
-                await setDoc(userRef, {
-                    name: name,
-                    email: email,
-                    role: "pendente",
-                    serie: serie,
-                    turma: turma,
-                    photoURL: user.photoURL || 'assets/images/default-avatar.png'
-                });
-                
-                window.location.href = "aprovacao_pendente.html";
-            })
-            .catch((error) => {
-                console.error("Erro no cadastro:", error.message);
-                alert("Erro ao cadastrar: " + error.message);
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            
+            console.log("Usuário cadastrado com e-mail:", user);
+            
+            const userRef = doc(db, "users", user.uid);
+            await setDoc(userRef, {
+                name: name,
+                email: email,
+                role: "pendente",
+                serie: serie,
+                turma: turma,
+                photoURL: user.photoURL || 'assets/images/default-avatar.png'
             });
+            
+            showStatusMessage("Cadastro realizado com sucesso!", "success");
+            window.location.href = "aprovacao_pendente.html";
+        } catch (error) {
+            console.error("Erro no cadastro:", error.message);
+            showStatusMessage("Erro ao cadastrar: " + error.message, "danger");
+        }
     });
 }
 
-// Lógica de Cadastro com Google
-const googleSignInButton = document.getElementById('google-signin-button');
+// Lógica de Cadastro e Login com Google
 if (googleSignInButton) {
-    const provider = new GoogleAuthProvider();
-    googleSignInButton.addEventListener('click', () => {
-        signInWithPopup(auth, provider)
-            .then(async (result) => {
-                const user = result.user;
-                console.log("Usuário cadastrado com Google:", user);
+    googleSignInButton.addEventListener('click', async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+            const result = await signInWithPopup(auth, provider);
+            const user = result.user;
+            
+            console.log("Usuário logado com Google:", user);
 
-                const userRef = doc(db, "users", user.uid);
-                const userDoc = await getDoc(userRef);
+            const userRef = doc(db, "users", user.uid);
+            const userDoc = await getDoc(userRef);
 
-                // Se o usuário não existir, cria o documento no Firestore
-                if (!userDoc.exists()) {
-                    await setDoc(userRef, {
-                        name: user.displayName || 'Usuário',
-                        email: user.email,
-                        photoURL: user.photoURL || 'assets/images/default-avatar.png',
-                        role: "pendente",
-                        serie: null,
-                        turma: null,
-                    });
-                }
-                // Redireciona para a página de aprovação pendente após o primeiro login
-                window.location.href = "aprovacao_pendente.html";
-            })
-            .catch((error) => {
-                console.error("Erro no cadastro com Google:", error.message);
-                alert("Erro ao cadastrar com Google: " + error.message);
-            });
+            if (!userDoc.exists()) {
+                await setDoc(userRef, {
+                    name: user.displayName || 'Usuário',
+                    email: user.email,
+                    photoURL: user.photoURL || 'assets/images/default-avatar.png',
+                    role: "pendente",
+                    serie: null,
+                    turma: null,
+                });
+            }
+            // O onAuthStateChanged lidará com o redirecionamento
+            showStatusMessage("Login com Google realizado com sucesso!", "success");
+        } catch (error) {
+            console.error("Erro no login com Google:", error.message);
+            showStatusMessage("Erro ao fazer login com Google: " + error.message, "danger");
+        }
     });
 }
 
-// --- Lógica de Login (para login.html) ---
-const loginForm = document.getElementById('login-form');
+// Lógica de Login (para login.html)
 if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        showStatusMessage("Autenticando...", "info");
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log("Login realizado:", userCredential.user);
-                // O onAuthStateChanged vai lidar com o redirecionamento
-            })
-            .catch((error) => {
-                console.error("Erro no login:", error.message);
-                alert("Erro ao fazer login: " + error.message);
-            });
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            console.log("Login realizado:", userCredential.user);
+            // O onAuthStateChanged vai lidar com o redirecionamento
+            showStatusMessage("Login realizado com sucesso!", "success");
+        } catch (error) {
+            console.error("Erro no login:", error.message);
+            showStatusMessage("Erro ao fazer login: " + error.message, "danger");
+        }
     });
 }
 
-// --- Lógica de Logout (para perfil.html e painel.html) ---
-const logoutButton = document.getElementById('logout-button');
+// Lógica de Logout (para perfil.html e painel.html)
 if (logoutButton) {
-    logoutButton.addEventListener('click', () => {
-        signOut(auth).then(() => {
+    logoutButton.addEventListener('click', async () => {
+        try {
+            await signOut(auth);
             console.log("Sair da conta realizado com sucesso.");
             window.location.href = "login.html";
-        }).catch((error) => {
+        } catch (error) {
             console.error("Erro ao sair:", error.message);
-            alert("Erro ao sair: " + error.message);
-        });
+            showStatusMessage("Erro ao sair: " + error.message, "danger");
+        }
     });
 }
 
-// --- Monitora o estado da autenticação (para todas as páginas que o usam) ---
+// --- 3. Monitoramento do Estado de Autenticação e Redirecionamento ---
+// Esta função é executada sempre que o estado de autenticação muda
 onAuthStateChanged(auth, async (user) => {
+    // Esconde a mensagem de status após o carregamento
+    if (statusMessage) statusMessage.style.display = 'none';
+
     const navLoginLink = document.getElementById('nav-login-link');
     const navCadastroLink = document.getElementById('nav-cadastro-link');
     const navPerfilLink = document.getElementById('nav-perfil-link');
@@ -142,20 +167,20 @@ onAuthStateChanged(auth, async (user) => {
 
     // Se o usuário está logado
     if (user) {
-        // Esconde Login/Cadastro
+        // Esconde Login/Cadastro e exibe Perfil
         if (navLoginLink) navLoginLink.classList.add('d-none');
         if (navCadastroLink) navCadastroLink.classList.add('d-none');
-        // Exibe Perfil
         if (navPerfilLink) navPerfilLink.classList.remove('d-none');
         
         // Verifica o cargo do usuário no Firestore
         const userRef = doc(db, "users", user.uid);
         const userDoc = await getDoc(userRef);
         
+        const authorizedRoles = ['editor', 'editorChefe', 'developer'];
+
         if (userDoc.exists()) {
             const userData = userDoc.data();
             const role = userData.role;
-            const authorizedRoles = ['editor', 'editorChefe', 'developer'];
 
             // Exibe o link do painel se o cargo for autorizado
             if (navPainelLink && authorizedRoles.includes(role)) {
@@ -163,7 +188,8 @@ onAuthStateChanged(auth, async (user) => {
             }
 
             // Redireciona com base no cargo do usuário se ele estiver em uma página de login/cadastro
-            if (window.location.pathname.endsWith("cadastro.html") || window.location.pathname.endsWith("login.html")) {
+            const path = window.location.pathname;
+            if (path.endsWith("cadastro.html") || path.endsWith("login.html")) {
                 if (role === 'pendente') {
                     window.location.href = "aprovacao_pendente.html";
                 } else if (authorizedRoles.includes(role) || role === 'membro') {
@@ -171,27 +197,8 @@ onAuthStateChanged(auth, async (user) => {
                 }
             }
 
-            // Se o usuário está na página de perfil, exibe as informações
-            if (window.location.pathname.endsWith("perfil.html")) {
-                const userEmailDisplay = document.getElementById('user-email-display');
-                const userIdDisplay = document.getElementById('user-id-display');
-                const userPhotoDisplay = document.getElementById('user-photo-display');
-                const userNameDisplay = document.getElementById('user-name-display');
-                const userSerieDisplay = document.getElementById('user-serie-display');
-                const userTurmaDisplay = document.getElementById('user-turma-display');
-                const userRoleDisplay = document.getElementById('user-role-display');
-                
-                if (userEmailDisplay) userEmailDisplay.textContent = user.email;
-                if (userIdDisplay) userIdDisplay.textContent = user.uid;
-                if (userPhotoDisplay) userPhotoDisplay.src = userData.photoURL;
-                if (userNameDisplay) userNameDisplay.textContent = userData.name;
-                if (userSerieDisplay) userSerieDisplay.textContent = userData.serie;
-                if (userTurmaDisplay) userTurmaDisplay.textContent = userData.turma;
-                if (userRoleDisplay) userRoleDisplay.textContent = role;
-            }
-
             // Redireciona para o login se tentar acessar o painel sem permissão
-            if (window.location.pathname.endsWith("painel.html") && !authorizedRoles.includes(role)) {
+            if (path.endsWith("painel.html") && !authorizedRoles.includes(role)) {
                 alert("Acesso negado. Você não tem permissão para acessar o painel de controle.");
                 window.location.href = "perfil.html";
             }
@@ -202,14 +209,15 @@ onAuthStateChanged(auth, async (user) => {
             }
         }
     } else {
-        // Se o usuário não está logado
+        // Se o usuário não está logado, esconde links de perfil e painel e exibe login/cadastro
         if (navPerfilLink) navPerfilLink.classList.add('d-none');
         if (navPainelLink) navPainelLink.classList.add('d-none');
         if (navLoginLink) navLoginLink.classList.remove('d-none');
         if (navCadastroLink) navCadastroLink.classList.remove('d-none');
 
         // Redireciona para login se o usuário tentar acessar uma página restrita
-        if (window.location.pathname.endsWith("perfil.html") || window.location.pathname.endsWith("painel.html")) {
+        const path = window.location.pathname;
+        if (path.endsWith("perfil.html") || path.endsWith("painel.html") || path.endsWith("aprovacao_pendente.html")) {
             window.location.href = "login.html";
         }
     }
