@@ -15,7 +15,8 @@ const firebaseConfig = {
     projectId: "labic-html",
     storageBucket: "labic-html.firebasestorage.app",
     messagingSenderId: "283475569681",
-    appId: "1:283475569681:web:4108a0c6fe9621972e55b0"
+    appId: "1:283475569681:web:4108a0c6fe9621972e55b0",
+    measurementId: "G-ZTLBKTZNYV"
 };
 
 let app;

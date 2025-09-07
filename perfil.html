@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - LABIC</title>
-    <meta name="description" content="Faça login para acessar o conteúdo exclusivo do site da Liga Acadêmica de Biologia Imaculada Conceição (LABIC).">
-
+    <title>Perfil do Usuário - LABIC</title>
+    <meta name="description" content="Página de perfil do usuário.">
+    
     <link rel="icon" href="assets/images/favicon.ico">
-
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uW/r8Wl630WpD/jXgD0R8T2bB/pG/Pz4Jp5X5K5eN7N6jIeHz" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
@@ -62,13 +62,10 @@
                             <a class="nav-link" href="contato.html">Contato</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="login.html">Login</a>
+                            <a class="nav-link" href="login.html">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cadastro.html">Cadastro</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="perfil.html">Perfil</a>
                         </li>
                         <li class="nav-item d-flex align-items-center me-3">
                             <a href="https://limewire.com/d/5uHSc#LsMhcOLtu5" target="_blank" class="btn btn-primary app-download-btn d-flex flex-column align-items-center" aria-label="Baixar o aplicativo LABIC (versão Android)">
@@ -95,30 +92,13 @@
     <main class="page-content">
         <div class="container my-5" data-aos="fade-up">
             <div class="row justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="card shadow-sm">
-                        <div class="card-body p-4">
-                            <h2 class="card-title text-center mb-4">Acesso de Membros</h2>
-                            <form id="login-form">
-                                <div class="mb-3">
-                                    <label for="login-email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="login-email" placeholder="nome@exemplo.com" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="login-password" class="form-label">Senha</label>
-                                    <input type="password" class="form-control" id="login-password" required>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Login</button>
-                                </div>
-                            </form>
-                            <p class="mt-3 text-center">
-                                Não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a>
-                            </p>
-                            <p class="mt-2 text-center">
-                                <a href="#">Esqueceu sua senha?</a>
-                            </p>
-                            <div id="message-container" class="mt-3"></div>
+                        <div class="card-body p-4 text-center">
+                            <h1 class="card-title mb-4">Seja bem-vindo, <span id="user-email-display"></span>!</h1>
+                            <p class="text-muted">Esta é sua página de perfil. Aqui você poderá gerenciar suas informações e ter acesso exclusivo ao conteúdo do site.</p>
+                            <p>Usuário ID: <span id="user-id-display"></span></p>
+                            <button id="logout-button" class="btn btn-danger mt-4">Sair da Conta</button>
                         </div>
                     </div>
                 </div>
@@ -162,8 +142,8 @@
         </a>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous" defer></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/log.js" defer></script>
     <script type="module" src="js/perfil.js"></script>
