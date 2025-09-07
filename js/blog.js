@@ -6,7 +6,7 @@ import { getFirestore, collection, onSnapshot, query, orderBy } from "https://ww
 
 // Mapeia o caminho da sua coleção de dados no Firestore
 // Usamos "blog_posts" conforme o painel de controle criado
-const POSTS_COLLECTION_PATH = "blog_posts";
+const POSTS_COLLECTION_PATH = "posts";
 
 // Sua configuração do app Firebase
 const firebaseConfig = {
